@@ -57,9 +57,11 @@ css_out = css_out.replace('.reart-of {\n  /*','.reart-of {\n  /*')
 open(f'{outdir}/assets/orderformulier.css','w',encoding='utf-8').write(css_out)
 
 # ---------- markup ----------
-IDS=['orderForm','f-naam','naam','f-datum','datum','f-email','email','tel','lines','addLine','opmerkingen',
+IDS=['orderForm','f-naam','naam','f-datum','datum','f-email','email','tel','straat','postcode','plaats','land','lines','addLine','opmerkingen',
      'sumWho','sumLines','sumCount','sumQty','formError','overlay','dlgTitle','orderText','copyBtn','editBtn','newBtn','copied']
 m=body
+# taalkeuze-knoppen alleen in de losse versie; op WordPress bepaalt de site de taal
+m=re.sub(r'\s*<nav class="lang-switch".*?</nav>','',m,flags=re.S)
 for i in IDS:
     m=m.replace(f'id="{i}"',f'id="ro-{i}"').replace(f'for="{i}"',f'for="ro-{i}"').replace(f'aria-labelledby="{i}"',f'aria-labelledby="ro-{i}"')
 # honeypot
@@ -71,21 +73,23 @@ m=m.replace('  </form>','''    <div class="hp" aria-hidden="true">
 # footer privacy
 m=m.replace('''  <footer>
     <span>Re-Art · Almere</span>''','''  <footer>
-    <span>Re-Art · Almere<?php if ( $reart_of_privacy ) : ?> · Wij gebruiken uw gegevens alleen om uw order te verwerken. <a href="<?php echo esc_url( $reart_of_privacy ); ?>">Privacyverklaring</a><?php endif; ?></span>''')
+    <span>Re-Art · Almere<?php if ( $reart_of_privacy ) : ?> · <?php echo 'en' === $reart_of_lang ? 'We only use your details to process your order.' : 'Wij gebruiken uw gegevens alleen om uw order te verwerken.'; ?> <a href="<?php echo esc_url( $reart_of_privacy ); ?>"><?php echo 'en' === $reart_of_lang ? 'Privacy policy' : 'Privacyverklaring'; ?></a><?php endif; ?></span>''')
 # dialog: order is sent, so no copy / edit
 old_actions=m[m.index('    <div class="actions">'):m.index('    </div>\n  </div>\n</div>',m.index('    <div class="actions">'))+len('    </div>\n')]
 m=m.replace(old_actions,'''    <div class="actions">
-      <button type="button" class="btn primary" id="ro-newBtn">Nieuwe order</button>
-      <button type="button" class="btn" id="ro-closeBtn">Sluiten</button>
+      <button type="button" class="btn primary" id="ro-newBtn" data-t="new">Nieuwe order</button>
+      <button type="button" class="btn" id="ro-closeBtn" data-t="close">Sluiten</button>
     </div>
 ''')
-m=m.replace('<div class="legend" style="margin:6px 0 -8px">Uw orderoverzicht</div>',
- '<p class="sent" style="margin:0;color:var(--muted)">Een kopie van uw order is verstuurd naar <strong id="ro-sentTo"></strong>.</p>\n    <div class="legend" style="margin:6px 0 -8px">Uw orderoverzicht</div>')
+a_=m.count('<div class="legend" style="margin:6px 0 -8px" data-t="dlg_sum">'); assert a_==1
+m=m.replace('<div class="legend" style="margin:6px 0 -8px" data-t="dlg_sum">',
+ '<p class="sent" style="margin:0;color:var(--muted)"><span data-t="sent_to">Een kopie van uw order is verstuurd naar</span> <strong id="ro-sentTo"></strong>.</p>\n    <div class="legend" style="margin:6px 0 -8px" data-t="dlg_sum">')
 tpl = '''<?php
 /**
  * Template van het Re-Art orderformulier. Wordt geladen door de shortcode [reart_orderformulier].
  *
  * @var string $reart_of_privacy URL van de privacyverklaring (kan leeg zijn).
+ * @var string $reart_of_lang    Taal van het formulier: 'nl' of 'en'.
  */
 defined( 'ABSPATH' ) || exit;
 ?>
@@ -94,7 +98,7 @@ defined( 'ABSPATH' ) || exit;
 open(f'{outdir}/templates/form.php','w',encoding='utf-8').write(tpl)
 
 # ---------- JS ----------
-j=js
+j='\n'.join(x for x in js.split('\n') if '// @standalone' not in x)
 for i in IDS+['sumWho']:
     j=j.replace(f'document.getElementById("{i}")',f'$("{i}")')
 j=j.replace('const v = id => document.getElementById(id).value.trim();','const v = id => $(id).value.trim();')
@@ -106,33 +110,34 @@ a=j.index('  err.classList.remove("show");\n  const d = new Date();')
 b=j.index('const closeDlg')
 j=j[:a]+'''  err.classList.remove("show");
   const btn = root.querySelector('button[type="submit"]');
-  const label = btn.textContent;
-  btn.disabled = true; btn.textContent = "Bezig met versturen…";
+  const label = t("submit");
+  btn.disabled = true; btn.textContent = t("sending");
   const payload = {
     naam: $("naam").value, datum: $("datum").value, email: $("email").value, tel: $("tel").value,
+    straat: $("straat").value, postcode: $("postcode").value, plaats: $("plaats").value, land: $("land").value, lang: LANG,
     opmerkingen: $("opmerkingen").value, website: $("website").value, elapsed: Date.now() - startedAt,
     lines: lines.map(l => { const o = Object.assign({}, l); delete o.id; return o; })
   };
   try {
     const res = await fetch(CFG.restUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
     const data = await res.json().catch(() => ({}));
-    if (!res.ok || !data.ok) throw new Error(data.message || "Versturen is niet gelukt.");
+    if (!res.ok || !data.ok) throw new Error(data.message || t("send_fail"));
     orderNo = data.orderNo || "";
     $("orderText").textContent = buildText();
     $("sentTo").textContent = $("email").value.trim();
     $("overlay").classList.add("show");
     $("newBtn").focus();
   } catch (ex) {
-    err.textContent = ex.message + " Probeer het opnieuw of mail naar " + CFG.contact + ".";
+    err.textContent = ex.message + " " + t("retry") + " " + CFG.contact + ".";
     err.classList.add("show");
   } finally {
-    btn.disabled = false; btn.textContent = label;
+    btn.disabled = false; btn.innerHTML = label;
   }
 });
 
 function resetForm() {
   showErrors = false;
-  ["naam", "datum", "email", "tel", "opmerkingen"].forEach(id => $(id).value = "");
+  ["naam", "datum", "email", "tel", "straat", "postcode", "plaats", "land", "opmerkingen"].forEach(id => $(id).value = "");
   ["f-naam", "f-email", "f-datum"].forEach(id => $(id).classList.remove("invalid"));
   $("formError").classList.remove("show");
   lines = [blank()]; renderLines();
@@ -141,10 +146,6 @@ function resetForm() {
 '''+j[b:]
 j=j.replace('document.getElementById("orderForm").addEventListener("submit", e => {','$("orderForm").addEventListener("submit", async e => {')
 j=j.replace('$("orderForm").addEventListener("submit", e => {','$("orderForm").addEventListener("submit", async e => {')
-j=j.replace('''  const err = $("formError");
-  if (''','''  const err = $("formError");
-  err.textContent = ERR_DEFAULT;
-  if (''')
 # dialog buttons
 a=j.index('const closeDlg'); b=j.index('document.addEventListener("keydown"')
 j=j[:a]+'''const closeDlg = () => { $("overlay").classList.remove("show"); resetForm(); root.scrollIntoView({ behavior: "smooth", block: "start" }); };
@@ -153,13 +154,13 @@ $("newBtn").addEventListener("click", closeDlg);
 '''+j[b:]
 j=j.replace('document.addEventListener("keydown", e => { if (e.key === "Escape") closeDlg(); });',
             'document.addEventListener("keydown", e => { if (e.key === "Escape" && $("overlay").classList.contains("show")) closeDlg(); });')
-j=j.replace('// Submit\nlet orderNo = "";','// Submit\nlet orderNo = "";\nlet startedAt = Date.now();\nconst ERR_DEFAULT = $("formError").textContent;')
+j=j.replace('// Submit\nlet orderNo = "";','// Submit\nlet orderNo = "";\nlet startedAt = Date.now();')
 js_out='''/* Re-Art Orderformulier */
 (function () {
 "use strict";
 const root = document.getElementById("reart-of");
 if (!root) return;
-const CFG = window.REARTOF || { restUrl: "/wp-json/reart/v1/order", contact: "info@re-art.com" };
+const CFG = window.REARTOF || { restUrl: "/wp-json/reart/v1/order", contact: "info@re-art.com", lang: "nl" };
 const $ = id => document.getElementById("ro-" + id);
 '''+j.strip('\n')+'\n})();\n'
 open(f'{outdir}/assets/orderformulier.js','w',encoding='utf-8').write(js_out)

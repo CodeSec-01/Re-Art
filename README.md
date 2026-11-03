@@ -12,9 +12,9 @@ Interactief orderformulier van Re-Art – Special Art productions.
 
 ## Gebruik
 
-Open `index.html` in een browser. De klant vult in:
+Open `index.html` in een browser (voeg `#en` toe aan de link voor de Engelse versie). De klant vult in:
 
-1. **Gegevens** – naam/bedrijfsnaam, datum, e-mailadres en telefoonnummer.
+1. **Gegevens** – naam/bedrijfsnaam, datum, e-mailadres (verplicht), telefoonnummer en adres: straat en huisnummer, postcode, plaats, land (optioneel).
 2. **Bestelling** – per werk het aantal, de afwerking of dienst en de bijbehorende opties, plus titel en formaat van het kunstwerk. Er kunnen meerdere werken worden toegevoegd.
 3. **Opmerkingen** – aanvullende wensen.
 
@@ -36,9 +36,10 @@ Na **Order controleren & afronden** ziet de klant een bedankscherm met het order
 
 De plugin zet het formulier op de website en zorgt dat orders echt binnenkomen:
 
-- Elke order wordt gemaild naar **info@re-art.com** (aan te passen via *Instellingen → Re-Art Orderformulier*). Beantwoorden gaat direct naar de klant.
-- De klant krijgt een bevestigingsmail met de bedanktekst en het orderoverzicht.
-- Alle orders staan in het menu **Orders** in het WordPress-beheer, met ordernummer (RA-jjmmdd-nr).
+- Het formulier is tweetalig. Op de Nederlandse pagina is het Nederlands, op de Engelse pagina (Polylang) Engels. Forceren kan met `[reart_orderformulier lang="en"]`.
+- Elke aanvraag wordt gemaild naar **info@re-art.com** met als onderwerp *Nieuwe aanvraag* (aan te passen via *Instellingen → Re-Art Orderformulier*). Beantwoorden gaat direct naar de klant.
+- De klant krijgt een bevestigingsmail (*Bedankt voor uw aanvraag* / *Thank you for your request*) in de taal van het formulier, met het orderoverzicht.
+- Alle orders staan in het menu **Orders** in het WordPress-beheer, met ordernummer (RE-jjmmdd-nr).
 - De server controleert alle keuzes en weert spam (verborgen veld, minimale invultijd, max. 5 orders per 10 minuten per bezoeker).
 - De opmaak is afgeschermd van het thema van de website.
 

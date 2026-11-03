@@ -73,6 +73,9 @@
   -webkit-mask: url("logo.png") center / contain no-repeat; mask: url("logo.png") center / contain no-repeat; }
 .reart-of .cert .ph { color: #9a9a9a; }
 .reart-of .doc-meta { text-align: right; display: grid; gap: 8px; justify-items: end; }
+.reart-of .lang-switch { display: flex; gap: 2px; font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+.reart-of .lang-switch a { color: var(--muted); text-decoration: none; padding: 3px 7px; border-radius: 4px; }
+.reart-of .lang-switch a[aria-current="true"] { background: var(--accent); color: var(--accent-ink); }
 .reart-of .doc-meta h1 { font-family: var(--display); font-weight: 600; font-size: 26px; margin: 0; text-wrap: balance; }
 .reart-of .cmyk { display: flex; gap: 3px; }
 .reart-of .cmyk i { width: 14px; height: 8px; display: block; }

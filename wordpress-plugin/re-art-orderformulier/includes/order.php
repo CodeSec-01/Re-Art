@@ -58,6 +58,11 @@ function reart_of_build_order( array $data, array &$errors ) {
 		'datum'       => $text( 'datum', 10 ),
 		'email'       => sanitize_email( $text( 'email' ) ),
 		'tel'         => $text( 'tel', 40 ),
+		'straat'      => $text( 'straat' ),
+		'postcode'    => $text( 'postcode', 20 ),
+		'plaats'      => $text( 'plaats', 100 ),
+		'land'        => $text( 'land', 100 ),
+		'lang'        => ( isset( $data['lang'] ) && 'en' === $data['lang'] ) ? 'en' : 'nl',
 		'opmerkingen' => isset( $data['opmerkingen'] ) && is_scalar( $data['opmerkingen'] ) ? mb_substr( sanitize_textarea_field( (string) $data['opmerkingen'] ), 0, 3000 ) : '',
 		'lines'       => array(),
 	);
@@ -217,7 +222,7 @@ function reart_of_save_order( array $order ) {
 		return 0;
 	}
 
-	$no          = 'RA-' . wp_date( 'ymd' ) . '-' . $post_id;
+	$no          = 'RE-' . wp_date( 'ymd' ) . '-' . $post_id;
 	$order['no'] = $no;
 	wp_update_post(
 		array(

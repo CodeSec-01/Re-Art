@@ -2,7 +2,7 @@
 Contributors: re-art
 Requires at least: 6.0
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 
 Interactief orderformulier van Re-Art – Special Art productions, met live certificaat-voorbeeld.
@@ -10,6 +10,7 @@ Interactief orderformulier van Re-Art – Special Art productions, met live cert
 == Beschrijving ==
 
 * Plaats het formulier op een pagina met de shortcode [reart_orderformulier].
+* Tweetalig (NL/EN): de taal volgt Polylang of de taal van de site. Forceren kan met [reart_orderformulier lang="en"] of lang="nl".
 * Elke order wordt gemaild naar Re-Art (standaard info@re-art.com, aan te passen via Instellingen → Re-Art Orderformulier).
 * De klant krijgt automatisch een bevestigingsmail met het orderoverzicht.
 * Alle orders worden bewaard in het menu "Orders" in het WordPress-beheer.
@@ -24,6 +25,12 @@ Interactief orderformulier van Re-Art – Special Art productions, met live cert
 4. Stel bij Instellingen → Privacy de privacyverklaring in; het formulier linkt daar automatisch naar.
 
 == Changelog ==
+
+= 1.1.0 =
+* Formulier en klantmail tweetalig (Nederlands / Engels).
+* Adresvelden toegevoegd: straat en huisnummer, postcode, plaats, land (niet verplicht).
+* Ordernummer begint met RE- in plaats van RA-.
+* Mail aan Re-Art: "Nieuwe aanvraag". Klantmail: "Bedankt voor uw aanvraag".
 
 = 1.0.0 =
 * Eerste versie.
