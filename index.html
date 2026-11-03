@@ -300,7 +300,7 @@ const DIEPTE = { Aluminium: ["25/65", "45/65"], Hout: ["20/65", "45/65"] };
 let seq = 0;
 let lines = [];
 let showErrors = false;
-const blank = () => ({ id: ++seq, aantal: "1", dienst: "", uv: "", uvType: "", spannen: "", frame: "", diepte: "", paperCat: "", paperType: "", basicType: "", top: "", topFinish: "", profiel: "", scan: "", size: "" });
+const blank = () => ({ id: ++seq, aantal: "1", dienst: "", uv: "", uvType: "", spannen: "", frame: "", diepte: "", paperCat: "", paperType: "", basicType: "", top: "", topFinish: "", profiel: "", scan: "", proof: "", size: "", cert: "", certTitel: "", certEditie: "", certEA: "" });
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const svc = id => SERVICES.find(s => s.id === id);
@@ -320,6 +320,15 @@ function chips(l, field, options, legend, wide) {
     </div>
     <div class="err">Maak een keuze.</div>
   </fieldset>`;
+}
+
+function textField(l, field, label, placeholder, required) {
+  const missing = required && showErrors && !l[field].trim();
+  return `<div class="${missing ? "invalid" : ""}">
+    <label class="lbl" for="l${l.id}-${field}">${label}${required ? ' <span class="req">*</span>' : ""}</label>
+    <input type="text" id="l${l.id}-${field}" data-line="${l.id}" data-field="${field}" value="${esc(l[field])}" placeholder="${esc(placeholder)}">
+    <div class="err">Dit veld is verplicht.</div>
+  </div>`;
 }
 
 function sizeField(l) {
@@ -355,8 +364,19 @@ function subOptions(l) {
     html += chips(l, "profiel", ["Geen", "15 mm", "25 mm"], "Type ophangprofiel");
   } else if (d === "scan") {
     html += chips(l, "scan", SCANS, "Type scan");
+    html += chips(l, "proof", ["Ja", "Nee"], "Kleurproofing");
   }
   html += sizeField(l);
+  if (d !== "scan") {
+    html += chips(l, "cert", ["Ja", "Nee"], "Certificaat");
+    if (l.cert === "Ja") html += `<div class="nested stack" style="gap:14px">
+      ${textField(l, "certTitel", "Titel werk", "Titel zoals op het certificaat", true)}
+      <div class="fields">
+        ${textField(l, "certEditie", "Editie", "Bijv. 3/50", false)}
+        ${textField(l, "certEA", "EA", "Bijv. EA 1/5", false)}
+      </div>
+    </div>`;
+  }
   return `<div class="suboptions">${html}</div>`;
 }
 
@@ -410,8 +430,17 @@ function details(l) {
       need("Ophangprofiel", l.profiel);
     } else if (d === "scan") {
       need("Type scan", l.scan);
+      need("Kleurproofing", l.proof);
     }
     need("Titel & formaat", l.size.trim());
+    if (d !== "scan") {
+      need("Certificaat", l.cert);
+      if (l.cert === "Ja") {
+        need("Titel werk", l.certTitel.trim());
+        if (l.certEditie.trim()) out.push(["Editie", l.certEditie.trim()]);
+        if (l.certEA.trim()) out.push(["EA", l.certEA.trim()]);
+      }
+    }
   }
   if (!(parseInt(l.aantal, 10) >= 1)) missing.push("Aantal");
   return { out, missing };
@@ -436,8 +465,8 @@ function renderSummary() {
 
 // Reset dependent fields when a parent choice changes
 const RESETS = {
-  dienst: ["uv", "uvType", "spannen", "frame", "diepte", "paperCat", "paperType", "basicType", "top", "topFinish", "profiel", "scan"],
-  uv: ["uvType"], spannen: ["frame", "diepte"], frame: ["diepte"], paperCat: ["paperType"], top: ["topFinish"]
+  dienst: ["uv", "uvType", "spannen", "frame", "diepte", "paperCat", "paperType", "basicType", "top", "topFinish", "profiel", "scan", "proof", "cert", "certTitel", "certEditie", "certEA"],
+  uv: ["uvType"], cert: ["certTitel", "certEditie", "certEA"], spannen: ["frame", "diepte"], frame: ["diepte"], paperCat: ["paperType"], top: ["topFinish"]
 };
 
 document.getElementById("lines").addEventListener("change", e => {

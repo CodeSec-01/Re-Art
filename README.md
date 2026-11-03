@@ -23,7 +23,9 @@ Afwerkingen en opties:
 | Certified Paper | Matte, Photo of Metallic paper (Hahnemühle) |
 | Basic Paper | Basic Litho White Matt / Basic Litho Archive Matt |
 | HD Finish / HD Decor | White surface (Gloss / Matt) of Metal surface, ophangprofiel geen / 15 mm / 25 mm |
-| Cruse Fine Art Scan | LR / Texture / Superscan / 3D |
+| Cruse Fine Art Scan | LR / Texture / Superscan / 3D, kleurproofing ja / nee |
+
+Bij alle afwerkingen behalve de scan volgt de vraag **Certificaat: ja / nee**. Bij ja vult de klant de titel van het werk (verplicht), de editie en de EA in.
 
 Na **Order controleren & afronden** ziet de klant een bedankscherm met het orderoverzicht.
 
