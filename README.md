@@ -4,8 +4,11 @@ Interactief orderformulier van Re-Art – Special Art productions.
 
 ## Bestanden
 
-- `index.html` – het complete formulier in één bestand (opmaak, logo en werking zitten erin).
+- `index.html` – het complete formulier in één bestand (opmaak, logo en werking zitten erin). Dit is de bron.
 - `logo.png` – het Re-Art logo met transparante achtergrond, los voor hergebruik.
+- `re-art-orderformulier.zip` – de WordPress-plugin, klaar om te uploaden.
+- `wordpress-plugin/re-art-orderformulier/` – de broncode van die plugin.
+- `tools/build-plugin.sh` – bouwt de plugin opnieuw op uit `index.html` na een wijziging aan het formulier.
 
 ## Gebruik
 
@@ -29,6 +32,25 @@ Bij alle afwerkingen behalve de scan volgt de vraag **Certificaat: ja / nee**. B
 
 Na **Order controleren & afronden** ziet de klant een bedankscherm met het orderoverzicht.
 
-## Let op
+## WordPress-plugin
 
-Het formulier verstuurt de order nog niet automatisch. De klant kopieert het orderoverzicht en stuurt het zelf naar Re-Art. Voor automatisch versturen is een formulierdienst of een WordPress-formulierplugin nodig.
+De plugin zet het formulier op de website en zorgt dat orders echt binnenkomen:
+
+- Elke order wordt gemaild naar **info@re-art.com** (aan te passen via *Instellingen → Re-Art Orderformulier*). Beantwoorden gaat direct naar de klant.
+- De klant krijgt een bevestigingsmail met de bedanktekst en het orderoverzicht.
+- Alle orders staan in het menu **Orders** in het WordPress-beheer, met ordernummer (RA-jjmmdd-nr).
+- De server controleert alle keuzes en weert spam (verborgen veld, minimale invultijd, max. 5 orders per 10 minuten per bezoeker).
+- De opmaak is afgeschermd van het thema van de website.
+
+### Installeren
+
+1. Download `re-art-orderformulier.zip` uit deze repository.
+2. WordPress-beheer → *Plugins → Nieuwe plugin → Plugin uploaden* → kies de zip → *Nu installeren* → *Activeren*.
+3. Maak een pagina (bijv. "Orderformulier") en voeg het blok *Shortcode* toe met `[reart_orderformulier]`.
+4. Installeer **WP Mail SMTP** en koppel die aan de Re-Art mailbox, zodat de mails betrouwbaar aankomen.
+5. Stel bij *Instellingen → Privacy* de privacyverklaring in; het formulier linkt er dan automatisch naar.
+6. Plaats een paar testorders en controleer de mails en het menu *Orders*.
+
+### Formulier aanpassen
+
+Pas `index.html` aan en draai daarna `bash tools/build-plugin.sh`. Nieuwe keuzes moeten ook worden toegevoegd in `wordpress-plugin/re-art-orderformulier/includes/options.php` en `includes/order.php`, omdat de server alleen bekende keuzes accepteert.
