@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
   <header class="brand">
     <div class="logo" role="img" aria-label="Re-Art – Special Art productions"></div>
     <div class="doc-meta">
-      <h1 data-t="title">Orderformulier</h1>
+      <h1 data-t="title">Aanvraagformulier</h1>
     </div>
   </header>
 
@@ -61,7 +61,7 @@ defined( 'ABSPATH' ) || exit;
         </section>
 
         <section>
-          <div class="section-head"><span class="num">02</span><h2 data-t="s2">Uw bestelling</h2></div>
+          <div class="section-head"><span class="num">02</span><h2 data-t="s2">Uw aanvraag</h2></div>
           <div class="stack" id="ro-lines" style="gap:16px"></div>
           <div style="margin-top:16px"><button type="button" class="btn add-line" id="ro-addLine" data-t="addLine">+ Nog een werk toevoegen</button></div>
         </section>
@@ -75,12 +75,12 @@ defined( 'ABSPATH' ) || exit;
 
       <aside class="summary" aria-live="polite">
         <div class="card">
-          <h3 data-t="sum_title">Orderoverzicht</h3>
+          <h3 data-t="sum_title">Aanvraagoverzicht</h3>
           <div class="who" id="ro-sumWho">Nog geen naam ingevuld</div>
           <div id="ro-sumLines"></div>
           <div class="totals"><span id="ro-sumCount">0 werken</span><span id="ro-sumQty">0 stuks</span></div>
         </div>
-        <button type="submit" class="btn primary" data-t="submit">Order controleren &amp; afronden</button>
+        <button type="submit" class="btn primary" data-t="submit">Aanvraag controleren &amp; afronden</button>
         <div class="form-error" id="ro-formError">Niet alles is ingevuld. De ontbrekende velden zijn rood gemarkeerd.</div>
       </aside>
     </div>
@@ -91,21 +91,25 @@ defined( 'ABSPATH' ) || exit;
   </form>
 
   <footer>
-    <span>Re-Art · Almere<?php if ( $reart_of_privacy ) : ?> · <?php echo 'en' === $reart_of_lang ? 'We only use your details to process your order.' : 'Wij gebruiken uw gegevens alleen om uw order te verwerken.'; ?> <a href="<?php echo esc_url( $reart_of_privacy ); ?>"><?php echo 'en' === $reart_of_lang ? 'Privacy policy' : 'Privacyverklaring'; ?></a><?php endif; ?></span>
+    <span>Re-Art · Almere<?php if ( $reart_of_privacy ) : ?> · <?php echo 'en' === $reart_of_lang ? 'We only use your details to process your request.' : 'Wij gebruiken uw gegevens alleen om uw aanvraag te verwerken.'; ?> <a href="<?php echo esc_url( $reart_of_privacy ); ?>"><?php echo 'en' === $reart_of_lang ? 'Privacy policy' : 'Privacyverklaring'; ?></a><?php endif; ?></span>
     <span data-t="footer_req">Velden met <span class="req">*</span> zijn verplicht</span>
   </footer>
+</div>
+
+<div class="overlay info-modal" role="dialog" aria-modal="true">
+  <div class="dialog ib"></div>
 </div>
 
 <div class="overlay" id="ro-overlay" role="dialog" aria-modal="true" aria-labelledby="ro-dlgTitle">
   <div class="dialog">
     <div class="thanks-mark" aria-hidden="true">✓</div>
-    <h3 id="ro-dlgTitle" data-t="dlg_title">Bedankt voor het invullen van het orderformulier</h3>
-    <p class="thanks" data-t="dlg_text">Wij verwerken uw order in ons systeem en sturen u een opdrachtbevestiging met daarin de kosten en de levertijd. Mochten wij nog vragen hebben, dan nemen wij per e-mail contact met u op.</p>
-    <p class="sent" style="margin:0;color:var(--muted)"><span data-t="sent_to">Een kopie van uw order is verstuurd naar</span> <strong id="ro-sentTo"></strong>.</p>
-    <div class="legend" style="margin:6px 0 -8px" data-t="dlg_sum">Uw orderoverzicht</div>
+    <h3 id="ro-dlgTitle" data-t="dlg_title">Bedankt voor het invullen van het aanvraagformulier</h3>
+    <p class="thanks" data-t="dlg_text">Wij verwerken uw aanvraag in ons systeem en sturen u een opdrachtbevestiging met daarin de kosten en de levertijd. Mochten wij nog vragen hebben, dan nemen wij per e-mail contact met u op.</p>
+    <p class="sent" style="margin:0;color:var(--muted)"><span data-t="sent_to">Een kopie van uw aanvraag is verstuurd naar</span> <strong id="ro-sentTo"></strong>.</p>
+    <div class="legend" style="margin:6px 0 -8px" data-t="dlg_sum">Uw aanvraagoverzicht</div>
     <pre id="ro-orderText"></pre>
     <div class="actions">
-      <button type="button" class="btn primary" id="ro-newBtn" data-t="new">Nieuwe order</button>
+      <button type="button" class="btn primary" id="ro-newBtn" data-t="new">Nieuwe aanvraag</button>
       <button type="button" class="btn" id="ro-closeBtn" data-t="close">Sluiten</button>
     </div>
   </div>

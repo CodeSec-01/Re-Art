@@ -15,13 +15,13 @@ function reart_of_register_post_type() {
 		'reart_order',
 		array(
 			'labels'              => array(
-				'name'          => 'Orders',
-				'singular_name' => 'Order',
-				'menu_name'     => 'Orders',
-				'all_items'     => 'Alle orders',
-				'edit_item'     => 'Order bekijken',
-				'search_items'  => 'Orders zoeken',
-				'not_found'     => 'Nog geen orders',
+				'name'          => 'Aanvragen',
+				'singular_name' => 'Aanvraag',
+				'menu_name'     => 'Aanvragen',
+				'all_items'     => 'Alle aanvragen',
+				'edit_item'     => 'Aanvraag bekijken',
+				'search_items'  => 'Aanvragen zoeken',
+				'not_found'     => 'Nog geen aanvragen',
 			),
 			'public'              => false,
 			'show_ui'             => true,
@@ -79,10 +79,10 @@ function reart_of_build_order( array $data, array &$errors ) {
 
 	$lines = isset( $data['lines'] ) && is_array( $data['lines'] ) ? array_values( $data['lines'] ) : array();
 	if ( ! $lines ) {
-		$errors[] = 'er staat geen werk in de order';
+		$errors[] = 'er staat geen werk in de aanvraag';
 	}
 	if ( count( $lines ) > 50 ) {
-		$errors[] = 'maximaal 50 werken per order';
+		$errors[] = 'maximaal 50 werken per aanvraag';
 		$lines    = array_slice( $lines, 0, 50 );
 	}
 
@@ -126,6 +126,20 @@ function reart_of_build_line( array $line, $n, array &$errors ) {
 		return $v;
 	};
 
+	// Blindpreeg, nummeren en afwerking: geldt voor beide papiersoorten.
+	$paper_extra = function () use ( $choice, $c ) {
+		$choice( 'blind', 'Blindpreeg', $c['yes_no'] );
+		$choice( 'nummer', 'Nummeren', $c['yes_no'] );
+		$fin = $choice( 'paperFin', 'Afwerking', $c['paper_fin'] );
+		if ( 'Opgeplakt' === $fin ) {
+			if ( $choice( 'plakMat', 'Opplakken op', $c['plak'] ) ) {
+				$choice( 'ophang', 'Ophanging', $c['ophang'] );
+			}
+		} elseif ( 'Ingelijst' === $fin ) {
+			$choice( 'lijst', 'Lijst', $c['lijst'] );
+		}
+	};
+
 	$aantal = (int) $get( 'aantal', 6 );
 	if ( $aantal < 1 || $aantal > 9999 ) {
 		$errors[] = "werk $n: aantal is ongeldig";
@@ -134,7 +148,7 @@ function reart_of_build_line( array $line, $n, array &$errors ) {
 
 	$dienst = $choice(
 		'dienst',
-		'Afwerking',
+		'Product',
 		array_keys( $c['services'] ),
 		function ( $v ) use ( $c ) {
 			return $c['services'][ $v ];
@@ -163,8 +177,10 @@ function reart_of_build_line( array $line, $n, array &$errors ) {
 		if ( $cat ) {
 			$choice( 'paperType', 'Papiertype', $c['paper'][ $cat ]['types'] );
 		}
+		$paper_extra();
 	} elseif ( 'basic-paper' === $dienst ) {
 		$choice( 'basicType', 'Papiertype', $c['basic_paper'] );
+		$paper_extra();
 	} elseif ( in_array( $dienst, array( 'hd-finish', 'hd-decor' ), true ) ) {
 		if ( 'White surface' === $choice( 'top', 'Surface', $c['surface'] ) ) {
 			$choice( 'topFinish', 'Afwerking', $c['gloss_matt'] );
@@ -172,7 +188,7 @@ function reart_of_build_line( array $line, $n, array &$errors ) {
 		$choice( 'profiel', 'Ophangprofiel', $c['profiel'] );
 	} elseif ( 'scan' === $dienst ) {
 		$choice( 'scan', 'Type scan', $c['scans'] );
-		$choice( 'proof', 'Kleurproofing', $c['yes_no'] );
+		$choice( 'proof', 'Na de scan', $c['after_scan'] );
 	}
 
 	if ( $dienst ) {
@@ -180,6 +196,10 @@ function reart_of_build_line( array $line, $n, array &$errors ) {
 
 		if ( 'scan' !== $dienst && 'Ja' === $choice( 'cert', 'Certificaat', $c['yes_no'] ) ) {
 			$required_text( 'certArtist', 'Kunstenaar' );
+			$atelier = trim( $get( 'certAtelier' ) );
+			if ( '' !== $atelier ) {
+				$details[] = array( 'Atelier', $atelier );
+			}
 			$web = trim( $get( 'certWeb' ) );
 			if ( '' !== $web ) {
 				$details[] = array( 'Website', $web );
@@ -214,7 +234,7 @@ function reart_of_save_order( array $order ) {
 		array(
 			'post_type'   => 'reart_order',
 			'post_status' => 'publish',
-			'post_title'  => 'Nieuwe order',
+			'post_title'  => 'Nieuwe aanvraag',
 		),
 		true
 	);

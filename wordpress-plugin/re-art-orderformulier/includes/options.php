@@ -42,5 +42,10 @@ function reart_of_catalog() {
 		'surface'     => array( 'White surface', 'Metal surface' ),
 		'gloss_matt'  => array( 'Gloss', 'Matt' ),
 		'profiel'     => array( 'Geen', '15 mm', '25 mm' ),
+		'paper_fin'   => array( 'Losse print', 'Opgeplakt', 'Ingelijst' ),
+		'plak'        => array( '1 mm Aluminium', '3 mm Dibond' ),
+		'ophang'      => array( 'Geen', '15 mm ophangprofiel', '25 mm ophangprofiel' ),
+		'lijst'       => array( 'Witte lijst met nerf', 'Zwarte lijst met nerf', 'Blanke lijst' ),
+		'after_scan'  => array( 'Digitaal bestand', 'Digitaal bestand + voorbereid', 'Kleurproofing' ),
 	);
 }

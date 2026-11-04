@@ -37,8 +37,9 @@ out=[]
 for pre, bod in blocks(css):
     if pre.startswith('@media (prefers-color-scheme') or pre.startswith(':root[data-theme'): continue
     if pre=='html, body': continue
-    if pre=='.logo, .cert-logo': continue
+    if pre in ('.logo, .cert-logo', '.logo, .cert-logo, .info-logo'): continue
     bod=bod.replace('var(--logo-img)','url("logo.png")')
+    bod=re.sub(r'url\("data:image/png;base64,[^"]+"\)', 'url("seal.png")', bod)
     if pre.startswith('@media'):
         inner=' '.join(f'{prefix_sel(p)} {{{b}}}' for p,b in blocks(bod))
         out.append(f'{pre} {{ {inner} }}')
@@ -73,17 +74,17 @@ m=m.replace('  </form>','''    <div class="hp" aria-hidden="true">
 # footer privacy
 m=m.replace('''  <footer>
     <span>Re-Art · Almere</span>''','''  <footer>
-    <span>Re-Art · Almere<?php if ( $reart_of_privacy ) : ?> · <?php echo 'en' === $reart_of_lang ? 'We only use your details to process your order.' : 'Wij gebruiken uw gegevens alleen om uw order te verwerken.'; ?> <a href="<?php echo esc_url( $reart_of_privacy ); ?>"><?php echo 'en' === $reart_of_lang ? 'Privacy policy' : 'Privacyverklaring'; ?></a><?php endif; ?></span>''')
+    <span>Re-Art · Almere<?php if ( $reart_of_privacy ) : ?> · <?php echo 'en' === $reart_of_lang ? 'We only use your details to process your request.' : 'Wij gebruiken uw gegevens alleen om uw aanvraag te verwerken.'; ?> <a href="<?php echo esc_url( $reart_of_privacy ); ?>"><?php echo 'en' === $reart_of_lang ? 'Privacy policy' : 'Privacyverklaring'; ?></a><?php endif; ?></span>''')
 # dialog: order is sent, so no copy / edit
 old_actions=m[m.index('    <div class="actions">'):m.index('    </div>\n  </div>\n</div>',m.index('    <div class="actions">'))+len('    </div>\n')]
 m=m.replace(old_actions,'''    <div class="actions">
-      <button type="button" class="btn primary" id="ro-newBtn" data-t="new">Nieuwe order</button>
+      <button type="button" class="btn primary" id="ro-newBtn" data-t="new">Nieuwe aanvraag</button>
       <button type="button" class="btn" id="ro-closeBtn" data-t="close">Sluiten</button>
     </div>
 ''')
 a_=m.count('<div class="legend" style="margin:6px 0 -8px" data-t="dlg_sum">'); assert a_==1
 m=m.replace('<div class="legend" style="margin:6px 0 -8px" data-t="dlg_sum">',
- '<p class="sent" style="margin:0;color:var(--muted)"><span data-t="sent_to">Een kopie van uw order is verstuurd naar</span> <strong id="ro-sentTo"></strong>.</p>\n    <div class="legend" style="margin:6px 0 -8px" data-t="dlg_sum">')
+ '<p class="sent" style="margin:0;color:var(--muted)"><span data-t="sent_to">Een kopie van uw aanvraag is verstuurd naar</span> <strong id="ro-sentTo"></strong>.</p>\n    <div class="legend" style="margin:6px 0 -8px" data-t="dlg_sum">')
 tpl = '''<?php
 /**
  * Template van het Re-Art orderformulier. Wordt geladen door de shortcode [reart_orderformulier].
@@ -147,7 +148,7 @@ function resetForm() {
 j=j.replace('document.getElementById("orderForm").addEventListener("submit", e => {','$("orderForm").addEventListener("submit", async e => {')
 j=j.replace('$("orderForm").addEventListener("submit", e => {','$("orderForm").addEventListener("submit", async e => {')
 # dialog buttons
-a=j.index('const closeDlg'); b=j.index('document.addEventListener("keydown"')
+a=j.index('const closeDlg'); b=j.index('document.addEventListener("keydown", e => { if (e.key === "Escape") closeDlg(); });', a)
 j=j[:a]+'''const closeDlg = () => { $("overlay").classList.remove("show"); resetForm(); root.scrollIntoView({ behavior: "smooth", block: "start" }); };
 $("closeBtn").addEventListener("click", closeDlg);
 $("newBtn").addEventListener("click", closeDlg);

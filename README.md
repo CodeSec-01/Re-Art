@@ -1,6 +1,6 @@
-# Re-Art Orderformulier
+# Re-Art Aanvraagformulier
 
-Interactief orderformulier van Re-Art – Special Art productions.
+Interactief aanvraagformulier van Re-Art – Special Art productions (Nederlands en Engels).
 
 ## Bestanden
 
@@ -9,6 +9,7 @@ Interactief orderformulier van Re-Art – Special Art productions.
 - `re-art-orderformulier.zip` – de WordPress-plugin, klaar om te uploaden.
 - `wordpress-plugin/re-art-orderformulier/` – de broncode van die plugin.
 - `tools/build-plugin.sh` – bouwt de plugin opnieuw op uit `index.html` na een wijziging aan het formulier.
+- `pdf/Re-Art_Aanvraagformulier.pdf` – invulbare PDF-versie voor Adobe Acrobat (Reader); `tools/build_pdf.py` maakt hem opnieuw.
 
 ## Gebruik
 
@@ -23,12 +24,14 @@ Afwerkingen en opties:
 | Afwerking | Opties |
 |---|---|
 | Certified Canvas / Basic Canvas | UV-topcoating (Matt / Satin / Gloss), opspannen, frame aluminium (25/65, 45/65) of hout (20/65, 45/65) |
-| Certified Paper | Matte, Photo of Metallic paper (Hahnemühle) |
-| Basic Paper | Basic Litho White Matt / Basic Litho Archive Matt |
+| Certified Paper | Matte, Photo of Metallic paper (Hahnemühle), blindpreeg, nummeren, afwerking: losse print / opgeplakt (1 mm aluminium of 3 mm Dibond, met ophanging) / ingelijst (witte of zwarte lijst met nerf, blanke lijst) |
+| Basic Paper | Basic Litho White Matt / Basic Litho Archive Matt, blindpreeg, nummeren, afwerking zoals bij Certified Paper |
 | HD Finish / HD Decor | White surface (Gloss / Matt) of Metal surface, ophangprofiel geen / 15 mm / 25 mm |
-| Cruse Fine Art Scan | LR / Texture / Superscan / 3D, kleurproofing ja / nee |
+| Cruse Fine Art Scan | LR / Texture / Superscan / 3D, na de scan: digitaal bestand / digitaal bestand + voorbereid / kleurproofing |
 
-Bij alle afwerkingen behalve de scan volgt de vraag **Certificaat: ja / nee**. Bij ja vult de klant de naam van de kunstenaar, de titel van het werk en de editie in (verplicht), en eventueel de website en de EA. Daaronder staat een live voorbeeld van het Re-Art certificaat (Certificate of Authenticity) waarin deze gegevens, het formaat, het medium en de totale editie (editie + EA) direct worden ingevuld.
+Bij alle afwerkingen behalve de scan volgt de vraag **Certificaat: ja / nee**. Bij ja vult de klant de naam van de kunstenaar, de titel van het werk en de editie in (verplicht), en eventueel de website en de EA. Daaronder staat een live voorbeeld van het Re-Art certificaat zoals in de brochure, met genummerde punten (klikbaar) en de blindpreeg Certified Art Giclée. Ook een optionele atelier-naam kan worden ingevuld.
+
+Bij elk product staat een knop **Meer info** met een pop-up in de stijl van de brochure: uitleg, prijzen, tips van het team en foto's van de afwerkingen.
 
 Na **Order controleren & afronden** ziet de klant een bedankscherm met het orderoverzicht.
 
@@ -37,9 +40,9 @@ Na **Order controleren & afronden** ziet de klant een bedankscherm met het order
 De plugin zet het formulier op de website en zorgt dat orders echt binnenkomen:
 
 - Het formulier is tweetalig. Op de Nederlandse pagina is het Nederlands, op de Engelse pagina (Polylang) Engels. Forceren kan met `[reart_orderformulier lang="en"]`.
-- Elke aanvraag wordt gemaild naar **info@re-art.com** met als onderwerp *Nieuwe aanvraag* (aan te passen via *Instellingen → Re-Art Orderformulier*). Beantwoorden gaat direct naar de klant.
+- Elke aanvraag wordt gemaild naar **info@re-art.com** met als onderwerp *Nieuwe aanvraag* (aan te passen via *Instellingen → Re-Art Aanvraagformulier*); de mails worden ook vanaf dat adres verstuurd. Beantwoorden gaat direct naar de klant.
 - De klant krijgt een bevestigingsmail (*Bedankt voor uw aanvraag* / *Thank you for your request*) in de taal van het formulier, met het orderoverzicht.
-- Alle orders staan in het menu **Orders** in het WordPress-beheer, met ordernummer (RE-jjmmdd-nr).
+- Alle aanvragen staan in het menu **Aanvragen** in het WordPress-beheer, met aanvraagnummer (RE-jjmmdd-nr).
 - De server controleert alle keuzes en weert spam (verborgen veld, minimale invultijd, max. 5 orders per 10 minuten per bezoeker).
 - De opmaak is afgeschermd van het thema van de website.
 
@@ -47,7 +50,7 @@ De plugin zet het formulier op de website en zorgt dat orders echt binnenkomen:
 
 1. Download `re-art-orderformulier.zip` uit deze repository.
 2. WordPress-beheer → *Plugins → Nieuwe plugin → Plugin uploaden* → kies de zip → *Nu installeren* → *Activeren*.
-3. Maak een pagina (bijv. "Orderformulier") en voeg het blok *Shortcode* toe met `[reart_orderformulier]`.
+3. Maak een pagina (bijv. "Aanvraagformulier"; bij Polylang ook een Engelse pagina) en voeg het blok *Shortcode* toe met `[reart_orderformulier]`.
 4. Installeer **WP Mail SMTP** en koppel die aan de Re-Art mailbox, zodat de mails betrouwbaar aankomen.
 5. Stel bij *Instellingen → Privacy* de privacyverklaring in; het formulier linkt er dan automatisch naar.
 6. Plaats een paar testorders en controleer de mails en het menu *Orders*.

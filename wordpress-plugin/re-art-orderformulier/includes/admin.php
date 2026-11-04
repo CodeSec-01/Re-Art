@@ -27,7 +27,7 @@ function reart_of_register_settings() {
 
 add_action( 'admin_menu', 'reart_of_settings_menu' );
 function reart_of_settings_menu() {
-	add_options_page( 'Re-Art Orderformulier', 'Re-Art Orderformulier', 'manage_options', 'reart-orderformulier', 'reart_of_settings_page' );
+	add_options_page( 'Re-Art Aanvraagformulier', 'Re-Art Aanvraagformulier', 'manage_options', 'reart-orderformulier', 'reart_of_settings_page' );
 }
 
 function reart_of_settings_page() {
@@ -36,22 +36,22 @@ function reart_of_settings_page() {
 	}
 	?>
 	<div class="wrap">
-		<h1>Re-Art Orderformulier</h1>
+		<h1>Re-Art Aanvraagformulier</h1>
 		<form method="post" action="options.php">
 			<?php settings_fields( 'reart_of_settings' ); ?>
 			<table class="form-table" role="presentation">
 				<tr>
-					<th scope="row"><label for="reart_of_recipient">Orders mailen naar</label></th>
+					<th scope="row"><label for="reart_of_recipient">Aanvragen mailen naar</label></th>
 					<td>
 						<input type="email" class="regular-text" id="reart_of_recipient" name="reart_of_recipient" value="<?php echo esc_attr( reart_of_recipient() ); ?>">
-						<p class="description">Op dit adres komt elke nieuwe order binnen. De klant krijgt zelf een bevestiging op het adres dat hij invult.</p>
+						<p class="description">Op dit adres komt elke nieuwe aanvraag binnen. De mails van het formulier worden ook vanaf dit adres verstuurd. De klant krijgt zelf een bevestiging op het adres dat hij invult.</p>
 					</td>
 				</tr>
 			</table>
 			<?php submit_button( 'Opslaan' ); ?>
 		</form>
 		<h2>Gebruik</h2>
-		<p>Zet de shortcode <code>[reart_orderformulier]</code> op een pagina (blok <em>Shortcode</em>). Alle orders staan in het menu <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=reart_order' ) ); ?>">Orders</a>.</p>
+		<p>Zet de shortcode <code>[reart_orderformulier]</code> op een pagina (blok <em>Shortcode</em>). Alle aanvragen staan in het menu <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=reart_order' ) ); ?>">Aanvragen</a>.</p>
 		<p>Komen de mails niet aan? Installeer dan een SMTP-plugin zoals <em>WP Mail SMTP</em> en koppel die aan de mailbox van Re-Art.</p>
 	</div>
 	<?php
@@ -69,13 +69,13 @@ function reart_of_action_links( $links ) {
 
 add_action( 'add_meta_boxes_reart_order', 'reart_of_meta_box' );
 function reart_of_meta_box() {
-	add_meta_box( 'reart_of_order', 'Ordergegevens', 'reart_of_render_meta_box', 'reart_order', 'normal', 'high' );
+	add_meta_box( 'reart_of_order', 'Aanvraaggegevens', 'reart_of_render_meta_box', 'reart_order', 'normal', 'high' );
 }
 
 function reart_of_render_meta_box( $post ) {
 	$order = get_post_meta( $post->ID, '_reart_of_order', true );
 	if ( ! is_array( $order ) ) {
-		echo '<p>Geen ordergegevens gevonden.</p>';
+		echo '<p>Geen aanvraaggegevens gevonden.</p>';
 		return;
 	}
 	$order['no'] = get_post_meta( $post->ID, '_reart_of_no', true );

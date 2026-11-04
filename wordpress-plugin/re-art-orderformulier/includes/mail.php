@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 function reart_of_en( $text ) {
 	static $map = array(
 		// Labels.
-		'Ordernummer'     => 'Order number',
+		'Aanvraagnummer'  => 'Request number',
 		'Datum'           => 'Date',
 		'Naam / bedrijf'  => 'Name / company',
 		'E-mail'          => 'Email',
@@ -20,7 +20,15 @@ function reart_of_en( $text ) {
 		'Adres'           => 'Address',
 		'Werk'            => 'Artwork',
 		'Opmerkingen'     => 'Comments',
-		'Afwerking'       => 'Finish',
+		'Product'         => 'Product',
+		'Afwerking'       => 'Finishing',
+		'Blindpreeg'      => 'Blind embossing',
+		'Nummeren'        => 'Numbering',
+		'Opplakken op'    => 'Mounted on',
+		'Ophanging'       => 'Hanging',
+		'Lijst'           => 'Frame',
+		'Na de scan'      => 'After the scan',
+		'Atelier'         => 'Studio',
 		'UV-topcoating'   => 'UV top coating',
 		'Type coating'    => 'Coating type',
 		'Opspannen'       => 'Stretching',
@@ -42,6 +50,18 @@ function reart_of_en( $text ) {
 		'Nee'             => 'No',
 		'Geen'            => 'None',
 		'Hout'            => 'Wood',
+		'Losse print'     => 'Loose print',
+		'Opgeplakt'       => 'Mounted',
+		'Ingelijst'       => 'Framed',
+		'1 mm Aluminium'  => '1 mm aluminium',
+		'15 mm ophangprofiel'   => '15 mm hanging profile',
+		'25 mm ophangprofiel'   => '25 mm hanging profile',
+		'Witte lijst met nerf'  => 'White frame with wood grain',
+		'Zwarte lijst met nerf' => 'Black frame with wood grain',
+		'Blanke lijst'          => 'Natural wood frame',
+		'Digitaal bestand'      => 'Digital file',
+		'Digitaal bestand + voorbereid' => 'Digital file + print-ready',
+		'Kleurproofing'         => 'Colour proofing',
 	);
 	return isset( $map[ $text ] ) ? $map[ $text ] : $text;
 }
@@ -71,7 +91,7 @@ function reart_of_address( array $order ) {
 }
 
 /**
- * Orderoverzicht als HTML-tabel (ook gebruikt in het beheer).
+ * Aanvraagoverzicht als HTML-tabel (ook gebruikt in het beheer).
  *
  * @param array  $order Order.
  * @param string $lang  'nl' of 'en'.
@@ -87,7 +107,7 @@ function reart_of_summary_html( array $order, $lang = 'nl' ) {
 	};
 
 	$h  = '<table role="presentation" cellpadding="0" cellspacing="0" style="font-size:14px;line-height:1.5;border-collapse:collapse">';
-	$h .= $row( 'Ordernummer', $order['no'] );
+	$h .= $row( 'Aanvraagnummer', $order['no'] );
 	$h .= $row( 'Datum', reart_of_format_date( $order['datum'], $lang ) );
 	$h .= $row( 'Naam / bedrijf', $order['naam'] );
 	$h .= $row( 'E-mail', $order['email'] );
@@ -134,7 +154,8 @@ function reart_of_email_wrap( $title, $intro_html, $body_html, $lang = 'nl' ) {
 }
 
 function reart_of_html_headers( array $reply_to = array() ) {
-	$headers = array( 'Content-Type: text/html; charset=UTF-8' );
+	// Afzender: het Re-Art adres uit de instellingen (standaard info@re-art.com) in plaats van wordpress@re-art.com.
+	$headers = array( 'Content-Type: text/html; charset=UTF-8', 'From: Re-Art <' . reart_of_recipient() . '>' );
 	if ( ! empty( $reply_to['email'] ) && is_email( $reply_to['email'] ) ) {
 		$name      = str_replace( array( "\r", "\n", '"', '<', '>' ), '', (string) $reply_to['name'] );
 		$headers[] = 'Reply-To: "' . $name . '" <' . $reply_to['email'] . '>';
@@ -147,7 +168,7 @@ function reart_of_html_headers( array $reply_to = array() ) {
  */
 function reart_of_mail_admin( array $order ) {
 	$subject = 'Nieuwe aanvraag ' . $order['no'] . ' – ' . $order['naam'];
-	$intro   = '<p style="font-size:14px;line-height:1.5;margin:0 0 18px">Er is een nieuwe aanvraag binnengekomen via het orderformulier. Beantwoord deze mail om direct naar de klant te mailen.'
+	$intro   = '<p style="font-size:14px;line-height:1.5;margin:0 0 18px">Er is een nieuwe aanvraag binnengekomen via het aanvraagformulier. Beantwoord deze mail om direct naar de klant te mailen.'
 		. ( 'en' === $order['lang'] ? ' <strong>Let op: de klant heeft het Engelstalige formulier gebruikt.</strong>' : '' ) . '</p>';
 	$html    = reart_of_email_wrap( 'Nieuwe aanvraag ' . $order['no'], $intro, reart_of_summary_html( $order, 'nl' ), 'nl' );
 	return wp_mail( reart_of_recipient(), $subject, $html, reart_of_html_headers( array( 'email' => $order['email'], 'name' => $order['naam'] ) ) );
@@ -160,12 +181,12 @@ function reart_of_mail_customer( array $order ) {
 	if ( 'en' === $order['lang'] ) {
 		$subject = 'Your request at Re-Art (' . $order['no'] . ')';
 		$title   = 'Thank you for your request';
-		$intro   = '<p style="font-size:14px;line-height:1.6;margin:0 0 12px">Thank you for filling in the order form.</p>'
-			. '<p style="font-size:14px;line-height:1.6;margin:0 0 18px">We will process your request in our system and send you an order confirmation including the costs and delivery time. If we have any questions, we will contact you by email.</p>';
+		$intro   = '<p style="font-size:14px;line-height:1.6;margin:0 0 12px">Thank you for filling in the request form.</p>'
+			. '<p style="font-size:14px;line-height:1.6;margin:0 0 18px">We will process your request in our system and send you a confirmation including the costs and delivery time. If we have any questions, we will contact you by email.</p>';
 	} else {
 		$subject = 'Uw aanvraag bij Re-Art (' . $order['no'] . ')';
 		$title   = 'Bedankt voor uw aanvraag';
-		$intro   = '<p style="font-size:14px;line-height:1.6;margin:0 0 12px">Bedankt voor het invullen van het orderformulier.</p>'
+		$intro   = '<p style="font-size:14px;line-height:1.6;margin:0 0 12px">Bedankt voor het invullen van het aanvraagformulier.</p>'
 			. '<p style="font-size:14px;line-height:1.6;margin:0 0 18px">Wij verwerken uw aanvraag in ons systeem en sturen u een opdrachtbevestiging met daarin de kosten en de levertijd. Mochten wij nog vragen hebben, dan nemen wij per e-mail contact met u op.</p>';
 	}
 	$html = reart_of_email_wrap( $title, $intro, reart_of_summary_html( $order, $order['lang'] ), $order['lang'] );

@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:       Re-Art Orderformulier
- * Description:       Interactief orderformulier (NL/EN) van Re-Art met live certificaat-voorbeeld. Plaats het formulier met de shortcode [reart_orderformulier] (of [reart_orderformulier lang="en"]). Aanvragen worden gemaild en bewaard onder "Orders".
- * Version:           1.1.0
+ * Plugin Name:       Re-Art Aanvraagformulier
+ * Description:       Interactief aanvraagformulier (NL/EN) van Re-Art met live certificaat-voorbeeld. Plaats het formulier met de shortcode [reart_orderformulier] (of [reart_orderformulier lang="en"]). Aanvragen worden gemaild en bewaard onder "Aanvragen".
+ * Version:           1.2.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Re-Art
@@ -13,7 +13,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'REART_OF_VERSION', '1.1.0' );
+define( 'REART_OF_VERSION', '1.2.0' );
 define( 'REART_OF_FILE', __FILE__ );
 define( 'REART_OF_DEFAULT_RECIPIENT', 'info@re-art.com' );
 
@@ -110,7 +110,7 @@ function reart_of_register_route() {
 function reart_of_handle_order( WP_REST_Request $request ) {
 	$data = $request->get_json_params();
 	if ( ! is_array( $data ) ) {
-		return reart_of_error( 'De order kon niet worden gelezen.', 400 );
+		return reart_of_error( 'De aanvraag kon niet worden gelezen.', 400 );
 	}
 	$en = isset( $data['lang'] ) && 'en' === $data['lang'];
 
@@ -126,7 +126,7 @@ function reart_of_handle_order( WP_REST_Request $request ) {
 	$key = 'reart_of_rl_' . md5( $ip );
 	$hit = (int) get_transient( $key );
 	if ( $hit >= 5 ) {
-		return reart_of_error( $en ? 'Too many orders were sent in a short time. Please try again in a few minutes.' : 'Er zijn te veel orders achter elkaar verstuurd. Probeer het over enkele minuten opnieuw.', 429 );
+		return reart_of_error( $en ? 'Too many requests were sent in a short time. Please try again in a few minutes.' : 'Er zijn te veel aanvragen achter elkaar verstuurd. Probeer het over enkele minuten opnieuw.', 429 );
 	}
 
 	$errors = array();
@@ -139,7 +139,7 @@ function reart_of_handle_order( WP_REST_Request $request ) {
 
 	$post_id = reart_of_save_order( $order );
 	if ( ! $post_id ) {
-		return reart_of_error( $en ? 'The order could not be saved.' : 'De order kon niet worden opgeslagen.', 500 );
+		return reart_of_error( $en ? 'The request could not be saved.' : 'De aanvraag kon niet worden opgeslagen.', 500 );
 	}
 	$order['no'] = get_post_meta( $post_id, '_reart_of_no', true );
 
