@@ -13,8 +13,8 @@ import pikepdf
 OUT_TMP = "stap1.pdf"
 OUT = "Re-Art_Aanvraagformulier.pdf"
 W, H = A4
-NAVY = HexColor("#12285a")
-SOFT = HexColor("#e8ecf4")
+NAVY = HexColor("#091925")
+SOFT = HexColor("#e6e9ec")
 INK = HexColor("#15171c")
 MUTED = HexColor("#5b616d")
 LINE = HexColor("#dcdfe3")
@@ -64,8 +64,8 @@ def canvas_fields(prefix):
             (f"{prefix}_dh", "Diepte frame (hout)", ["20/65", "45/65"], 1, 2, f"V('{prefix}_span')=='Ja' && V('{prefix}_frame')=='Hout'")]
 
 def hd_fields(prefix):
-    return [(f"{prefix}_top", "Surface", ["White surface", "Metal surface"], 0, 0, "true"),
-            (f"{prefix}_topf", "Afwerking white surface", ["Gloss", "Matt"], 1, 0, f"V('{prefix}_top')=='White surface'"),
+    return [(f"{prefix}_top", "Type afwerking", ["Wit", "Metal"], 0, 0, "true"),
+            (f"{prefix}_topf", "Afwerking wit", ["Gloss", "Matt"], 1, 0, f"V('{prefix}_top')=='Wit'"),
             (f"{prefix}_prof", "Type ophangprofiel", ["Geen", "15 mm", "25 mm"], 0, 1, "true")]
 
 SCAN = [("sc_type", "Type scan", ["Standaard scan", "Texture", "3D"], 0, 0, "true"),
@@ -89,9 +89,8 @@ all_choice = {}           # veldnaam -> label (keuzelijsten, altijd verplicht al
 
 def header(subtitle):
     c.setFillColor(NAVY); c.rect(0, H - 70, W, 70, stroke=0, fill=1)
-    c.drawImage(__import__("os").path.join(__import__("os").path.dirname(__file__), "logo-white.png"), 40, H - 58, width=108, height=44, mask="auto")
-    c.setFillColor(white); c.setFont("Helvetica-Bold", 18); c.drawRightString(W - 40, H - 36, "Aanvraagformulier")
-    c.setFont("Helvetica", 8.5); c.drawRightString(W - 40, H - 52, subtitle.upper())
+    c.setFillColor(white); c.setFont("Helvetica-Bold", 20); c.drawString(40, H - 38, "Aanvraagformulier")
+    c.setFont("Helvetica", 8.5); c.drawString(40, H - 54, subtitle.upper())
 
 def footer(page_no):
     c.setStrokeColor(LINE); c.setLineWidth(0.6); c.line(40, 44, W - 40, 44)

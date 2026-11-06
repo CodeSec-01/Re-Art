@@ -180,7 +180,7 @@ function reart_of_build_line( array $line, $n, array &$errors ) {
 		$choice( 'basicType', 'Papiertype', $c['basic_paper'] );
 		$paper_extra();
 	} elseif ( in_array( $dienst, array( 'hd-finish', 'hd-decor' ), true ) ) {
-		if ( 'White surface' === $choice( 'top', 'Surface', $c['surface'] ) ) {
+		if ( 'Wit' === $choice( 'top', 'Type afwerking', $c['surface'] ) ) {
 			$choice( 'topFinish', 'Afwerking', $c['gloss_matt'] );
 		}
 		$choice( 'profiel', 'Ophangprofiel', $c['profiel'] );

@@ -40,7 +40,7 @@ function reart_of_catalog() {
 		),
 		'yes_no'      => array( 'Ja', 'Nee' ),
 		'coating'     => array( 'Matt', 'Satin', 'Gloss' ),
-		'surface'     => array( 'White surface', 'Metal surface' ),
+		'surface'     => array( 'Wit', 'Metal' ),
 		'gloss_matt'  => array( 'Gloss', 'Matt' ),
 		'profiel'     => array( 'Geen', '15 mm', '25 mm' ),
 		'diasec'      => array( 'Gloss', 'Mat', 'TruLife' ),

@@ -9,11 +9,11 @@ const $ = id => document.getElementById("ro-" + id);
 let LANG = (window.REARTOF && window.REARTOF.lang) || (location.hash === "#en" ? "en" : "nl");
 const I18N = {
   nl: {
-    st_title: "Waarmee kunnen we je helpen?", st_sub: "Kies wat bij je past. Het duurt maar een paar minuten.", st_new_pill: "Nieuwe klant", st_new: "Ik wil informatie", st_new_p: "Nog geen klant van Re-Art? Stel je vraag, dan nemen we binnen 24 uur contact met je op, tijdens kantooruren.", st_new_1: "Kort contactformulier", st_new_2: "Persoonlijk advies", st_new_3: "Vrijblijvend", st_go_new: "Naar het contactformulier",
+    st_title: "Waarmee kunnen we je helpen?", st_sub: "Kies wat bij je past. Het duurt maar een paar minuten.", st_new_pill: "Nieuwe klant", st_new: "Ik wil informatie", st_new_p: "Nog geen klant van Re-Art? Stel je vraag, dan nemen we binnen 24 uur contact met je op.", st_new_1: "Kort contactformulier", st_new_2: "Persoonlijk advies", st_new_3: "Vrijblijvend", st_go_new: "Naar het contactformulier",
     st_old_pill: "Bestaande klant", st_old: "Aanvraag of bestelling", st_old_p: "Al klant bij ons? Stel je aanvraag samen per werk en per afwerking, met direct een overzicht.", st_old_1: "Canvas, papier, HD, Diasec en scans", st_old_2: "Meerdere werken in één aanvraag", st_old_3: "Live voorbeeld van je certificaat", st_go_old: "Start je aanvraag",
     back: "← Terug naar keuze", back_start: "Terug naar het begin", c_s2: "Je vraag", c_msg: 'Waarover wil je informatie ontvangen? <span class="req">*</span>',
     c_msg_ph: "Bijv. ik wil graag mijn schilderijen laten scannen en als giclée laten printen.", c_msg_err: "Vertel ons kort waarover je informatie wilt.", c_email_err: "Vul een geldig e-mailadres in.",
-    c_send: "Verstuur contactformulier", c_thx_title: "Bedankt voor je bericht", c_thx_text: "We hebben je contactverzoek goed ontvangen. We streven ernaar je binnen 24 uur te antwoorden, tijdens kantooruren.",
+    c_send: "Verstuur contactformulier", c_thx_title: "Bedankt voor je bericht", c_thx_text: "We hebben je contactverzoek goed ontvangen. We streven ernaar je binnen 24 uur te antwoorden.",
     c_sent_to: "Een bevestiging is verstuurd naar", c_form_err: "Niet alles is ingevuld. De ontbrekende velden zijn rood gemarkeerd.",
     title: "Aanvraagformulier", s1: "Je gegevens", s2: "Je aanvraag", s3: "Opmerkingen",
     naam: 'Naam / bedrijfsnaam <span class="req">*</span>', naam_ph: "Bijv. Galerie Noord of Jan de Vries", naam_err: "Vul je naam of bedrijfsnaam in.",
@@ -36,8 +36,8 @@ const I18N = {
     work: "Werk", works: "werken", work1: "werk", piece: "stuk", pieces: "stuks", remove: "Verwijderen",
     aantal: "Aantal", aantal_err: "Minimaal 1.", dienst: "Type afwerking of dienst", afwerking: "Afwerking",
     uv: "UV-topcoating", uvType: "Type coating", spannen: "Opspannen", frame: "Type frame", diepte: "Diepte frame",
-    paperCat: "Papiersoort", paperType: "Papiertype", type_suffix: " – type", surface: "Surface",
-    topFinish_q: "Afwerking white surface", profiel_q: "Type ophangprofiel", profiel: "Ophangprofiel",
+    paperCat: "Papiersoort", paperType: "Papiertype", type_suffix: " – type", surface: "Type afwerking", help_t: "Hulp nodig?", help_p: "Neem contact met ons op",
+    topFinish_q: "Afwerking wit", profiel_q: "Type ophangprofiel", profiel: "Ophangprofiel",
     scan: "Type scan", proof: "Na de scan", more_info: "Meer info", more_about: "Meer info over", info_kicker: "Productinformatie", excl: "excl. btw", info_note: "Prijzen zijn exclusief btw. Liever zien en voelen? Tijdens een informatiegesprek laten we alle materialen in het echt zien.", blind: "Blindpreeg", nummer: "Nummeren", paperFin: "Afwerking", witrand: "Witrand", diasecType: "Uitvoering", tip_reart: "Tip van Re-Art", plakMat: "Opplakken op", ophang: "Ophanging", lijst: "Lijst", product: "Product", cert: "Certificaat",
     certArtist: "Naam kunstenaar", certArtist_ph: "Zoals op het certificaat", certAtelier: "Naam atelier (optioneel)", certAtelier_ph: "Bijv. Atelier Noord", atelier: "Atelier", certWeb: "Website kunstenaar", certWeb_ph: "Bijv. www.naamkunstenaar.nl",
     certTitel: "Titel werk", certTitel_ph: "Titel zoals op het certificaat", certEditie: "Editie (oplage)", certEditie_ph: "Bijv. 50",
@@ -51,11 +51,11 @@ const I18N = {
     g_fineart: "Fine art papier", g_paper: "Papier"
   },
   en: {
-    st_title: "How can we help you?", st_sub: "Choose what suits you. It only takes a few minutes.", st_new_pill: "New customer", st_new: "I would like information", st_new_p: "Not a Re-Art customer yet? Ask your question and we will get back to you within 24 hours during office hours.", st_new_1: "Short contact form", st_new_2: "Personal advice", st_new_3: "No obligation", st_go_new: "Go to the contact form",
+    st_title: "How can we help you?", st_sub: "Choose what suits you. It only takes a few minutes.", st_new_pill: "New customer", st_new: "I would like information", st_new_p: "Not a Re-Art customer yet? Ask your question and we will get back to you within 24 hours.", st_new_1: "Short contact form", st_new_2: "Personal advice", st_new_3: "No obligation", st_go_new: "Go to the contact form",
     st_old_pill: "Existing customer", st_old: "Request or order", st_old_p: "Already a customer? Put together your request per artwork and per finish, with an instant overview.", st_old_1: "Canvas, paper, HD, Diasec and scans", st_old_2: "Several artworks in one request", st_old_3: "Live preview of your certificate", st_go_old: "Start your request",
     back: "← Back to choice", back_start: "Back to the start", c_s2: "Your question", c_msg: 'What would you like information about? <span class="req">*</span>',
     c_msg_ph: "E.g. I would like to have my paintings scanned and printed as giclées.", c_msg_err: "Please tell us briefly what you would like information about.", c_email_err: "Please enter a valid email address.",
-    c_send: "Send contact form", c_thx_title: "Thank you for your message", c_thx_text: "We have received your contact request. We aim to reply within 24 hours during office hours.",
+    c_send: "Send contact form", c_thx_title: "Thank you for your message", c_thx_text: "We have received your contact request. We aim to reply within 24 hours.",
     c_sent_to: "A confirmation has been sent to", c_form_err: "Some fields are missing. They are marked in red.",
     title: "Request form", s1: "Your details", s2: "Your request", s3: "Comments",
     naam: 'Name / company name <span class="req">*</span>', naam_ph: "E.g. Gallery North or John Smith", naam_err: "Please enter your name or company name.",
@@ -78,7 +78,7 @@ const I18N = {
     work: "Artwork", works: "artworks", work1: "artwork", piece: "piece", pieces: "pieces", remove: "Remove",
     aantal: "Quantity", aantal_err: "At least 1.", dienst: "Type of finish or service", afwerking: "Finish",
     uv: "UV top coating", uvType: "Coating type", spannen: "Stretching", frame: "Frame type", diepte: "Frame depth",
-    paperCat: "Paper category", paperType: "Paper type", type_suffix: " – type", surface: "Surface",
+    paperCat: "Paper category", paperType: "Paper type", type_suffix: " – type", surface: "Surface", help_t: "Need help?", help_p: "Contact us",
     topFinish_q: "White surface finish", profiel_q: "Hanging profile", profiel: "Hanging profile",
     scan: "Scan type", proof: "After the scan", more_info: "More info", more_about: "More info about", info_kicker: "Product information", excl: "excl. VAT", info_note: "Prices exclude VAT. Prefer to see and feel? During an information meeting we show you all materials in real life.", blind: "Blind embossing", nummer: "Numbering", paperFin: "Finishing", witrand: "White border", diasecType: "Finish", tip_reart: "Re-Art tip", plakMat: "Mounted on", ophang: "Hanging", lijst: "Frame", product: "Product", cert: "Certificate",
     certArtist: "Artist name", certArtist_ph: "As shown on the certificate", certAtelier: "Studio name (optional)", certAtelier_ph: "E.g. Studio North", atelier: "Studio", certWeb: "Artist website", certWeb_ph: "E.g. www.artistname.com",
@@ -93,7 +93,7 @@ const I18N = {
     g_fineart: "Fine art paper", g_paper: "Paper"
   }
 };
-const VAL_EN = { Ja: "Yes", Nee: "No", Geen: "None", Hout: "Wood", "Digitaal bestand": "Digital file", "Digitaal bestand + voorbereid": "Digital file + print-ready", "Kleurproofing": "Colour proofing", "Standaard scan": "Standard scan", "Mat": "Matte", "Losse print": "Loose print", "Opgeplakt": "Mounted", "Ingelijst": "Framed", "1 mm Aluminium": "1 mm aluminium", "15 mm ophangprofiel": "15 mm hanging profile", "25 mm ophangprofiel": "25 mm hanging profile", "Witte lijst met nerf": "White frame with wood grain", "Zwarte lijst met nerf": "Black frame with wood grain", "Blanke lijst": "Natural wood frame" };
+const VAL_EN = { Ja: "Yes", Nee: "No", Geen: "None", Hout: "Wood", "Digitaal bestand": "Digital file", "Digitaal bestand + voorbereid": "Digital file + print-ready", "Kleurproofing": "Colour proofing", "Standaard scan": "Standard scan", "Wit": "White surface", "Metal": "Metal surface", "Mat": "Matte", "Losse print": "Loose print", "Opgeplakt": "Mounted", "Ingelijst": "Framed", "1 mm Aluminium": "1 mm aluminium", "15 mm ophangprofiel": "15 mm hanging profile", "25 mm ophangprofiel": "25 mm hanging profile", "Witte lijst met nerf": "White frame with wood grain", "Zwarte lijst met nerf": "Black frame with wood grain", "Blanke lijst": "Natural wood frame" };
 const t = k => (I18N[LANG] && I18N[LANG][k] != null ? I18N[LANG][k] : I18N.nl[k]);
 const V = v => (LANG === "en" && VAL_EN[v]) ? VAL_EN[v] : v;
 const plain = h => h.replace(/<[^>]+>/g, "").replace(/&amp;/g, "&");
@@ -369,7 +369,7 @@ function certMedium(l) {
   if (d === "basic-paper") return l.basicType || "Basic Paper";
   if (d === "cert-canvas" || d === "basic-canvas") return svc(d).name + (l.uv === "Ja" && l.uvType ? ", UV coating " + l.uvType.toLowerCase() : "");
   if (d === "diasec") return "Diasec" + (l.diasecType ? " " + l.diasecType : "");
-  if (d === "hd-finish" || d === "hd-decor") return svc(d).name + (l.top ? ", " + l.top + (l.topFinish ? " " + l.topFinish.toLowerCase() : "") : "");
+  if (d === "hd-finish" || d === "hd-decor") return svc(d).name + (l.top ? ", " + ({ Wit: "White surface", Metal: "Metal surface" }[l.top] || l.top) + (l.topFinish ? " " + l.topFinish.toLowerCase() : "") : "");
   return "";
 }
 function certTotal(l) {
@@ -526,8 +526,8 @@ function subOptions(l) {
     html += chips(l, "blind", ["Ja", "Nee"], t("blind"), false, "blind") + chips(l, "nummer", ["Ja", "Nee"], t("nummer"));
     html += paperFinish(l);
   } else if (d === "hd-finish" || d === "hd-decor") {
-    html += chips(l, "top", ["White surface", "Metal surface"], t("surface"));
-    if (l.top === "White surface") html += `<div class="nested">${chips(l, "topFinish", ["Gloss", "Matt"], t("topFinish_q"))}</div>`;
+    html += chips(l, "top", ["Wit", "Metal"], t("surface"));
+    if (l.top === "Wit") html += `<div class="nested">${chips(l, "topFinish", ["Gloss", "Matt"], t("topFinish_q"))}</div>`;
     html += chips(l, "profiel", ["Geen", "15 mm", "25 mm"], t("profiel_q"));
   } else if (d === "diasec") {
     html += chips(l, "diasecType", ["Gloss", "Mat", "TruLife"], t("diasecType"));
@@ -609,7 +609,7 @@ function details(l) {
       paperFinishNeed(l, need);
     } else if (d === "hd-finish" || d === "hd-decor") {
       need(t("surface"), l.top);
-      if (l.top === "White surface") need(t("afwerking"), l.topFinish);
+      if (l.top === "Wit") need(t("afwerking"), l.topFinish);
       need(t("profiel"), l.profiel);
     } else if (d === "diasec") {
       need(t("diasecType"), l.diasecType);

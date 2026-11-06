@@ -15,7 +15,7 @@ Interactief aanvraagformulier van Re-Art – Special Art productions (Nederlands
 
 Open `index.html` in een browser (voeg `#en` toe aan de link voor de Engelse versie). Eerst verschijnt een **startscherm** met twee keuzes:
 
-- **Aanvraag nieuwe klant** – een kort contactformulier: gegevens en de vraag waarover de klant informatie wil. Wordt direct verstuurd (zonder nummer). Re-Art ontvangt "Nieuw contactverzoek van <naam>", de klant krijgt een bevestiging (reactie binnen 24 uur tijdens kantooruren).
+- **Aanvraag nieuwe klant** – een kort contactformulier: gegevens en de vraag waarover de klant informatie wil. Wordt direct verstuurd (zonder nummer). Re-Art ontvangt "Nieuw contactverzoek van <naam>", de klant krijgt een bevestiging (reactie binnen 24 uur).
 - **Aanvraag of bestelling bestaande klant** – het volledige aanvraagformulier hieronder.
 
 In het aanvraagformulier vult de klant in:
@@ -31,13 +31,15 @@ Afwerkingen en opties:
 | Certified Canvas / Basic Canvas | UV-topcoating (Matt / Satin / Gloss), opspannen, frame aluminium (25/65, 45/65) of hout (20/65, 45/65) |
 | Certified Paper | Matte, Photo of Metallic paper (Hahnemühle), blindpreeg, nummeren, witrand, afwerking: losse print / opgeplakt (1 mm aluminium of 3 mm Dibond, met ophanging) / ingelijst (witte of zwarte lijst met nerf, blanke lijst) |
 | Basic Paper | Basic Litho White Matt / Basic Litho Archive Matt, blindpreeg, nummeren, afwerking zoals bij Certified Paper |
-| HD Finish / HD Decor | White surface (Gloss / Matt) of Metal surface, ophangprofiel geen / 15 mm / 25 mm |
+| HD Finish / HD Decor | Type afwerking: Wit (Gloss / Matt) of Metal (EN: White / Metal surface), ophangprofiel geen / 15 mm / 25 mm |
 | Diasec | Gloss / Mat / TruLife |
 | Cruse Fine Art Scan | Standaard scan / Texture / 3D, na de scan: digitaal bestand / digitaal bestand + voorbereid / kleurproofing |
 
 Bij alle afwerkingen behalve de scan volgt de vraag **Certificaat: ja / nee**. Bij ja vult de klant de naam van de kunstenaar, de titel van het werk en de editie in (verplicht), en eventueel de website en de EA. Daaronder staat een live voorbeeld van het Re-Art certificaat zoals in de brochure, met genummerde punten (klikbaar) en de blindpreeg Certified Art Giclée. Ook een optionele atelier-naam kan worden ingevuld.
 
 Bij elk product staat een knop **Meer info** met een pop-up in de stijl van de brochure: uitleg, prijzen, tips van het team en foto's van de afwerkingen.
+
+Bij "02 Je aanvraag" staat een hulpvak **"Hulp nodig? Neem contact met ons op"** met telefoon en e-mail; het blijft in beeld tijdens het invullen.
 
 Na **Aanvraag controleren & afronden** verschijnt eerst het scherm **Controleer je aanvraag** met het volledige overzicht. Pas na **Aanvraag versturen** wordt de aanvraag verstuurd en volgt het bedankscherm met het aanvraagnummer (RE-jjmmdd-0001, per dag oplopend).
 

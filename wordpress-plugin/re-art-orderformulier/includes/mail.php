@@ -28,6 +28,9 @@ function reart_of_en( $text ) {
 		'Ophanging'       => 'Hanging',
 		'Lijst'           => 'Frame',
 		'Witrand'         => 'White border',
+		'Type afwerking'  => 'Surface',
+		'Wit'             => 'White surface',
+		'Metal'           => 'Metal surface',
 		'Uitvoering'      => 'Finish',
 		'Mat'             => 'Matte',
 		'Na de scan'      => 'After the scan',
@@ -104,7 +107,7 @@ function reart_of_summary_html( array $order, $lang = 'nl' ) {
 	$tr   = function ( $s ) use ( $lang ) {
 		return 'en' === $lang ? reart_of_en( $s ) : $s;
 	};
-	$blue = '#12285a';
+	$blue = '#091925';
 	$row  = function ( $label, $value ) use ( $tr ) {
 		return '<tr><td style="padding:3px 16px 3px 0;color:#5b616d;vertical-align:top;white-space:nowrap">' . esc_html( $tr( $label ) ) . '</td>'
 			. '<td style="padding:3px 0;color:#15171c">' . nl2br( esc_html( $tr( $value ) ) ) . '</td></tr>';
@@ -147,13 +150,13 @@ function reart_of_email_wrap( $title, $intro_html, $body_html, $lang = 'nl' ) {
 	return '<!DOCTYPE html><html lang="' . esc_attr( $lang ) . '"><body style="margin:0;background:#f9f9f9;font-family:Aptos,Segoe UI,Helvetica,Arial,sans-serif;color:#15171c">'
 		. '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f9f9f9"><tr><td align="center" style="padding:24px 12px">'
 		. '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:620px;background:#ffffff;border:1px solid #dcdfe3">'
-		. '<tr><td style="background:#12285a;color:#ffffff;padding:18px 28px;font-size:20px;font-weight:700;letter-spacing:.02em">RE-ART <span style="font-weight:400;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85">&nbsp;Special Art productions</span></td></tr>'
+		. '<tr><td style="background:#091925;color:#ffffff;padding:18px 28px;font-size:20px;font-weight:700;letter-spacing:.02em">RE-ART <span style="font-weight:400;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85">&nbsp;Special Art productions</span></td></tr>'
 		. '<tr><td style="padding:28px">'
-		. '<h1 style="font-size:20px;margin:0 0 12px;color:#12285a">' . esc_html( $title ) . '</h1>'
+		. '<h1 style="font-size:20px;margin:0 0 12px;color:#091925">' . esc_html( $title ) . '</h1>'
 		. $intro_html
 		. $body_html
 		. '</td></tr>'
-		. '<tr><td style="padding:14px 28px;border-top:1px solid #dcdfe3;font-size:12px;color:#5b616d">Re-Art · The Netherlands · <a href="https://www.re-art.com" style="color:#12285a">www.re-art.com</a></td></tr>'
+		. '<tr><td style="padding:14px 28px;border-top:1px solid #dcdfe3;font-size:12px;color:#5b616d">Re-Art · The Netherlands · <a href="https://www.re-art.com" style="color:#091925">www.re-art.com</a></td></tr>'
 		. '</table></td></tr></table></body></html>';
 }
 

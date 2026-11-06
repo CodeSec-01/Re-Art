@@ -10,7 +10,6 @@ defined( 'ABSPATH' ) || exit;
 <div class="reart-of" id="reart-of">
 <div class="wrap">
   <header class="brand">
-    <div class="logo" role="img" aria-label="Re-Art – Special Art productions"></div>
     <div class="doc-meta">
       <h1 data-t="title">Aanvraagformulier</h1>
     </div>
@@ -28,7 +27,7 @@ defined( 'ABSPATH' ) || exit;
           <span class="sc-pill" data-t="st_new_pill">Nieuwe klant</span>
         </div>
         <h3 class="sc-h" data-t="st_new">Ik wil informatie</h3>
-        <p class="sc-p" data-t="st_new_p">Nog geen klant van Re-Art? Stel je vraag, dan nemen we binnen 24 uur contact met je op, tijdens kantooruren.</p>
+        <p class="sc-p" data-t="st_new_p">Nog geen klant van Re-Art? Stel je vraag, dan nemen we binnen 24 uur contact met je op.</p>
         <ul class="sc-list">
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span data-t="st_new_1">Kort contactformulier</span></li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span data-t="st_new_2">Persoonlijk advies</span></li>
@@ -36,7 +35,7 @@ defined( 'ABSPATH' ) || exit;
         </ul>
         <button type="button" class="sc-btn" data-mode="new"><span data-t="st_go_new">Naar het contactformulier</span> <span aria-hidden="true">→</span></button>
       </article>
-      <article class="start-card featured" data-mode="existing">
+      <article class="start-card" data-mode="existing">
         <div class="sc-top">
           <span class="sc-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"></rect><path d="M9 4V3h6v1"></path><path d="M8.5 10h7"></path><path d="M8.5 13.5h7"></path><path d="M8.5 17h4"></path></svg></span>
           <span class="sc-pill" data-t="st_old_pill">Bestaande klant</span>
@@ -111,7 +110,7 @@ defined( 'ABSPATH' ) || exit;
     <div class="sheet contact-thanks" id="ro-contactThanks" hidden>
       <div class="thanks-mark" aria-hidden="true">✓</div>
       <h3 data-t="c_thx_title">Bedankt voor je bericht</h3>
-      <p class="thanks" data-t="c_thx_text">We hebben je contactverzoek goed ontvangen. We streven ernaar je binnen 24 uur te antwoorden, tijdens kantooruren.</p>
+      <p class="thanks" data-t="c_thx_text">We hebben je contactverzoek goed ontvangen. We streven ernaar je binnen 24 uur te antwoorden.</p>
       <p class="sent" style="margin:0;color:var(--muted)"><span data-t="c_sent_to">Een bevestiging is verstuurd naar</span> <strong id="ro-contactSentTo"></strong>.</p>
       <div class="actions"><button type="button" class="btn" data-mode="start" data-t="back_start">Terug naar het begin</button></div>
     </div>
@@ -164,6 +163,8 @@ defined( 'ABSPATH' ) || exit;
 
         <section>
           <div class="section-head"><span class="num">02</span><h2 data-t="s2">Je aanvraag</h2></div>
+          <div class="help-box help-bar"><span class="help-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg></span>
+            <span class="help-txt"><b data-t="help_t">Hulp nodig?</b> <span data-t="help_p">Neem contact met ons op</span><span class="help-links"><a href="tel:+31365368875">036 536 88 75</a><a href="mailto:info@re-art.com">info@re-art.com</a></span></span></div>
           <div class="stack" id="ro-lines" style="gap:16px"></div>
           <div style="margin-top:16px"><button type="button" class="btn add-line" id="ro-addLine" data-t="addLine">+ Nog een werk toevoegen</button></div>
         </section>
@@ -176,6 +177,8 @@ defined( 'ABSPATH' ) || exit;
       </div>
 
       <aside class="summary" aria-live="polite">
+        <div class="help-box help-side"><span class="help-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"></path></svg></span>
+            <span class="help-txt"><b data-t="help_t">Hulp nodig?</b> <span data-t="help_p">Neem contact met ons op</span><span class="help-links"><a href="tel:+31365368875">036 536 88 75</a><a href="mailto:info@re-art.com">info@re-art.com</a></span></span></div>
         <div class="card">
           <h3 data-t="sum_title">Aanvraagoverzicht</h3>
           <div class="who" id="ro-sumWho">Nog geen naam ingevuld</div>

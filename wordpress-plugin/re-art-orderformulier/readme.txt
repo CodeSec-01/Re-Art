@@ -2,7 +2,7 @@
 Contributors: re-art
 Requires at least: 6.0
 Requires PHP: 7.4
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GPLv2 or later
 
 Interactief orderformulier van Re-Art – Special Art productions, met live certificaat-voorbeeld.
@@ -26,10 +26,18 @@ Interactief orderformulier van Re-Art – Special Art productions, met live cert
 
 == Changelog ==
 
+= 1.5.1 =
+* Huisstijlblauw #091925 in formulier, pop-ups, mails en PDF.
+* Logo weggehaald bovenaan formulier en PDF (blijft in de "Meer info"-kaders, de mails en het certificaat).
+* Startscherm: beide kaarten licht, pas donker bij aanwijzen met de muis.
+* "Tijdens kantooruren" verwijderd uit contactbevestiging en teksten.
+* Hulpvak "Hulp nodig? Neem contact met ons op" bij de aanvraag (blijft in beeld).
+* HD Finish / HD Decor in het Nederlands: "Type afwerking: Wit / Metal", vervolgvraag "Afwerking wit".
+
 = 1.5.0 =
 * Startscherm met twee keuzes: "Aanvraag nieuwe klant" en "Aanvraag of bestelling bestaande klant".
 * Contactformulier voor nieuwe klanten (gegevens + vraag), direct versturen.
-* Mail aan Re-Art: "Nieuw contactverzoek van <naam>"; bevestigingsmail aan de klant (reactie binnen 24 uur tijdens kantooruren).
+* Mail aan Re-Art: "Nieuw contactverzoek van <naam>"; bevestigingsmail aan de klant (reactie binnen 24 uur).
 * Contactverzoeken staan onder "Aanvragen" met het label "Contact" (zonder nummer).
 * Startscherm in de vorm van twee keuzekaarten met icoon (ontwerp B).
 * Achtergrondkleur huisstijl #F9F9F9 in formulier en mails.

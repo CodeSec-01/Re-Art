@@ -79,7 +79,7 @@ function reart_of_contact_html( array $contact, $lang = 'nl' ) {
 		$h .= $row( $en ? 'Address' : 'Adres', $address );
 	}
 	$h .= '</table>';
-	$h .= '<h3 style="font-size:15px;margin:22px 0 6px;color:#12285a;border-top:1px solid #dcdfe3;padding-top:12px">' . ( $en ? 'Your question' : 'Vraag' ) . '</h3>';
+	$h .= '<h3 style="font-size:15px;margin:22px 0 6px;color:#091925;border-top:1px solid #dcdfe3;padding-top:12px">' . ( $en ? 'Your question' : 'Vraag' ) . '</h3>';
 	$h .= '<p style="font-size:14px;line-height:1.6;margin:0">' . nl2br( esc_html( $contact['bericht'] ) ) . '</p>';
 	return $h;
 }
@@ -103,12 +103,12 @@ function reart_of_mail_contact_customer( array $contact ) {
 		$subject = 'Thank you for your message to Re-Art';
 		$title   = 'Thank you for your message';
 		$intro   = '<p style="font-size:14px;line-height:1.6;margin:0 0 12px">Thank you for getting in touch with Re-Art. We have received your contact request.</p>'
-			. '<p style="font-size:14px;line-height:1.6;margin:0 0 18px">We aim to reply within 24 hours during office hours. Below you will find a copy of your message.</p>';
+			. '<p style="font-size:14px;line-height:1.6;margin:0 0 18px">We aim to reply within 24 hours. Below you will find a copy of your message.</p>';
 	} else {
 		$subject = 'Bedankt voor je bericht aan Re-Art';
 		$title   = 'Bedankt voor je bericht';
 		$intro   = '<p style="font-size:14px;line-height:1.6;margin:0 0 12px">Bedankt voor je bericht aan Re-Art. We hebben je contactverzoek goed ontvangen.</p>'
-			. '<p style="font-size:14px;line-height:1.6;margin:0 0 18px">We streven ernaar je binnen 24 uur te antwoorden, tijdens kantooruren. Hieronder vind je een kopie van je bericht.</p>';
+			. '<p style="font-size:14px;line-height:1.6;margin:0 0 18px">We streven ernaar je binnen 24 uur te antwoorden. Hieronder vind je een kopie van je bericht.</p>';
 	}
 	$html = reart_of_email_wrap( $title, $intro, reart_of_contact_html( $contact, $contact['lang'] ), $contact['lang'] );
 	return wp_mail( $contact['email'], $subject, $html, reart_of_html_headers( array( 'email' => reart_of_recipient(), 'name' => 'Re-Art' ) ) );

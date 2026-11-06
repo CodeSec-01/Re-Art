@@ -119,7 +119,7 @@ function reart_of_column_content( $col, $post_id ) {
 		if ( 'reart_email' === $col && is_array( $contact ) ) {
 			echo '<a href="mailto:' . esc_attr( $contact['email'] ) . '">' . esc_html( $contact['email'] ) . '</a>';
 		} elseif ( 'reart_werken' === $col ) {
-			echo '<span style="background:#e8ecf4;color:#12285a;padding:2px 8px;border-radius:99px;font-weight:600">Contact</span>';
+			echo '<span style="background:#e6e9ec;color:#091925;padding:2px 8px;border-radius:99px;font-weight:600">Contact</span>';
 		}
 		return;
 	}
