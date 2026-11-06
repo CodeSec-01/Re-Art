@@ -58,7 +58,7 @@ css_out = css_out.replace('.reart-of {\n  /*','.reart-of {\n  /*')
 open(f'{outdir}/assets/orderformulier.css','w',encoding='utf-8').write(css_out)
 
 # ---------- markup ----------
-IDS=['start','startTitle','contactView','contactForm','f-cnaam','cnaam','f-cemail','cemail','ctel','cstraat','cpostcode','cplaats','cland','f-cbericht','cbericht','cwebsite','contactSubmit','contactError','contactThanks','contactSentTo','orderView','review','reviewTitle','reviewBody','reviewSend','reviewEdit','sendError','thanksBody','sentTo','closeBtn','orderForm','f-naam','naam','f-datum','datum','f-email','email','tel','straat','postcode','plaats','land','lines','addLine','opmerkingen',
+IDS=['confirmDel','confirmTitle','confirmText','confirmCancel','confirmOk','start','startTitle','contactView','contactForm','f-cnaam','cnaam','f-cemail','cemail','ctel','cstraat','cpostcode','cplaats','cland','f-cbericht','cbericht','cwebsite','contactSubmit','contactError','contactThanks','contactSentTo','orderView','review','reviewTitle','reviewBody','reviewSend','reviewEdit','sendError','thanksBody','sentTo','closeBtn','orderForm','f-naam','naam','f-datum','datum','f-email','email','tel','straat','postcode','plaats','land','lines','addLine','opmerkingen',
      'sumWho','sumLines','sumCount','sumQty','formError','overlay','dlgTitle','orderText','copyBtn','editBtn','newBtn','copied']
 m=body
 # taalkeuze-knoppen alleen in de losse versie; op WordPress bepaalt de site de taal

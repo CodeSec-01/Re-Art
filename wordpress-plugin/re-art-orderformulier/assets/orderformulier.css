@@ -256,7 +256,7 @@
 .reart-of .btn.ghost { border-color: transparent; color: var(--muted); padding: 6px 10px; font-weight: 600; }
 .reart-of .btn.ghost:hover { background: var(--paper); color: var(--danger); }
 .reart-of .add-line { width: 100%; border-style: dashed; }
-.reart-of aside.summary { position: sticky; top: var(--reart-sticky-top, 24px); display: grid; gap: 16px; }
+.reart-of aside.summary { position: relative; display: grid; gap: 16px; will-change: transform; }
 .reart-of .summary .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
 .reart-of .summary h3 { font-family: var(--display); font-weight: 500; font-size: 20px; margin: 0 0 4px; }
 .reart-of .summary .who { color: var(--muted); font-size: 13px; margin-bottom: 14px; min-height: 1em; }
@@ -271,6 +271,19 @@
 .reart-of .pill.todo { background: transparent; color: var(--muted); border: 1px solid var(--line); }
 .reart-of .pill.done { background: var(--ok); color: var(--surface); }
 .reart-of .totals { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); border-top: 1px solid var(--ink); padding-top: 12px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+.reart-of .line-save { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; border-top: 1px solid var(--line); padding-top: 16px; }
+.reart-of .save-btn { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.reart-of .save-btn:hover { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+.reart-of .save-hint { color: var(--danger); font-size: 13px; }
+.reart-of .line-saved { display: flex; align-items: center; gap: 14px; padding: 14px 18px; grid-template-columns: none; }
+.reart-of .saved-check { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; flex: none; }
+.reart-of .saved-txt { display: grid; gap: 2px; flex: 1; min-width: 0; }
+.reart-of .saved-sum { font-weight: 600; font-size: 14.5px; overflow-wrap: anywhere; }
+.reart-of .saved-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.reart-of .btn.small { padding: 8px 14px; font-size: 13px; }
+.reart-of .btn.danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+.reart-of .btn.danger:hover { filter: brightness(1.08); background: var(--danger); }
+.reart-of .dialog.confirm { max-width: 440px; }
 .reart-of .help-box { display: flex; gap: 14px; align-items: center; background: var(--accent); color: var(--accent-ink); border-radius: var(--radius); padding: 16px 18px; }
 .reart-of .help-ic { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.14); display: grid; place-items: center; flex: none; }
 .reart-of .help-txt { display: grid; gap: 2px; font-size: 14px; line-height: 1.4; }
@@ -280,7 +293,7 @@
 .reart-of .help-links a:hover { text-decoration-color: currentColor; }
 .reart-of .help-links a:focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 2px; }
 .reart-of .help-bar { display: none; margin-bottom: 16px; }
-@media (max-width: 900px) { .reart-of .help-side { display: none; } .reart-of .help-bar { display: flex; position: sticky; top: 8px; z-index: 5; padding: 10px 14px; box-shadow: 0 6px 18px rgba(9, 25, 37, .18); } .reart-of .help-bar .help-ic { width: 32px; height: 32px; } .reart-of .help-bar .help-txt { font-size: 13px; } }
+@media (max-width: 900px) { .reart-of .help-side { display: none; } .reart-of .help-bar { display: flex; position: relative; z-index: 5; will-change: transform; padding: 10px 14px; box-shadow: 0 6px 18px rgba(9, 25, 37, .18); } .reart-of .help-bar .help-ic { width: 32px; height: 32px; } .reart-of .help-bar .help-txt { font-size: 13px; } }
 .reart-of .start { display: grid; gap: 34px; margin: 18px 0 20px; }
 .reart-of .start-intro { display: grid; gap: 10px; text-align: center; justify-items: center; }
 .reart-of .start-title { font-family: var(--display); font-weight: 700; font-size: 38px; letter-spacing: -0.015em; color: var(--accent); margin: 0; text-wrap: balance; line-height: 1.15; }

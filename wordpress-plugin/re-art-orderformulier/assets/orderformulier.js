@@ -33,7 +33,7 @@ const I18N = {
     copied: "Gekopieerd", copy_fail: "Kopiëren lukt hier niet; selecteer de tekst handmatig.",
     sent_to: "Een kopie van je aanvraag is verstuurd naar", sending: "Bezig met versturen…", send_fail: "Versturen is niet gelukt.", retry: "Probeer het opnieuw of mail naar",
     choose: "Maak een keuze.", required: "Dit veld is verplicht.",
-    work: "Werk", works: "werken", work1: "werk", piece: "stuk", pieces: "stuks", remove: "Verwijderen",
+    work: "Werk", works: "werken", work1: "werk", piece: "stuk", pieces: "stuks", remove: "Verwijderen", save_line: "Werk opslaan", edit_line: "Bewerken", save_err: "Nog niet alles is ingevuld; de ontbrekende velden zijn rood gemarkeerd.", del_title: "Werk {n} verwijderen?", del_text: "Alle keuzes van dit werk gaan verloren.", del_ok: "Verwijderen", cancel: "Annuleren",
     aantal: "Aantal", aantal_err: "Minimaal 1.", dienst: "Type afwerking of dienst", afwerking: "Afwerking",
     uv: "UV-topcoating", uvType: "Type coating", spannen: "Opspannen", frame: "Type frame", diepte: "Diepte frame",
     paperCat: "Papiersoort", paperType: "Papiertype", type_suffix: " – type", surface: "Type afwerking", help_t: "Hulp nodig?", help_p: "Neem contact met ons op",
@@ -75,7 +75,7 @@ const I18N = {
     copied: "Copied", copy_fail: "Copying is not possible here; please select the text manually.",
     sent_to: "A copy of your request has been sent to", sending: "Sending…", send_fail: "Sending failed.", retry: "Please try again or email",
     choose: "Please make a choice.", required: "This field is required.",
-    work: "Artwork", works: "artworks", work1: "artwork", piece: "piece", pieces: "pieces", remove: "Remove",
+    work: "Artwork", works: "artworks", work1: "artwork", piece: "piece", pieces: "pieces", remove: "Remove", save_line: "Save artwork", edit_line: "Edit", save_err: "Not everything is filled in yet; the missing fields are marked in red.", del_title: "Remove artwork {n}?", del_text: "All choices for this artwork will be lost.", del_ok: "Remove", cancel: "Cancel",
     aantal: "Quantity", aantal_err: "At least 1.", dienst: "Type of finish or service", afwerking: "Finish",
     uv: "UV top coating", uvType: "Coating type", spannen: "Stretching", frame: "Frame type", diepte: "Frame depth",
     paperCat: "Paper category", paperType: "Paper type", type_suffix: " – type", surface: "Surface", help_t: "Need help?", help_p: "Contact us",
@@ -332,7 +332,7 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;",
 const svc = id => SERVICES.find(s => s.id === id);
 
 function chips(l, field, options, legend, wide, info, infoLabel) {
-  const missing = showErrors && !l[field];
+  const missing = (showErrors || l.showErr) && !l[field];
   return `<fieldset class="${missing ? "invalid" : ""}">
     <legend class="legend">${legend} <span class="req">*</span>${info ? infoBtn(info, infoLabel || t("more_info")) : ""}</legend>
     <div class="${wide === "cards" ? "cards" : wide ? "services" : "chips"}">
@@ -351,7 +351,7 @@ function chips(l, field, options, legend, wide, info, infoLabel) {
 }
 
 function textField(l, field, label, placeholder, required) {
-  const missing = required && showErrors && !l[field].trim();
+  const missing = required && (showErrors || l.showErr) && !l[field].trim();
   return `<div class="${missing ? "invalid" : ""}">
     <label class="lbl" for="l${l.id}-${field}">${label}${required ? ' <span class="req">*</span>' : ""}</label>
     <input type="text" id="l${l.id}-${field}" data-line="${l.id}" data-field="${field}" value="${esc(l[field])}" placeholder="${esc(placeholder)}">
@@ -477,7 +477,7 @@ root.addEventListener("focusin", e => {
 });
 
 function sizeField(l) {
-  const missing = showErrors && !l.size.trim();
+  const missing = (showErrors || l.showErr) && !l.size.trim();
   return `<div class="${missing ? "invalid" : ""}">
     <label class="lbl" for="l${l.id}-size">${t("size")} <span class="req">*</span></label>
     <input type="text" id="l${l.id}-size" data-line="${l.id}" data-field="size" value="${esc(l.size)}" placeholder="${esc(t("size_ph"))}">
@@ -559,8 +559,22 @@ function subOptions(l) {
   return `<div class="suboptions">${html}</div>`;
 }
 
+function lineSummary(l) {
+  const parts = [l.dienst ? svc(l.dienst).name : "", (parseInt(l.aantal, 10) || 0) + " ×", l.size.trim()].filter(Boolean);
+  return parts.join(" · ");
+}
 function lineHTML(l, idx) {
-  const aMissing = showErrors && !(parseInt(l.aantal, 10) >= 1);
+  if (l.saved) {
+    return `<div class="line line-saved" data-id="${l.id}">
+      <span class="saved-check" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></span>
+      <div class="saved-txt"><span class="tag">${t("work")} ${idx + 1}</span><span class="saved-sum">${esc(lineSummary(l))}</span></div>
+      <div class="saved-actions">
+        <button type="button" class="btn small" data-edit="${l.id}">${t("edit_line")}</button>
+        ${lines.length > 1 ? `<button type="button" class="btn ghost small" data-remove="${l.id}">${t("remove")}</button>` : ""}
+      </div>
+    </div>`;
+  }
+  const aMissing = (showErrors || l.showErr) && !(parseInt(l.aantal, 10) >= 1);
   return `<div class="line" data-id="${l.id}">
     <div class="line-top">
       <div class="line-title"><span class="tag">${t("work")} ${idx + 1}</span></div>
@@ -575,6 +589,10 @@ function lineHTML(l, idx) {
     </div>
     ${chips(l, "dienst", SERVICES.map(s => ({ value: s.id, label: s.name, sub: s.group.startsWith("g_") ? t(s.group) : s.group })), t("dienst"), true)}
     ${subOptions(l)}
+    <div class="line-save">
+      <button type="button" class="btn save-btn" data-save="${l.id}">${t("save_line")}</button>
+      <span class="save-hint">${(showErrors || l.showErr) && details(l).missing.length ? t("save_err") : ""}</span>
+    </div>
   </div>`;
 }
 
@@ -654,10 +672,9 @@ function renderSummary() {
 }
 
 // Reset dependent fields when a parent choice changes
-const RESETS = {
-  dienst: ["uv", "uvType", "spannen", "frame", "diepte", "paperCat", "paperType", "basicType", "blind", "nummer", "paperFin", "witrand", "plakMat", "ophang", "lijst", "top", "topFinish", "profiel", "diasecType", "scan", "proof", "cert", "certArtist", "certAtelier", "certWeb", "certTitel", "certEditie", "certEA"],
-  uv: ["uvType"], paperFin: ["plakMat", "ophang", "lijst"], plakMat: ["ophang"], cert: ["certArtist", "certAtelier", "certWeb", "certTitel", "certEditie", "certEA"], spannen: ["frame", "diepte"], frame: ["diepte"], paperCat: ["paperType"], top: ["topFinish"]
-};
+// Keuzes blijven bewaard bij wisselen van product; alleen waar de opties echt anders worden,
+// moet de vervolgkeuze opnieuw (papiersoort -> papiertype, type frame -> diepte).
+const RESETS = { frame: ["diepte"], paperCat: ["paperType"] };
 
 $("lines").addEventListener("change", e => {
   const t = e.target;
@@ -682,13 +699,44 @@ $("lines").addEventListener("input", e => {
   renderSummary();
 });
 $("lines").addEventListener("click", e => {
-  const id = e.target.dataset && e.target.dataset.remove;
-  if (!id) return;
-  lines = lines.filter(l => l.id !== +id);
-  renderLines();
+  const b = e.target.closest("[data-save],[data-edit],[data-remove]"); if (!b) return;
+  if (b.dataset.save) {
+    const l = lines.find(x => x.id === +b.dataset.save);
+    if (details(l).missing.length) {
+      l.showErr = true; renderLines();
+      const first = document.querySelector(`.line[data-id="${l.id}"] .invalid`);
+      if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    l.saved = true; l.showErr = false; renderLines();
+    const el = document.querySelector(`.line[data-id="${l.id}"]`); if (el) el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  } else if (b.dataset.edit) {
+    const l = lines.find(x => x.id === +b.dataset.edit); l.saved = false; renderLines();
+    const el = document.querySelector(`.line[data-id="${l.id}"]`); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  } else if (b.dataset.remove) {
+    askRemove(+b.dataset.remove);
+  }
+});
+// Melding voordat een werk wordt verwijderd
+let pendingRemove = null;
+function askRemove(id) {
+  pendingRemove = id;
+  const idx = lines.findIndex(l => l.id === id);
+  $("confirmTitle").textContent = t("del_title").replace("{n}", idx + 1);
+  $("confirmText").textContent = t("del_text");
+  $("confirmDel").classList.add("show");
+  $("confirmCancel").focus();
+}
+const closeConfirm = () => { $("confirmDel").classList.remove("show"); pendingRemove = null; };
+$("confirmCancel").addEventListener("click", closeConfirm);
+$("confirmOk").addEventListener("click", () => {
+  if (pendingRemove !== null) { lines = lines.filter(l => l.id !== pendingRemove); renderLines(); }
+  closeConfirm();
 });
 $("addLine").addEventListener("click", () => {
+  lines.forEach(x => { if (!x.saved && !details(x).missing.length) x.saved = true; });
   const l = blank(); lines.push(l); renderLines(`l${l.id}-aantal`);
+  const el = document.querySelector(`.line[data-id="${l.id}"]`); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 $("datum").addEventListener("input", e => {
   if (e.target.value) $("f-datum").classList.remove("invalid");
@@ -748,6 +796,7 @@ function validateForm() {
   $("f-naam").classList.toggle("invalid", !naamOk);
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("email").value.trim());
   $("f-email").classList.toggle("invalid", !emailOk);
+  lines.forEach(l => { if (details(l).missing.length) l.saved = false; });
   renderLines();
   const linesOk = lines.every(l => details(l).missing.length === 0);
   const err = $("formError");
@@ -815,9 +864,49 @@ $("closeBtn").addEventListener("click", closeDlg);
 $("newBtn").addEventListener("click", closeDlg);
 document.addEventListener("keydown", e => {
   if (e.key !== "Escape") return;
-  if ($("review").classList.contains("show")) closeReview();
+  if ($("confirmDel").classList.contains("show")) closeConfirm();
+  else if ($("review").classList.contains("show")) closeReview();
   else if ($("overlay").classList.contains("show")) closeDlg();
 });
+
+// ---- Meeschuiven: houdt "Hulp nodig" en het overzicht in beeld, ook als het thema
+// position: sticky blokkeert. Houdt rekening met een vaste menubalk van de website.
+let stickTop = 0;
+const formArea = root === document.body ? document.querySelector(".wrap") : root;
+function measureHeader() {
+  let bottom = 0;
+  document.querySelectorAll("body *").forEach(el => {
+    if (formArea.contains(el) || el.closest(".overlay") || el.offsetWidth < window.innerWidth * 0.5) return;
+    const cs = getComputedStyle(el);
+    if (cs.position !== "fixed" && cs.position !== "sticky") return;
+    if (cs.display === "none" || cs.visibility === "hidden") return;
+    const r = el.getBoundingClientRect();
+    if (r.top <= 2 && r.height > 0 && r.height < 220) bottom = Math.max(bottom, r.bottom);
+  });
+  stickTop = Math.round(bottom);
+}
+function follow(el, box, gap) {
+  if (!el || !box || el.offsetParent === null) { if (el) el.style.transform = ""; return; }
+  el.style.transform = "";
+  const b = box.getBoundingClientRect(), e = el.getBoundingClientRect();
+  const want = stickTop + gap - e.top;
+  const max = b.bottom - e.bottom;
+  const y = Math.max(0, Math.min(want, max));
+  el.style.transform = y ? `translateY(${y}px)` : "";
+}
+let followQueued = false;
+function followAll() {
+  followQueued = false;
+  const aside = root.querySelector("aside.summary");
+  follow(aside, aside && aside.parentElement, 20);
+  const bar = root.querySelector(".help-bar");
+  follow(bar, bar && bar.parentElement, 8);
+}
+const queueFollow = () => { if (!followQueued) { followQueued = true; requestAnimationFrame(followAll); } };
+window.addEventListener("scroll", queueFollow, { passive: true });
+window.addEventListener("resize", () => { measureHeader(); queueFollow(); });
+new MutationObserver(queueFollow).observe(root, { childList: true, subtree: true });
+measureHeader(); setTimeout(() => { measureHeader(); queueFollow(); }, 800);
 
 // ---- Startscherm en contactformulier ----
 function setMode(mode) {

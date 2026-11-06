@@ -39,6 +39,8 @@ Bij alle afwerkingen behalve de scan volgt de vraag **Certificaat: ja / nee**. B
 
 Bij elk product staat een knop **Meer info** met een pop-up in de stijl van de brochure: uitleg, prijzen, tips van het team en foto's van de afwerkingen.
 
+Per werk blijven de keuzes bewaard als de klant van product wisselt. Met **Werk opslaan** klapt een compleet werk in tot één regel (Bewerken / Verwijderen); verwijderen vraagt eerst om bevestiging.
+
 Bij "02 Je aanvraag" staat een hulpvak **"Hulp nodig? Neem contact met ons op"** met telefoon en e-mail; het blijft in beeld tijdens het invullen.
 
 Na **Aanvraag controleren & afronden** verschijnt eerst het scherm **Controleer je aanvraag** met het volledige overzicht. Pas na **Aanvraag versturen** wordt de aanvraag verstuurd en volgt het bedankscherm met het aanvraagnummer (RE-jjmmdd-0001, per dag oplopend).

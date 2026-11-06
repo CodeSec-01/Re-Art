@@ -206,6 +206,17 @@ defined( 'ABSPATH' ) || exit;
   <div class="dialog ib"></div>
 </div>
 
+<div class="overlay" id="ro-confirmDel" role="alertdialog" aria-modal="true" aria-labelledby="ro-confirmTitle" aria-describedby="confirmText">
+  <div class="dialog confirm">
+    <h3 id="ro-confirmTitle">Werk verwijderen?</h3>
+    <p class="thanks" id="ro-confirmText">Alle keuzes van dit werk gaan verloren.</p>
+    <div class="actions">
+      <button type="button" class="btn" id="ro-confirmCancel" data-t="cancel">Annuleren</button>
+      <button type="button" class="btn danger" id="ro-confirmOk" data-t="del_ok">Verwijderen</button>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="ro-review" role="dialog" aria-modal="true" aria-labelledby="ro-reviewTitle">
   <div class="dialog">
     <h3 id="ro-reviewTitle" data-t="rv_title">Controleer je aanvraag</h3>

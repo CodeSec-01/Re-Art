@@ -2,7 +2,7 @@
 Contributors: re-art
 Requires at least: 6.0
 Requires PHP: 7.4
-Stable tag: 1.5.1
+Stable tag: 1.6.0
 License: GPLv2 or later
 
 Interactief orderformulier van Re-Art – Special Art productions, met live certificaat-voorbeeld.
@@ -25,6 +25,12 @@ Interactief orderformulier van Re-Art – Special Art productions, met live cert
 4. Stel bij Instellingen → Privacy de privacyverklaring in; het formulier linkt daar automatisch naar.
 
 == Changelog ==
+
+= 1.6.0 =
+* Keuzes blijven bewaard bij wisselen van product (alleen papiertype en framediepte opnieuw kiezen bij andere papiersoort of ander frame).
+* Knop "Werk opslaan": controleert het werk en klapt het in tot een overzichtsregel met Bewerken en Verwijderen.
+* Melding "Werk verwijderen?" voordat een werk wordt verwijderd.
+* "Hulp nodig" en het aanvraagoverzicht blijven in beeld, ook met thema's die dat normaal blokkeren; vaste menubalk wordt herkend.
 
 = 1.5.1 =
 * Huisstijlblauw #091925 in formulier, pop-ups, mails en PDF.
