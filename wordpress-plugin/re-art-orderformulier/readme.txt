@@ -2,7 +2,7 @@
 Contributors: re-art
 Requires at least: 6.0
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.4.2
 License: GPLv2 or later
 
 Interactief orderformulier van Re-Art – Special Art productions, met live certificaat-voorbeeld.
@@ -25,6 +25,26 @@ Interactief orderformulier van Re-Art – Special Art productions, met live cert
 4. Stel bij Instellingen → Privacy de privacyverklaring in; het formulier linkt daar automatisch naar.
 
 == Changelog ==
+
+= 1.4.2 =
+* Links naar re-art.com ook bij proofing (Na de scan) en bij de papieren.
+* Maximaal formaat bij HD Finish (120 x 240 cm) en HD Decor (146 x 296 cm).
+
+= 1.4.1 =
+* Diasec-info zonder prijs, tip van Sebastian.
+* Links naar re-art.com (nieuw tabblad) bij HD Finish, HD Decor, Cruse Fine Art Scan en Diasec.
+
+= 1.4.0 =
+* Nieuw product Diasec (Gloss / Mat / TruLife) met "Meer info over Diasec".
+* Bevestigingstekst en klantmail: "offerte of opdrachtbevestiging".
+
+= 1.3.0 =
+* Controlescherm "Controleer je aanvraag" voordat de aanvraag wordt verstuurd; overzicht in de huisstijl i.p.v. codelettertype.
+* Datum wordt automatisch ingevuld (dag van insturen).
+* Aanvraagnummer RE-jjmmdd-0001, per dag oplopend vanaf 0001.
+* Overal "je" in plaats van "u" (formulier en klantmail).
+* Papier: vraag "Witrand" met "Tip van Re-Art".
+* Scan: "Standaard scan" (was LR); Superscan vervallen.
 
 = 1.2.0 =
 * Overal "aanvraag" in plaats van "order" (formulier, mails en beheer; menu heet nu "Aanvragen").

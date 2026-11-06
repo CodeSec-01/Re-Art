@@ -20,22 +20,21 @@ defined( 'ABSPATH' ) || exit;
     <div class="grid">
       <div class="sheet stack">
         <section>
-          <div class="section-head"><span class="num">01</span><h2 data-t="s1">Uw gegevens</h2></div>
+          <div class="section-head"><span class="num">01</span><h2 data-t="s1">Je gegevens</h2></div>
           <div class="fields">
             <div class="full" id="ro-f-naam">
               <label class="lbl" for="ro-naam" data-t="naam">Naam / bedrijfsnaam <span class="req">*</span></label>
               <input type="text" id="ro-naam" autocomplete="organization" data-tp="naam_ph" placeholder="Bijv. Galerie Noord of Jan de Vries">
-              <div class="err" data-t="naam_err">Vul uw naam of bedrijfsnaam in.</div>
+              <div class="err" data-t="naam_err">Vul je naam of bedrijfsnaam in.</div>
             </div>
             <div id="ro-f-datum">
-              <label class="lbl" for="ro-datum" data-t="datum">Datum <span class="req">*</span></label>
-              <input type="date" id="ro-datum">
-              <div class="err" data-t="datum_err">Vul de datum van vandaag in.</div>
+              <label class="lbl" for="ro-datum" data-t="datum">Datum</label>
+              <input type="date" id="ro-datum" readonly tabindex="-1" aria-readonly="true">
             </div>
             <div id="ro-f-email">
               <label class="lbl" for="ro-email" data-t="email">E-mailadres <span class="req">*</span></label>
               <input type="email" id="ro-email" autocomplete="email" data-tp="email_ph" placeholder="naam@voorbeeld.nl">
-              <div class="err" data-t="email_err">Vul een geldig e-mailadres in; hierop ontvangt u de opdrachtbevestiging.</div>
+              <div class="err" data-t="email_err">Vul een geldig e-mailadres in; hierop ontvang je de offerte of opdrachtbevestiging.</div>
             </div>
             <div class="full">
               <label class="lbl" for="ro-tel" data-t="tel">Telefoonnummer</label>
@@ -61,7 +60,7 @@ defined( 'ABSPATH' ) || exit;
         </section>
 
         <section>
-          <div class="section-head"><span class="num">02</span><h2 data-t="s2">Uw aanvraag</h2></div>
+          <div class="section-head"><span class="num">02</span><h2 data-t="s2">Je aanvraag</h2></div>
           <div class="stack" id="ro-lines" style="gap:16px"></div>
           <div style="margin-top:16px"><button type="button" class="btn add-line" id="ro-addLine" data-t="addLine">+ Nog een werk toevoegen</button></div>
         </section>
@@ -91,7 +90,7 @@ defined( 'ABSPATH' ) || exit;
   </form>
 
   <footer>
-    <span>Re-Art · Almere<?php if ( $reart_of_privacy ) : ?> · <?php echo 'en' === $reart_of_lang ? 'We only use your details to process your request.' : 'Wij gebruiken uw gegevens alleen om uw aanvraag te verwerken.'; ?> <a href="<?php echo esc_url( $reart_of_privacy ); ?>"><?php echo 'en' === $reart_of_lang ? 'Privacy policy' : 'Privacyverklaring'; ?></a><?php endif; ?></span>
+    <span>Re-Art · Almere<?php if ( $reart_of_privacy ) : ?> · <?php echo 'en' === $reart_of_lang ? 'We only use your details to process your request.' : 'We gebruiken je gegevens alleen om je aanvraag te verwerken.'; ?> <a href="<?php echo esc_url( $reart_of_privacy ); ?>"><?php echo 'en' === $reart_of_lang ? 'Privacy policy' : 'Privacyverklaring'; ?></a><?php endif; ?></span>
     <span data-t="footer_req">Velden met <span class="req">*</span> zijn verplicht</span>
   </footer>
 </div>
@@ -100,14 +99,26 @@ defined( 'ABSPATH' ) || exit;
   <div class="dialog ib"></div>
 </div>
 
+<div class="overlay" id="ro-review" role="dialog" aria-modal="true" aria-labelledby="ro-reviewTitle">
+  <div class="dialog">
+    <h3 id="ro-reviewTitle" data-t="rv_title">Controleer je aanvraag</h3>
+    <p class="thanks" data-t="rv_text">Kloppen alle gegevens? Verstuur dan je aanvraag. Wil je nog iets wijzigen, ga dan terug naar het formulier.</p>
+    <div class="sum-doc" id="ro-reviewBody"></div>
+    <div class="form-error" id="ro-sendError"></div>
+    <div class="actions">
+      <button type="button" class="btn primary" id="ro-reviewSend" data-t="rv_send">Aanvraag versturen</button>
+      <button type="button" class="btn" id="ro-reviewEdit" data-t="rv_edit">Terug naar formulier</button>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="ro-overlay" role="dialog" aria-modal="true" aria-labelledby="ro-dlgTitle">
   <div class="dialog">
     <div class="thanks-mark" aria-hidden="true">✓</div>
     <h3 id="ro-dlgTitle" data-t="dlg_title">Bedankt voor het invullen van het aanvraagformulier</h3>
-    <p class="thanks" data-t="dlg_text">Wij verwerken uw aanvraag in ons systeem en sturen u een opdrachtbevestiging met daarin de kosten en de levertijd. Mochten wij nog vragen hebben, dan nemen wij per e-mail contact met u op.</p>
-    <p class="sent" style="margin:0;color:var(--muted)"><span data-t="sent_to">Een kopie van uw aanvraag is verstuurd naar</span> <strong id="ro-sentTo"></strong>.</p>
-    <div class="legend" style="margin:6px 0 -8px" data-t="dlg_sum">Uw aanvraagoverzicht</div>
-    <pre id="ro-orderText"></pre>
+    <p class="thanks" data-t="dlg_text">We verwerken je aanvraag in ons systeem en sturen je een offerte of opdrachtbevestiging met daarin de kosten en de levertijd. Hebben we nog vragen, dan nemen we per e-mail contact met je op.</p>
+    <p class="sent" style="margin:0;color:var(--muted)"><span data-t="sent_to">Een kopie van je aanvraag is verstuurd naar</span> <strong id="ro-sentTo"></strong>.</p>
+    <div class="sum-doc" id="ro-thanksBody"></div>
     <div class="actions">
       <button type="button" class="btn primary" id="ro-newBtn" data-t="new">Nieuwe aanvraag</button>
       <button type="button" class="btn" id="ro-closeBtn" data-t="close">Sluiten</button>

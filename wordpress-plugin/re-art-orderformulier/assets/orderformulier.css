@@ -133,7 +133,8 @@
 .reart-of .ib-table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
 .reart-of .ib-table td { padding: 9px 10px 9px 0; border-top: 1px solid var(--line); vertical-align: baseline; }
 .reart-of .ib-table td:first-child { color: var(--muted); }
-.reart-of .ib-table td:nth-child(2) b { font-size: 17px; color: var(--ink); }
+.reart-of .ib-table td:nth-child(2) { white-space: nowrap; }
+.reart-of .ib-table td:nth-child(2) b { font-size: 16px; color: var(--ink); }
 .reart-of .ib-table td:last-child { color: var(--muted); font-size: 12px; }
 .reart-of .ib-prices td:first-child { color: var(--ink); }
 .reart-of .ib-prices td:last-child { text-align: right; white-space: nowrap; font-size: 15px; font-weight: 700; color: var(--ink); }
@@ -154,11 +155,14 @@
 .reart-of .ib-finish figcaption { font-size: 12px; line-height: 1.4; color: var(--muted); margin-top: 6px; }
 .reart-of .ib-finish figcaption b { display: block; color: var(--ink); font-size: 13px; }
 .reart-of .ib-tip { display: flex; gap: 10px; align-items: flex-start; }
+.reart-of .ib-av { width: 46px; height: 46px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; flex: none; }
+.reart-of .ib-av .info-logo { width: 34px; }
 .reart-of .ib-tip img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; flex: none; }
 .reart-of .ib-bubble { background: var(--accent); color: #fff; border-radius: 4px 14px 14px 14px; padding: 12px 15px; font-size: 13.5px; line-height: 1.55; flex: 1; }
 .reart-of .ib-who { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 4px; font-size: 12px; opacity: .95; }
 .reart-of .ib-who b { font-size: 13px; }
 .reart-of .ib-who em { font-style: normal; font-weight: 700; font-size: 11px; background: #fff; color: var(--accent); border-radius: 99px; padding: 2px 9px; white-space: nowrap; }
+.reart-of .ib-link { font-weight: 700; font-size: 14px; color: var(--accent); text-underline-offset: 3px; }
 .reart-of .ib-foot { display: flex; flex-wrap: wrap; gap: 6px 22px; padding: 14px 26px 18px; margin-top: 10px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--muted); }
 @media (max-width: 560px) { .reart-of .ib-rows, .reart-of .ib-sw { grid-template-columns: 1fr; } .reart-of .ib-main { padding: 20px 18px 6px; } .reart-of .ib-hero img { height: 180px; } }
 .reart-of .lang-switch { display: flex; gap: 2px; font-size: 12px; font-weight: 700; letter-spacing: .08em; }
@@ -204,6 +208,7 @@
 }
 .reart-of textarea { min-height: 80px; resize: vertical; }
 .reart-of input:focus, .reart-of textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); background: var(--surface); }
+.reart-of .reart-ro, .reart-of input[readonly] { color: var(--muted); cursor: default; background: transparent !important; border-style: dashed !important; box-shadow: none !important; }
 .reart-of .invalid input, .reart-of .invalid textarea { border-color: var(--danger); }
 .reart-of .err { color: var(--danger); font-size: 13px; margin-top: 6px; display: none; }
 .reart-of .invalid .err { display: block; }
@@ -271,6 +276,16 @@
 .reart-of .overlay.show { display: flex; }
 .reart-of .dialog { background: var(--surface); color: var(--ink); max-width: 560px; width: 100%; max-height: 90%; overflow: auto; border-radius: var(--radius); padding: 28px; display: grid; gap: 16px; }
 .reart-of .dialog h3 { font-family: var(--display); font-weight: 500; font-size: 26px; margin: 0; }
+.reart-of .sum-doc { border: 1px solid var(--line); border-radius: 8px; background: var(--paper); padding: 4px 16px 12px; max-height: 46vh; overflow: auto; font-size: 14px; }
+.reart-of .sum-doc h4 { margin: 14px 0 6px; font-size: 13px; font-weight: 700; color: var(--accent); display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--line); padding-bottom: 5px; }
+.reart-of .sum-doc h4 span { font-variant-numeric: tabular-nums; }
+.reart-of .sum-doc dl { margin: 0; display: grid; grid-template-columns: minmax(110px, 38%) 1fr; gap: 3px 14px; }
+.reart-of .sum-doc dt { color: var(--muted); }
+.reart-of .sum-doc dd { margin: 0; overflow-wrap: anywhere; }
+.reart-of .sum-doc .sd-no { font-size: 12px; color: var(--muted); margin: 10px 0 0; }
+.reart-of .sum-doc .sd-no b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.reart-of .sum-doc p { margin: 0; white-space: pre-wrap; }
+.reart-of .dialog .form-error { text-align: left; }
 .reart-of .dialog pre { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 14px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12.5px; white-space: pre-wrap; margin: 0; max-height: 46vh; overflow: auto; }
 .reart-of .dialog .actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .reart-of .dialog .actions .btn.primary { width: auto; }

@@ -24,7 +24,7 @@ N_WORKS = 3
 MAILTO = "info@re-art.com"
 
 # ---------------------------------------------------------------- keuzes
-PRODUCTS = ["Certified Canvas", "Basic Canvas", "Certified Paper", "Basic Paper", "HD Finish", "HD Decor", "Cruse Fine Art Scan"]
+PRODUCTS = ["Certified Canvas", "Basic Canvas", "Certified Paper", "Basic Paper", "HD Finish", "HD Decor", "Diasec", "Cruse Fine Art Scan"]
 YN = ["Ja", "Nee"]
 MATTE = ["Hahnemühle Photo Rag 308 gsm", "Hahnemühle German Etching 310 gsm", "Hahnemühle White Etching 270 gsm"]
 PHOTO = ["Hahnemühle Fine Art Baryta Satin 300 gsm", "Hahnemühle Photo Rag Satin 310 gsm"]
@@ -51,7 +51,8 @@ def paper_fields(prefix, certified):
           (f"{prefix}_fin", "Afwerking", FIN, 0, 2, "true"),
           (f"{prefix}_plak", "Opplakken op", PLAK, 1, 2, f"V('{prefix}_fin')=='Opgeplakt'"),
           (f"{prefix}_lijst", "Lijst", LIJST, 1, 2, f"V('{prefix}_fin')=='Ingelijst'"),
-          (f"{prefix}_oph", "Ophanging", OPHANG, 1, 3, f"V('{prefix}_fin')=='Opgeplakt' && V('{prefix}_plak')!=CH")]
+          (f"{prefix}_oph", "Ophanging", OPHANG, 1, 3, f"V('{prefix}_fin')=='Opgeplakt' && V('{prefix}_plak')!=CH"),
+          (f"{prefix}_wit", "Witrand", YN, 0, 3, "true")]
     return f
 
 def canvas_fields(prefix):
@@ -67,13 +68,14 @@ def hd_fields(prefix):
             (f"{prefix}_topf", "Afwerking white surface", ["Gloss", "Matt"], 1, 0, f"V('{prefix}_top')=='White surface'"),
             (f"{prefix}_prof", "Type ophangprofiel", ["Geen", "15 mm", "25 mm"], 0, 1, "true")]
 
-SCAN = [("sc_type", "Type scan", ["LR", "Texture", "Superscan", "3D"], 0, 0, "true"),
+SCAN = [("sc_type", "Type scan", ["Standaard scan", "Texture", "3D"], 0, 0, "true"),
         ("sc_after", "Na de scan", ["Digitaal bestand", "Digitaal bestand + voorbereid", "Kleurproofing"], 1, 0, "true")]
 
 PRODUCT_FIELDS = {
     "Certified Canvas": canvas_fields("cc"), "Basic Canvas": canvas_fields("bc"),
     "Certified Paper": paper_fields("cp", True), "Basic Paper": paper_fields("bp", False),
-    "HD Finish": hd_fields("hf"), "HD Decor": hd_fields("hdd"), "Cruse Fine Art Scan": SCAN,
+    "HD Finish": hd_fields("hf"), "HD Decor": hd_fields("hdd"),
+    "Diasec": [("dsc_type", "Uitvoering", ["Gloss", "Mat", "TruLife"], 0, 0, "true")], "Cruse Fine Art Scan": SCAN,
 }
 
 # ---------------------------------------------------------------- tekenen
@@ -131,18 +133,18 @@ def choice(name, label, options, x, y, w, hidden, tip=None):
 header("Special Art productions")
 y = H - 112
 c.setFillColor(INK); c.setFont("Helvetica", 9.5)
-intro = ["Vul uw gegevens in en daarna per werk één pagina (maximaal drie werken).",
-         "De vragen passen zich aan uw keuzes aan. Klaar? Klik op ‘Aanvraag versturen’: de PDF wordt",
+intro = ["Vul je gegevens in en daarna per werk één pagina (maximaal drie werken).",
+         "De vragen passen zich aan je keuzes aan. Klaar? Klik op ‘Aanvraag versturen’: de PDF wordt",
          f"gecontroleerd en als bijlage in een nieuwe e-mail aan {MAILTO} gezet."]
 for i, line in enumerate(intro):
     c.drawString(40, y - i * 13, line)
 y -= 62
-section("01", "Uw gegevens", y)
+section("01", "Je gegevens", y)
 col2 = 40 + (W - 80) / 2 + 8
 fw = (W - 80) / 2 - 8
 rows = [
     [("naam", "Naam / bedrijfsnaam", True, W - 80)],
-    [("datum", "Datum (dd-mm-jjjj)", True, fw), ("email", "E-mailadres", True, fw)],
+    [("datum", "Datum (wordt automatisch ingevuld)", False, fw), ("email", "E-mailadres", True, fw)],
     [("tel", "Telefoonnummer", False, W - 80)],
     [("straat", "Straat en huisnummer", False, W - 80)],
     [("postcode", "Postcode", False, fw), ("plaats", "Plaats", False, fw)],
@@ -181,9 +183,9 @@ ROW_H = 46
 for n in range(1, N_WORKS + 1):
     header(f"Werk {n}")
     y = H - 112
-    section("02", f"Uw aanvraag – werk {n}", y)
+    section("02", f"Je aanvraag – werk {n}", y)
     c.setFillColor(MUTED); c.setFont("Helvetica", 8.5)
-    c.drawString(66, y - 16, "Laat deze pagina leeg als u geen werk " + str(n) + " aanvraagt." if n > 1 else "Vul minimaal dit eerste werk in.")
+    c.drawString(66, y - 16, "Laat deze pagina leeg als je geen werk " + str(n) + " aanvraagt." if n > 1 else "Vul minimaal dit eerste werk in.")
     y -= 44
     static_label("Aantal", 40, y, True)
     text_input(f"w{n}_aantal", "Aantal", 40, y - 24, 70, req=False)
@@ -200,7 +202,8 @@ for n in range(1, N_WORKS + 1):
             name = f"w{n}_{key}"
             x = GRID_X[col] + (4 if col == 0 else 0); yy = OPT_TOP - row * ROW_H
             label_field(name, label, x, yy, fw - 4, True, SOFT)
-            choice(name, label, opts, x, yy - 24, fw - 4, True)
+            choice(name, label, opts, x, yy - 24, fw - 4, True,
+                   tip="Tip van Re-Art: we adviseren 5 cm witrand, zodat er ruimte is om te nummeren, te signeren en een blindpreeg te plaatsen." if key.endswith("_wit") else None)
     # titel & formaat
     y = box_bottom - 26
     label_field(f"w{n}_size", "Titel & formaat kunstwerk", 40, y, W - 80, True)
@@ -276,7 +279,7 @@ function reartUpdate() {
 }
 function reartCheck() {
   var miss = [];
-  var req = [["naam", "Naam / bedrijfsnaam"], ["datum", "Datum"], ["email", "E-mailadres"]];
+  var req = [["naam", "Naam / bedrijfsnaam"], ["email", "E-mailadres"]];
   for (var i = 0; i < req.length; i++) if (V(req[i][0]).replace(/\s/g, "") == "") miss.push(req[i][1]);
   var em = V("email");
   if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) miss.push("E-mailadres is ongeldig");
@@ -318,9 +321,14 @@ function reartSend() {
 }
 function reartReset() {
   if (app.alert({ cMsg: "Weet u zeker dat u het hele formulier wilt leegmaken?", nIcon: 2, nType: 2 }) == 4) {
-    this.resetForm(); reartUpdate();
+    this.resetForm(); reartToday(); reartUpdate();
   }
 }
+function reartToday() {
+  var f = this.getField("datum");
+  if (f && f.valueAsString == "") f.value = util.printd("dd-mm-yyyy", new Date());
+}
+reartToday();
 reartUpdate();
 """.replace("%CH%", CH).replace("%N%", str(N_WORKS)).replace("%SPEC%", json.dumps(spec)).replace("%MAILTO%", MAILTO)
 
@@ -334,7 +342,7 @@ def js(code):
 # document-JavaScript
 names = pikepdf.Dictionary(JavaScript=pikepdf.Dictionary(Names=pikepdf.Array([pikepdf.String("ReArt"), js(doc_js)])))
 pdf.Root.Names = names
-pdf.Root.OpenAction = js("reartUpdate();")
+pdf.Root.OpenAction = js("reartToday(); reartUpdate();")
 
 for name, f in fields.items():
     flags = int(f.get("/F", 4))
@@ -355,7 +363,7 @@ for name, f in fields.items():
         f.MK = mk
         f.A = js("reartSend();" if "send" in name else "reartReset();")
     if name == "datum":
-        f.AA = pikepdf.Dictionary(F=js('AFDate_FormatEx("dd-mm-yyyy");'), K=js('AFDate_KeystrokeEx("dd-mm-yyyy");'))
+        f.Ff = int(f.get("/Ff", 0)) | 1   # alleen-lezen: datum wordt automatisch ingevuld
     if name.endswith("_aantal"):
         f.AA = pikepdf.Dictionary(K=js("AFNumber_Keystroke(0, 0, 0, 0, '', true);"), F=js("AFNumber_Format(0, 0, 0, 0, '', true);"))
 

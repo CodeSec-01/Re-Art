@@ -9,10 +9,10 @@ const $ = id => document.getElementById("ro-" + id);
 let LANG = (window.REARTOF && window.REARTOF.lang) || (location.hash === "#en" ? "en" : "nl");
 const I18N = {
   nl: {
-    title: "Aanvraagformulier", s1: "Uw gegevens", s2: "Uw aanvraag", s3: "Opmerkingen",
-    naam: 'Naam / bedrijfsnaam <span class="req">*</span>', naam_ph: "Bijv. Galerie Noord of Jan de Vries", naam_err: "Vul uw naam of bedrijfsnaam in.",
-    datum: 'Datum <span class="req">*</span>', datum_err: "Vul de datum van vandaag in.",
-    email: 'E-mailadres <span class="req">*</span>', email_ph: "naam@voorbeeld.nl", email_err: "Vul een geldig e-mailadres in; hierop ontvangt u de opdrachtbevestiging.",
+    title: "Aanvraagformulier", s1: "Je gegevens", s2: "Je aanvraag", s3: "Opmerkingen",
+    naam: 'Naam / bedrijfsnaam <span class="req">*</span>', naam_ph: "Bijv. Galerie Noord of Jan de Vries", naam_err: "Vul je naam of bedrijfsnaam in.",
+    datum: "Datum",
+    email: 'E-mailadres <span class="req">*</span>', email_ph: "naam@voorbeeld.nl", email_err: "Vul een geldig e-mailadres in; hierop ontvang je de offerte of opdrachtbevestiging.",
     tel: "Telefoonnummer", tel_ph: "06 12345678",
     straat: "Straat en huisnummer", straat_ph: "Bijv. Kunstlaan 12", postcode: "Postcode", postcode_ph: "1234 AB",
     plaats: "Plaats", plaats_ph: "Bijv. Almere", land: "Land", land_ph: "Bijv. Nederland",
@@ -22,21 +22,21 @@ const I18N = {
     form_err: "Niet alles is ingevuld. De ontbrekende velden zijn rood gemarkeerd.",
     footer_req: 'Velden met <span class="req">*</span> zijn verplicht',
     dlg_title: "Bedankt voor het invullen van het aanvraagformulier",
-    dlg_text: "Wij verwerken uw aanvraag in ons systeem en sturen u een opdrachtbevestiging met daarin de kosten en de levertijd. Mochten wij nog vragen hebben, dan nemen wij per e-mail contact met u op.",
-    dlg_sum: "Uw aanvraagoverzicht", copy: "Kopieer aanvraagoverzicht", edit: "Aanvraag aanpassen", new: "Nieuwe aanvraag", close: "Sluiten",
+    dlg_text: "We verwerken je aanvraag in ons systeem en sturen je een offerte of opdrachtbevestiging met daarin de kosten en de levertijd. Hebben we nog vragen, dan nemen we per e-mail contact met je op.",
+    dlg_sum: "Je aanvraagoverzicht", rv_title: "Controleer je aanvraag", rv_text: "Kloppen alle gegevens? Verstuur dan je aanvraag. Wil je nog iets wijzigen, ga dan terug naar het formulier.", rv_send: "Aanvraag versturen", rv_edit: "Terug naar formulier", t_no: "Aanvraagnummer", copy: "Kopieer aanvraagoverzicht", edit: "Aanvraag aanpassen", new: "Nieuwe aanvraag", close: "Sluiten",
     copied: "Gekopieerd", copy_fail: "Kopiëren lukt hier niet; selecteer de tekst handmatig.",
-    sent_to: "Een kopie van uw aanvraag is verstuurd naar", sending: "Bezig met versturen…", send_fail: "Versturen is niet gelukt.", retry: "Probeer het opnieuw of mail naar",
+    sent_to: "Een kopie van je aanvraag is verstuurd naar", sending: "Bezig met versturen…", send_fail: "Versturen is niet gelukt.", retry: "Probeer het opnieuw of mail naar",
     choose: "Maak een keuze.", required: "Dit veld is verplicht.",
     work: "Werk", works: "werken", work1: "werk", piece: "stuk", pieces: "stuks", remove: "Verwijderen",
     aantal: "Aantal", aantal_err: "Minimaal 1.", dienst: "Type afwerking of dienst", afwerking: "Afwerking",
     uv: "UV-topcoating", uvType: "Type coating", spannen: "Opspannen", frame: "Type frame", diepte: "Diepte frame",
     paperCat: "Papiersoort", paperType: "Papiertype", type_suffix: " – type", surface: "Surface",
     topFinish_q: "Afwerking white surface", profiel_q: "Type ophangprofiel", profiel: "Ophangprofiel",
-    scan: "Type scan", proof: "Na de scan", more_info: "Meer info", more_about: "Meer info over", info_kicker: "Productinformatie", excl: "excl. btw", info_note: "Prijzen zijn exclusief btw. Liever zien en voelen? Tijdens een informatiegesprek laten we alle materialen in het echt zien.", blind: "Blindpreeg", nummer: "Nummeren", paperFin: "Afwerking", plakMat: "Opplakken op", ophang: "Ophanging", lijst: "Lijst", product: "Product", cert: "Certificaat",
+    scan: "Type scan", proof: "Na de scan", more_info: "Meer info", more_about: "Meer info over", info_kicker: "Productinformatie", excl: "excl. btw", info_note: "Prijzen zijn exclusief btw. Liever zien en voelen? Tijdens een informatiegesprek laten we alle materialen in het echt zien.", blind: "Blindpreeg", nummer: "Nummeren", paperFin: "Afwerking", witrand: "Witrand", diasecType: "Uitvoering", tip_reart: "Tip van Re-Art", plakMat: "Opplakken op", ophang: "Ophanging", lijst: "Lijst", product: "Product", cert: "Certificaat",
     certArtist: "Naam kunstenaar", certArtist_ph: "Zoals op het certificaat", certAtelier: "Naam atelier (optioneel)", certAtelier_ph: "Bijv. Atelier Noord", atelier: "Atelier", certWeb: "Website kunstenaar", certWeb_ph: "Bijv. www.naamkunstenaar.nl",
     certTitel: "Titel werk", certTitel_ph: "Titel zoals op het certificaat", certEditie: "Editie (oplage)", certEditie_ph: "Bijv. 50",
     certEA: "EA (artist proofs, optioneel)", certEA_ph: "Bijv. 5",
-    cert_preview: "Voorbeeld certificaat", cert_cap: "Zo ziet uw certificaat eruit. De gegevens hierboven worden direct ingevuld. Klik op een nummer voor uitleg of om naar het veld te gaan. De afbeelding is een voorbeeld; de layout is een indicatie en kan nog wijzigen.",
+    cert_preview: "Voorbeeld certificaat", cert_cap: "Zo ziet je certificaat eruit. De gegevens hierboven worden direct ingevuld. Klik op een nummer voor uitleg of om naar het veld te gaan. De afbeelding is een voorbeeld; de layout is een indicatie en kan nog wijzigen.",
     cert_img: "Afbeelding kunstwerk", cert_aria: "Voorbeeld certificaat",
     size: "Titel &amp; formaat kunstwerk", size_short: "Titel & formaat", size_ph: "Bijv. Zomerlandschap, 80 × 120 cm (b × h)", size_err: "Vul de titel en het formaat van het kunstwerk in.",
     kunstenaar: "Kunstenaar", website: "Website", editie: "Editie", ea: "EA", total: "Totale editie",
@@ -47,8 +47,8 @@ const I18N = {
   en: {
     title: "Request form", s1: "Your details", s2: "Your request", s3: "Comments",
     naam: 'Name / company name <span class="req">*</span>', naam_ph: "E.g. Gallery North or John Smith", naam_err: "Please enter your name or company name.",
-    datum: 'Date <span class="req">*</span>', datum_err: "Please enter today's date.",
-    email: 'Email address <span class="req">*</span>', email_ph: "name@example.com", email_err: "Please enter a valid email address; we will send the confirmation to it.",
+    datum: "Date",
+    email: 'Email address <span class="req">*</span>', email_ph: "name@example.com", email_err: "Please enter a valid email address; we will send the quote or order confirmation to it.",
     tel: "Phone number", tel_ph: "+31 6 12345678",
     straat: "Street and house number", straat_ph: "E.g. 12 Art Street", postcode: "Postal code", postcode_ph: "1234 AB",
     plaats: "City", plaats_ph: "E.g. Amsterdam", land: "Country", land_ph: "E.g. the Netherlands",
@@ -58,8 +58,8 @@ const I18N = {
     form_err: "Some fields are missing. They are marked in red.",
     footer_req: 'Fields marked <span class="req">*</span> are required',
     dlg_title: "Thank you for filling in the request form",
-    dlg_text: "We will process your request in our system and send you a confirmation including the costs and delivery time. If we have any questions, we will contact you by email.",
-    dlg_sum: "Your request summary", copy: "Copy request summary", edit: "Edit request", new: "New request", close: "Close",
+    dlg_text: "We will process your request in our system and send you a quote or order confirmation including the costs and delivery time. If we have any questions, we will contact you by email.",
+    dlg_sum: "Your request summary", rv_title: "Check your request", rv_text: "Are all details correct? Then send your request. Want to change something? Go back to the form.", rv_send: "Send request", rv_edit: "Back to the form", t_no: "Request number", copy: "Copy request summary", edit: "Edit request", new: "New request", close: "Close",
     copied: "Copied", copy_fail: "Copying is not possible here; please select the text manually.",
     sent_to: "A copy of your request has been sent to", sending: "Sending…", send_fail: "Sending failed.", retry: "Please try again or email",
     choose: "Please make a choice.", required: "This field is required.",
@@ -68,7 +68,7 @@ const I18N = {
     uv: "UV top coating", uvType: "Coating type", spannen: "Stretching", frame: "Frame type", diepte: "Frame depth",
     paperCat: "Paper category", paperType: "Paper type", type_suffix: " – type", surface: "Surface",
     topFinish_q: "White surface finish", profiel_q: "Hanging profile", profiel: "Hanging profile",
-    scan: "Scan type", proof: "After the scan", more_info: "More info", more_about: "More info about", info_kicker: "Product information", excl: "excl. VAT", info_note: "Prices exclude VAT. Prefer to see and feel? During an information meeting we show you all materials in real life.", blind: "Blind embossing", nummer: "Numbering", paperFin: "Finishing", plakMat: "Mounted on", ophang: "Hanging", lijst: "Frame", product: "Product", cert: "Certificate",
+    scan: "Scan type", proof: "After the scan", more_info: "More info", more_about: "More info about", info_kicker: "Product information", excl: "excl. VAT", info_note: "Prices exclude VAT. Prefer to see and feel? During an information meeting we show you all materials in real life.", blind: "Blind embossing", nummer: "Numbering", paperFin: "Finishing", witrand: "White border", diasecType: "Finish", tip_reart: "Re-Art tip", plakMat: "Mounted on", ophang: "Hanging", lijst: "Frame", product: "Product", cert: "Certificate",
     certArtist: "Artist name", certArtist_ph: "As shown on the certificate", certAtelier: "Studio name (optional)", certAtelier_ph: "E.g. Studio North", atelier: "Studio", certWeb: "Artist website", certWeb_ph: "E.g. www.artistname.com",
     certTitel: "Artwork title", certTitel_ph: "Title as shown on the certificate", certEditie: "Edition (print run)", certEditie_ph: "E.g. 50",
     certEA: "EA (artist proofs, optional)", certEA_ph: "E.g. 5",
@@ -81,7 +81,7 @@ const I18N = {
     g_fineart: "Fine art paper", g_paper: "Paper"
   }
 };
-const VAL_EN = { Ja: "Yes", Nee: "No", Geen: "None", Hout: "Wood", "Digitaal bestand": "Digital file", "Digitaal bestand + voorbereid": "Digital file + print-ready", "Kleurproofing": "Colour proofing", "Losse print": "Loose print", "Opgeplakt": "Mounted", "Ingelijst": "Framed", "1 mm Aluminium": "1 mm aluminium", "15 mm ophangprofiel": "15 mm hanging profile", "25 mm ophangprofiel": "25 mm hanging profile", "Witte lijst met nerf": "White frame with wood grain", "Zwarte lijst met nerf": "Black frame with wood grain", "Blanke lijst": "Natural wood frame" };
+const VAL_EN = { Ja: "Yes", Nee: "No", Geen: "None", Hout: "Wood", "Digitaal bestand": "Digital file", "Digitaal bestand + voorbereid": "Digital file + print-ready", "Kleurproofing": "Colour proofing", "Standaard scan": "Standard scan", "Mat": "Matte", "Losse print": "Loose print", "Opgeplakt": "Mounted", "Ingelijst": "Framed", "1 mm Aluminium": "1 mm aluminium", "15 mm ophangprofiel": "15 mm hanging profile", "25 mm ophangprofiel": "25 mm hanging profile", "Witte lijst met nerf": "White frame with wood grain", "Zwarte lijst met nerf": "Black frame with wood grain", "Blanke lijst": "Natural wood frame" };
 const t = k => (I18N[LANG] && I18N[LANG][k] != null ? I18N[LANG][k] : I18N.nl[k]);
 const V = v => (LANG === "en" && VAL_EN[v]) ? VAL_EN[v] : v;
 const plain = h => h.replace(/<[^>]+>/g, "").replace(/&amp;/g, "&");
@@ -99,7 +99,8 @@ const TEAM = {
   sebastian: { name: "Sebastian", nl: "kleurspecialist", en: "colour specialist" },
   marcel: { name: "Marcel", nl: "eigenaar", en: "owner" },
   wilma: { name: "Wilma", nl: "eigenaar", en: "owner" },
-  maxime: { name: "Maxime", nl: "printspecialist", en: "print specialist" }
+  maxime: { name: "Maxime", nl: "printspecialist", en: "print specialist" },
+  reart: { name: "Re-Art", nl: "", en: "" }
 };
 const FINISH = {
   paper: ["los", "opgeplakt", "ingelijst"],
@@ -125,36 +126,53 @@ const INFO = {
       lead: "Fine art papieren van topmerken zoals Hahnemühle: zuurvrij, museumkwaliteit en van glad tot een voelbare structuur.",
       rows: [["Kwaliteit", "Met archival pigmentinkten blijven kleuren generaties lang mooi. Certified materialen zijn onze topklasse: de rijkste kleurweergave, met levenslange garantie."], ["Certified Art Giclée™", "Watervaste archival pigmentinkten op zuur- en OBA-vrij papier, geprint met minimaal 1440 dpi: zeer fijne details zonder zichtbaar drukraster."], ["Afwerking", "Los, opgeplakt, of opgeplakt en ingelijst."]],
       facts: ["Hahnemühle", "Zuurvrij", "Museumkwaliteit", "Levenslange garantie"], finish: "paper",
-      tip: { who: "chris", tag: "Tip", text: "Kies je voor papier? Houd dan een witte rand aan. Daar is ruimte voor je signatuur, nummering en eventueel een blindpreeg. En je kunt de print vastpakken zonder het beeld aan te raken." } },
+      tip: { who: "chris", tag: "Tip", text: "Kies je voor papier? Houd dan een witte rand aan. Daar is ruimte voor je signatuur, nummering en eventueel een blindpreeg. En je kunt de print vastpakken zonder het beeld aan te raken." },
+      link: ["Meer over fine art prints op re-art.com", "https://www.re-art.com/fine-art-prints/"] },
     "basic-paper": { kicker: "Reproducties", title: "Basic Paper", img: "paper",
       lead: "Een mooie, matte kunstdruk voor een scherpere prijs.",
       rows: [["Ideaal voor", "Posters, decoratie, grotere oplagen of om een beeld eerst te testen. Geprint met dezelfde zorg als onze fine art papieren."], ["Het verschil", "Basic heeft geen levenslange garantie en een iets minder rijke kleurweergave dan de Hahnemühle-papieren. Voor een verzamelaarseditie raden we Certified Paper aan."], ["Afwerking", "Los, opgeplakt, of opgeplakt en ingelijst."]],
       facts: ["Scherpe prijs", "Mat papier", "Voor posters en grotere oplagen"], finish: "paper",
-      tip: { who: "sebastian", tag: "Tip", text: "Bekijk je proefdruk of print het liefst bij daglicht, naast je origineel. Onder een warme lamp ogen kleuren anders." } },
+      tip: { who: "sebastian", tag: "Tip", text: "Bekijk je proefdruk of print het liefst bij daglicht, naast je origineel. Onder een warme lamp ogen kleuren anders." },
+      link: ["Meer over fine art prints op re-art.com", "https://www.re-art.com/fine-art-prints/"] },
     "hd-finish": { kicker: "Reproducties", title: "HD Finish", img: "hd", badge: "Uniek",
       lead: "Voor iets unieks: ons HD Finish sublimatieproces.",
-      rows: [["Hoe het werkt", "De kleuren worden met hitte in de toplaag gebracht. Het resultaat: intense, diepe kleuren en een strak, glanzend oppervlak."], ["Kwaliteit", "HD Finish is onze topklasse: de rijkste kleurweergave, met levenslange garantie."], ["Afwerking", "Zonder lijst of met lijst, met een ophangprofiel naar keuze."]],
-      facts: ["Intense kleuren", "Diepe glans", "Levenslange garantie"] },
+      rows: [["Hoe het werkt", "De kleuren worden met hitte in de toplaag gebracht. Het resultaat: intense, diepe kleuren en een strak, glanzend oppervlak."], ["Kwaliteit", "HD Finish is onze topklasse: de rijkste kleurweergave, met levenslange garantie."], ["Maximaal formaat", "120 × 240 cm"], ["Afwerking", "Zonder lijst of met lijst, met een ophangprofiel naar keuze."]],
+      facts: ["Intense kleuren", "Diepe glans", "Levenslange garantie"],
+      link: ["Meer over HD Finish op re-art.com", "https://www.re-art.com/hd-finish/"] },
     "hd-decor": { kicker: "Reproducties", title: "HD Decor", img: "hd",
       lead: "Het strakke, glanzende HD-effect, voor een scherpere prijs.",
-      rows: [["Het verschil", "HD Decor heeft geen levenslange garantie en een iets minder rijke kleurweergave dan HD Finish. Voor een verzamelaarseditie raden we HD Finish aan."], ["Afwerking", "Zonder lijst of met lijst, met een ophangprofiel naar keuze."]],
-      facts: ["Scherpe prijs", "Strak en glanzend", "Voor interieur en projecten"] },
+      rows: [["Het verschil", "HD Decor heeft geen levenslange garantie en een iets minder rijke kleurweergave dan HD Finish. Voor een verzamelaarseditie raden we HD Finish aan."], ["Maximaal formaat", "146 × 296 cm"], ["Afwerking", "Zonder lijst of met lijst, met een ophangprofiel naar keuze."]],
+      facts: ["Scherpe prijs", "Strak en glanzend", "Voor interieur en projecten"],
+      link: ["Meer over HD Decor op re-art.com", "https://www.re-art.com/hd-finish/"] },
+    "diasec": { kicker: "Reproducties", title: "Diasec", badge: "Museumnorm",
+      lead: "Je print direct en permanent verlijmd achter plexiglas: maximale kleurdiepte, contrastrijke kleuren en een strakke, moderne uitstraling.",
+      rows: [["Wat is Diasec?", "Een vloeibaar verlijmingsproces waarbij de print zonder lijmfolie direct aan het acrylaat wordt gehecht. De techniek bestaat sinds 1969 en is de standaard in fotomusea."], ["Opbouw", "Archival print op speciaal Diasec-papier, verlijmd achter 3 mm plexiglas en op 4 mm Dibond, met een 25 mm ophangprofiel aan de achterzijde. Inlijsten kan ook."], ["Levertijd", "10 tot 15 werkdagen, met constante kleuren bij nabestellingen."]],
+      table: [["Gloss", "tot 200 × 600 cm", "Glanzend plexiglas: maximale kleurdiepte en contrast"], ["Mat", "tot 200 × 300 cm", "Mat plexiglas: rustig, minder reflectie"], ["TruLife", "tot 180 × 240 cm", "Museumvariant: vrijwel ontspiegeld, 99% UV-filter, minder statisch en krasgevoelig"]],
+      facts: ["UV-filter", "Museumnorm", "Maximale kleurdiepte", "Strak en modern"],
+      tip: { who: "sebastian", tag: "Tip", text: "Voor de meeste werken adviseren we Gloss. Hangt je werk tegenover een raam of onder spots? Kies dan TruLife: vrijwel geen reflectie." },
+      link: ["Meer over Diasec op re-art.com", "https://www.re-art.com/plexiglas-acrylaat-diasec/"] },
     "scan": { kicker: "De scan", title: "Een hoogwaardige scan", img: "scanner",
       lead: "Een goede reproductie begint altijd met een hoogwaardige scan. Onze Cruse Fine Art Scanner behoort tot de absolute top op het gebied van kunstdigitalisering.",
       rows: [["Tot in de hoeken", "Door de gelijkmatige, gecontroleerde belichting legt hij fijne details, kleuren en de structuur van je werk uiterst zorgvuldig vast. Ook texturescans en zelfs 3D-scans behoren tot de mogelijkheden."]],
       table: [["Tot 85 × 250 cm", "450 dpi", "In één scan"], ["Tot 85 × 450 cm", "400 dpi", "In één scan"], ["Groter formaat", "< 400 dpi", "In overleg"], ["Extra veel detail", "tot 2000 dpi", "In delen gescand en naadloos samengevoegd"]],
       swatches: { label: "Goud en fluor: buiten het fotografische spectrum", text: "Metallic verf weerkaatst licht als een spiegeltje en fluorescerende pigmenten stralen feller dan een gewone kleur. Dat valt buiten wat een scan én pigmentinkt kunnen weergeven. Zit er goud of fluor in je werk? Bespreek het vooraf met Sebastian. Met proofing komen we zo dicht mogelijk bij je origineel." },
-      tip: { who: "sebastian", tag: "Wist je dat?", text: "Bij 450 dpi leggen we op elke vierkante millimeter van je werk ruim 300 pixels vast. Ook de fijnste penseelstreek komt mee in je bestand." } },
+      tip: { who: "sebastian", tag: "Wist je dat?", text: "Bij 450 dpi leggen we op elke vierkante millimeter van je werk ruim 300 pixels vast. Ook de fijnste penseelstreek komt mee in je bestand." },
+      link: ["Meer over scannen op re-art.com", "https://www.re-art.com/scannen/"] },
     "after-scan": { kicker: "Na de scan", title: "Van bestand tot proofing",
       lead: "Een scan levert vaak al een heel mooi en, afhankelijk van de kleuren, zeer waarheidsgetrouw resultaat op. Kies wat bij je werk past.",
       rows: [["Digitaal bestand", "We scannen je werk, voeren kleine correcties uit en sturen het bestand toe. Ideaal voor alleen digitaal gebruik: website, social media of catalogus."], ["Bestands­voorbereiding|€ 49", "Tevreden met de kleur? We maken je bestand technisch en visueel gereed voor productie, inclusief één drukproef ter waarde van € 15."], ["Proofing|€ 195", "We vergelijken proefdrukken met je origineel en stemmen bestand en kleuren zorgvuldig af, zo nodig met meerdere drukproeven tot het gewenste eindresultaat."]],
       tip: { who: "chris", tag: "Tip", text: "Twijfel je nog? Begin met een losse proefafdruk van € 15 excl. btw. Dan zie je meteen hoe je werk op papier staat, en beslis je daarna of je verder wilt." },
-      tip2: { who: "sebastian", tag: "Wist je dat?", text: "Een beeldscherm straalt licht uit, een print weerkaatst het. Daarom kan dezelfde kleur op papier net anders ogen dan op je monitor. Precies dat verschil stemmen we samen af." } },
+      tip2: { who: "sebastian", tag: "Wist je dat?", text: "Een beeldscherm straalt licht uit, een print weerkaatst het. Daarom kan dezelfde kleur op papier net anders ogen dan op je monitor. Precies dat verschil stemmen we samen af." },
+      link: ["Meer over proofing op re-art.com", "https://www.re-art.com/proofing/"] },
     "cert": { kicker: "Echtheid en herkomst", title: "Het certificaat",
       lead: "Een certificaat maakt van een kunstdruk een volwaardig exemplaar uit jouw editie. Het legt vast wat de koper in handen heeft.",
       rows: [["Echtheid", "Het certificaat bevestigt dat het om een officieel exemplaar gaat, gesigneerd door jou en de masterprinter."], ["Herkomst", "Titel, editienummer en oplage liggen vast. Zo blijft altijd na te gaan welk exemplaar het is."], ["Waarde", "Een genummerd, gecertificeerd exemplaar onderscheidt zich duidelijk van een poster. Dat ondersteunt je verkoopprijs."], ["Vertrouwen", "Kopers zien zwart op wit dat de oplage beperkt is en niet wordt overschreden."]],
       prices: [["Opmaak certificaat", "eenmalig basisontwerp", "€ 35"], ["Extra editie", "elke editie die je daarna uitbrengt", "€ 15"], ["Los certificaat", "bij je bestelling, per stuk", "€ 3,75"]],
       tip: { who: "wilma", tag: "Tip", text: "Blijf je met je editie onder de 250 exemplaren, met de hand genummerd en gesigneerd? Dan geldt voor je giclées het btw-tarief voor kunstvoorwerpen: 9% in plaats van 21%. Stem het even af met je boekhouder." } },
+    "witrand": { kicker: "Tip van Re-Art", title: "Witrand",
+      lead: "Een witte rand rond het beeld maakt je print af en geeft ruimte voor de details van je editie.",
+      rows: [["Ons advies", "Houd 5 cm witrand aan. Dan is er ruimte om je print te nummeren, te signeren en van een blindpreeg te voorzien."], ["Handig", "Je pakt de print vast zonder het beeld aan te raken, en een lijst of passe-partout sluit er netjes op aan."]],
+      tip: { who: "reart", tag: "Tip", text: "Twijfel je over de maat van de rand? Vermeld het bij de opmerkingen, dan denken we met je mee." } },
     "blind": { kicker: "Jouw editie", title: "Blindpreeg en nummeren",
       lead: "De details maken jouw editie compleet.",
       rows: [["Blindpreeg", "Een subtiele reliëfdruk zonder inkt: je kunt het merkteken zien en voelen. We bespreken samen de gewenste plaatsing op de kunstdruk."], ["Nummeren", "Elke print krijgt een zichtbaar editienummer, bijvoorbeeld 07/25. Je signeert zelf met de hand; die handtekening wordt dus niet meegeprint."]],
@@ -175,36 +193,53 @@ const INFO = {
       lead: "Fine art papers from top brands such as Hahnemühle: acid-free, museum quality, from smooth to a tangible texture.",
       rows: [["Quality", "With archival pigment inks the colours stay beautiful for generations. Certified materials are our premium range: the richest colour rendering, with a lifetime guarantee."], ["Certified Art Giclée™", "Water-resistant archival pigment inks on acid- and OBA-free paper, printed at 1440 dpi or more: very fine detail without a visible print pattern."], ["Finishing", "Loose, mounted, or mounted and framed."]],
       facts: ["Hahnemühle", "Acid-free", "Museum quality", "Lifetime guarantee"], finish: "paper",
-      tip: { who: "chris", tag: "Tip", text: "Choosing paper? Keep a white border. It leaves room for your signature, numbering and a blind emboss, and you can hold the print without touching the image." } },
+      tip: { who: "chris", tag: "Tip", text: "Choosing paper? Keep a white border. It leaves room for your signature, numbering and a blind emboss, and you can hold the print without touching the image." },
+      link: ["More about fine art prints on re-art.com", "https://www.re-art.com/fine-art-prints/"] },
     "basic-paper": { kicker: "Reproductions", title: "Basic Paper", img: "paper",
       lead: "A beautiful matte art print at a sharper price.",
       rows: [["Ideal for", "Posters, decoration, larger runs or testing an image first. Printed with the same care as our fine art papers."], ["The difference", "Basic has no lifetime guarantee and slightly less rich colour rendering than the Hahnemühle papers. For a collector's edition we recommend Certified Paper."], ["Finishing", "Loose, mounted, or mounted and framed."]],
       facts: ["Sharp price", "Matte paper", "For posters and larger runs"], finish: "paper",
-      tip: { who: "sebastian", tag: "Tip", text: "View your proof or print in daylight, next to your original. Under a warm lamp colours look different." } },
+      tip: { who: "sebastian", tag: "Tip", text: "View your proof or print in daylight, next to your original. Under a warm lamp colours look different." },
+      link: ["More about fine art prints on re-art.com", "https://www.re-art.com/fine-art-prints/"] },
     "hd-finish": { kicker: "Reproductions", title: "HD Finish", img: "hd", badge: "Unique",
       lead: "For something unique: our HD Finish sublimation process.",
-      rows: [["How it works", "The colours are fused into the top layer with heat. The result: intense, deep colours and a sleek, glossy surface."], ["Quality", "HD Finish is our premium range: the richest colour rendering, with a lifetime guarantee."], ["Finishing", "Without or with a frame, with a hanging profile of your choice."]],
-      facts: ["Intense colours", "Deep gloss", "Lifetime guarantee"] },
+      rows: [["How it works", "The colours are fused into the top layer with heat. The result: intense, deep colours and a sleek, glossy surface."], ["Quality", "HD Finish is our premium range: the richest colour rendering, with a lifetime guarantee."], ["Maximum size", "120 × 240 cm"], ["Finishing", "Without or with a frame, with a hanging profile of your choice."]],
+      facts: ["Intense colours", "Deep gloss", "Lifetime guarantee"],
+      link: ["More about HD Finish on re-art.com", "https://www.re-art.com/hd-finish/"] },
     "hd-decor": { kicker: "Reproductions", title: "HD Decor", img: "hd",
       lead: "The sleek, glossy HD effect, at a sharper price.",
-      rows: [["The difference", "HD Decor has no lifetime guarantee and slightly less rich colour rendering than HD Finish. For a collector's edition we recommend HD Finish."], ["Finishing", "Without or with a frame, with a hanging profile of your choice."]],
-      facts: ["Sharp price", "Sleek and glossy", "For interiors and projects"] },
+      rows: [["The difference", "HD Decor has no lifetime guarantee and slightly less rich colour rendering than HD Finish. For a collector's edition we recommend HD Finish."], ["Maximum size", "146 × 296 cm"], ["Finishing", "Without or with a frame, with a hanging profile of your choice."]],
+      facts: ["Sharp price", "Sleek and glossy", "For interiors and projects"],
+      link: ["More about HD Decor on re-art.com", "https://www.re-art.com/hd-finish/"] },
+    "diasec": { kicker: "Reproductions", title: "Diasec", badge: "Museum standard",
+      lead: "Your print bonded directly and permanently behind acrylic: maximum colour depth, rich contrast and a sleek, modern look.",
+      rows: [["What is Diasec?", "A liquid bonding process in which the print is attached directly to the acrylic, without adhesive film. The technique dates from 1969 and is the standard in photo museums."], ["Construction", "Archival print on special Diasec paper, bonded behind 3 mm acrylic and onto 4 mm Dibond, with a 25 mm hanging profile on the back. Framing is also possible."], ["Delivery", "10 to 15 working days, with consistent colours on reorders."]],
+      table: [["Gloss", "up to 200 × 600 cm", "Glossy acrylic: maximum colour depth and contrast"], ["Matte", "up to 200 × 300 cm", "Matte acrylic: calm, less reflection"], ["TruLife", "up to 180 × 240 cm", "Museum version: virtually anti-reflective, 99% UV filter, less static and scratch-sensitive"]],
+      facts: ["UV filter", "Museum standard", "Maximum colour depth", "Sleek and modern"],
+      tip: { who: "sebastian", tag: "Tip", text: "For most works we recommend Gloss. Will your work hang opposite a window or under spotlights? Choose TruLife: virtually no reflection." },
+      link: ["More about Diasec on re-art.com", "https://www.re-art.com/plexiglas-acrylaat-diasec/"] },
     "scan": { kicker: "The scan", title: "A high-quality scan", img: "scanner",
       lead: "A good reproduction always starts with a high-quality scan. Our Cruse Fine Art Scanner is among the very best in art digitisation.",
       rows: [["Right into the corners", "Its even, controlled lighting captures fine details, colours and the texture of your work with great care. Texture scans and even 3D scans are also possible."]],
       table: [["Up to 85 × 250 cm", "450 dpi", "In one scan"], ["Up to 85 × 450 cm", "400 dpi", "In one scan"], ["Larger sizes", "< 400 dpi", "By arrangement"], ["Extra detail", "up to 2000 dpi", "Scanned in parts and seamlessly stitched"]],
       swatches: { label: "Gold and fluorescent: outside the photographic spectrum", text: "Metallic paint reflects light like a mirror and fluorescent pigments shine brighter than an ordinary colour. That is beyond what a scan and pigment ink can reproduce. Does your work contain gold or fluorescent colours? Discuss it with Sebastian beforehand. With proofing we get as close to your original as possible." },
-      tip: { who: "sebastian", tag: "Did you know?", text: "At 450 dpi we capture more than 300 pixels on every square millimetre of your work. Even the finest brushstroke ends up in your file." } },
+      tip: { who: "sebastian", tag: "Did you know?", text: "At 450 dpi we capture more than 300 pixels on every square millimetre of your work. Even the finest brushstroke ends up in your file." },
+      link: ["More about scanning on re-art.com", "https://www.re-art.com/scannen/"] },
     "after-scan": { kicker: "After the scan", title: "From file to proofing",
       lead: "A scan often already gives a very beautiful and, depending on the colours, very true-to-life result. Choose what suits your work.",
       rows: [["Digital file", "We scan your artwork, make minor corrections and send you the file. Ideal for digital use only: website, social media or a catalogue."], ["File preparation|€ 49", "Happy with the colours? We make your file technically and visually ready for production, including one proof print worth € 15."], ["Proofing|€ 195", "We compare proof prints with your original and carefully fine-tune file and colours, with several proofs if needed, until you are happy with the result."]],
       tip: { who: "chris", tag: "Tip", text: "Still in doubt? Start with a single proof print for € 15 excl. VAT. You will see right away how your work looks on paper, and then decide whether to continue." },
-      tip2: { who: "sebastian", tag: "Did you know?", text: "A screen emits light, a print reflects it. That is why the same colour can look slightly different on paper than on your monitor. That is exactly the difference we fine-tune together." } },
+      tip2: { who: "sebastian", tag: "Did you know?", text: "A screen emits light, a print reflects it. That is why the same colour can look slightly different on paper than on your monitor. That is exactly the difference we fine-tune together." },
+      link: ["More about proofing on re-art.com", "https://www.re-art.com/proofing/"] },
     "cert": { kicker: "Authenticity and provenance", title: "The certificate",
       lead: "A certificate turns an art print into a genuine copy from your edition. It records exactly what the buyer owns.",
       rows: [["Authenticity", "The certificate confirms that it is an official copy, signed by you and the master printer."], ["Provenance", "Title, edition number and edition size are recorded, so it is always clear which copy it is."], ["Value", "A numbered, certified copy clearly stands apart from a poster. That supports your selling price."], ["Trust", "Buyers see in black and white that the edition is limited and will not be exceeded."]],
       prices: [["Certificate design", "one-off basic design", "€ 35"], ["Extra edition", "each further edition you release", "€ 15"], ["Single certificate", "with your request, per piece", "€ 3.75"]],
       tip: { who: "wilma", tag: "Tip", text: "In the Netherlands, editions under 250 copies that are hand-numbered and signed fall under the reduced VAT rate for works of art: 9% instead of 21%. Check it with your accountant." } },
+    "witrand": { kicker: "Re-Art tip", title: "White border",
+      lead: "A white border around the image finishes your print and leaves room for the details of your edition.",
+      rows: [["Our advice", "Keep a 5 cm white border. That leaves room to number and sign your print and to add a blind emboss."], ["Handy", "You can hold the print without touching the image, and a frame or mount fits neatly against it."]],
+      tip: { who: "reart", tag: "Tip", text: "Not sure about the border size? Mention it in the comments and we will think along with you." } },
     "blind": { kicker: "Your edition", title: "Blind embossing and numbering",
       lead: "The details make your edition complete.",
       rows: [["Blind emboss", "A subtle relief print without ink: you can see and feel the mark. Together we decide where it goes on the art print."], ["Numbering", "Each print gets a visible edition number, for example 07/25. You sign it by hand yourself, so the signature is not printed."]],
@@ -214,7 +249,8 @@ const INFO = {
 const infoBtn = (key, label) => `<button type="button" class="info-link" data-info="${key}">${esc(label)}</button>`;
 function bubble(tp) {
   const p = TEAM[tp.who];
-  return `<div class="ib-tip"><img src="${IMG[tp.who]}" alt="${esc(p.name)}"><div class="ib-bubble"><div class="ib-who"><span><b>${esc(p.name)}</b> ${esc(p[LANG] || p.nl)}</span><em>${esc(tp.tag)}</em></div>${esc(tp.text)}</div></div>`;
+  const av = IMG[tp.who] ? `<img src="${IMG[tp.who]}" alt="${esc(p.name)}">` : `<span class="ib-av"><span class="info-logo"></span></span>`;
+  return `<div class="ib-tip">${av}<div class="ib-bubble"><div class="ib-who"><span><b>${esc(p.name)}</b> ${esc(p[LANG] || p.nl)}</span><em>${esc(tp.tag)}</em></div>${esc(tp.text)}</div></div>`;
 }
 function openInfo(key) {
   const it = (INFO[LANG] || INFO.nl)[key]; if (!it) return;
@@ -230,6 +266,7 @@ function openInfo(key) {
   if (it.finish) h += `<div class="ib-finish">${FINISH[it.finish].map(k => { const [lab, d] = FINISH_LABEL[LANG][k]; return `<figure><img src="${IMG[k]}" alt=""><figcaption><b>${esc(lab)}</b>${esc(d)}</figcaption></figure>`; }).join("")}</div>`;
   if (it.prices) h += `<table class="ib-table ib-prices">${it.prices.map(r => `<tr><td><b>${esc(r[0])}</b> ${esc(r[1])}</td><td>${esc(r[2])} <small>${esc(ex)}</small></td></tr>`).join("")}</table>`;
   if (it.tip) h += bubble(it.tip);
+  if (it.link) h += `<a class="ib-link" href="${it.link[1]}" target="_blank" rel="noopener">${esc(it.link[0])} →</a>`;
   if (it.tip2) h += bubble(it.tip2);
   h += `</div><div class="ib-foot"><span>info@re-art.com</span><span>036 536 88 75</span><span>www.re-art.com</span></div>`;
   m.querySelector(".dialog").innerHTML = h + `<button type="button" class="ib-close info-close" aria-label="${esc(t("close"))}">×</button>`;
@@ -253,6 +290,7 @@ const SERVICES = [
   { id: "basic-paper", name: "Basic Paper", group: "g_paper" },
   { id: "hd-finish", name: "HD Finish", group: "HD" },
   { id: "hd-decor", name: "HD Decor", group: "HD" },
+  { id: "diasec", name: "Diasec", group: "Plexiglas" },
   { id: "scan", name: "Cruse Fine Art Scan", group: "Scan" }
 ];
 const PAPER = {
@@ -261,30 +299,30 @@ const PAPER = {
   metallic: { label: "Metallic paper", types: ["Hahnemühle Photo Rag Metallic 340 gsm"] }
 };
 const BASIC_PAPER = ["Basic Litho White Matt", "Basic Litho Archive Matt"];
-const SCANS = ["LR", "Texture", "Superscan", "3D"];
+const SCANS = ["Standaard scan", "Texture", "3D"];
 const PROOF_OPTS = () => LANG === "en" ? [
   { value: "Digitaal bestand", desc: "We scan your artwork, make minor corrections and send you the file. Ideal for digital use only: website, social media or a catalogue." },
   { value: "Digitaal bestand + voorbereid", desc: "Happy with the colours? We prepare your file neatly print-ready, including one proof print." },
   { value: "Kleurproofing", desc: "We compare proof prints with your original and fine-tune colours and file, with several proofs if needed." }
 ] : [
-  { value: "Digitaal bestand", desc: "Wij scannen uw werk, voeren kleine correcties uit en sturen het bestand toe. Ideaal voor alleen digitaal gebruik: website, social media of catalogus." },
-  { value: "Digitaal bestand + voorbereid", desc: "Tevreden met de kleur? Wij maken uw bestand netjes printklaar, inclusief één drukproef." },
-  { value: "Kleurproofing", desc: "Wij vergelijken proefdrukken met uw origineel en stemmen kleuren en bestand zorgvuldig af, zo nodig met meerdere drukproeven." }
+  { value: "Digitaal bestand", desc: "We scannen je werk, voeren kleine correcties uit en sturen je het bestand. Ideaal voor alleen digitaal gebruik: website, social media of catalogus." },
+  { value: "Digitaal bestand + voorbereid", desc: "Tevreden met de kleur? We maken je bestand netjes printklaar, inclusief één drukproef." },
+  { value: "Kleurproofing", desc: "We vergelijken proefdrukken met je origineel en stemmen kleuren en bestand zorgvuldig af, zo nodig met meerdere drukproeven." }
 ];
 const DIEPTE = { Aluminium: ["25/65", "45/65"], Hout: ["20/65", "45/65"] };
 
 let seq = 0;
 let lines = [];
 let showErrors = false;
-const blank = () => ({ id: ++seq, aantal: "1", dienst: "", uv: "", uvType: "", spannen: "", frame: "", diepte: "", paperCat: "", paperType: "", basicType: "", blind: "", nummer: "", paperFin: "", plakMat: "", ophang: "", lijst: "", top: "", topFinish: "", profiel: "", scan: "", proof: "", size: "", cert: "", certArtist: "", certAtelier: "", certWeb: "", certTitel: "", certEditie: "", certEA: "" });
+const blank = () => ({ id: ++seq, aantal: "1", dienst: "", uv: "", uvType: "", spannen: "", frame: "", diepte: "", paperCat: "", paperType: "", basicType: "", blind: "", nummer: "", paperFin: "", witrand: "", plakMat: "", ophang: "", lijst: "", top: "", topFinish: "", profiel: "", scan: "", diasecType: "", proof: "", size: "", cert: "", certArtist: "", certAtelier: "", certWeb: "", certTitel: "", certEditie: "", certEA: "" });
 
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const svc = id => SERVICES.find(s => s.id === id);
 
-function chips(l, field, options, legend, wide, info) {
+function chips(l, field, options, legend, wide, info, infoLabel) {
   const missing = showErrors && !l[field];
   return `<fieldset class="${missing ? "invalid" : ""}">
-    <legend class="legend">${legend} <span class="req">*</span>${info ? infoBtn(info, t("more_info")) : ""}</legend>
+    <legend class="legend">${legend} <span class="req">*</span>${info ? infoBtn(info, infoLabel || t("more_info")) : ""}</legend>
     <div class="${wide === "cards" ? "cards" : wide ? "services" : "chips"}">
       ${options.map((o, i) => {
         const val = typeof o === "string" ? o : o.value;
@@ -318,6 +356,7 @@ function certMedium(l) {
   if (d === "cert-paper") return l.paperType || "Certified Paper";
   if (d === "basic-paper") return l.basicType || "Basic Paper";
   if (d === "cert-canvas" || d === "basic-canvas") return svc(d).name + (l.uv === "Ja" && l.uvType ? ", UV coating " + l.uvType.toLowerCase() : "");
+  if (d === "diasec") return "Diasec" + (l.diasecType ? " " + l.diasecType : "");
   if (d === "hd-finish" || d === "hd-decor") return svc(d).name + (l.top ? ", " + l.top + (l.topFinish ? " " + l.topFinish.toLowerCase() : "") : "");
   return "";
 }
@@ -436,6 +475,7 @@ function sizeField(l) {
 
 function paperFinish(l) {
   let h = chips(l, "paperFin", ["Losse print", "Opgeplakt", "Ingelijst"], t("paperFin"));
+  const witrand = () => chips(l, "witrand", ["Ja", "Nee"], t("witrand"), false, "witrand", t("tip_reart"));
   if (l.paperFin === "Opgeplakt") {
     h += `<div class="nested stack" style="gap:18px">${chips(l, "plakMat", ["1 mm Aluminium", "3 mm Dibond"], t("plakMat"))}`;
     if (l.plakMat) h += chips(l, "ophang", ["Geen", "15 mm ophangprofiel", "25 mm ophangprofiel"], t("ophang"));
@@ -443,12 +483,13 @@ function paperFinish(l) {
   } else if (l.paperFin === "Ingelijst") {
     h += `<div class="nested">${chips(l, "lijst", ["Witte lijst met nerf", "Zwarte lijst met nerf", "Blanke lijst"], t("lijst"))}</div>`;
   }
-  return h;
+  return h + witrand();
 }
 function paperFinishNeed(l, need) {
   need(t("paperFin"), l.paperFin);
   if (l.paperFin === "Opgeplakt") { need(t("plakMat"), l.plakMat); if (l.plakMat) need(t("ophang"), l.ophang); }
   if (l.paperFin === "Ingelijst") need(t("lijst"), l.lijst);
+  need(t("witrand"), l.witrand);
 }
 function subOptions(l) {
   const d = l.dienst;
@@ -476,6 +517,8 @@ function subOptions(l) {
     html += chips(l, "top", ["White surface", "Metal surface"], t("surface"));
     if (l.top === "White surface") html += `<div class="nested">${chips(l, "topFinish", ["Gloss", "Matt"], t("topFinish_q"))}</div>`;
     html += chips(l, "profiel", ["Geen", "15 mm", "25 mm"], t("profiel_q"));
+  } else if (d === "diasec") {
+    html += chips(l, "diasecType", ["Gloss", "Mat", "TruLife"], t("diasecType"));
   } else if (d === "scan") {
     html += chips(l, "scan", SCANS, t("scan"));
     html += chips(l, "proof", PROOF_OPTS().map(o => ({ value: o.value, label: V(o.value), desc: o.desc, price: o.price })), t("proof"), "cards", "after-scan");
@@ -556,6 +599,8 @@ function details(l) {
       need(t("surface"), l.top);
       if (l.top === "White surface") need(t("afwerking"), l.topFinish);
       need(t("profiel"), l.profiel);
+    } else if (d === "diasec") {
+      need(t("diasecType"), l.diasecType);
     } else if (d === "scan") {
       need(t("scan"), l.scan);
       need(t("proof"), l.proof);
@@ -598,7 +643,7 @@ function renderSummary() {
 
 // Reset dependent fields when a parent choice changes
 const RESETS = {
-  dienst: ["uv", "uvType", "spannen", "frame", "diepte", "paperCat", "paperType", "basicType", "blind", "nummer", "paperFin", "plakMat", "ophang", "lijst", "top", "topFinish", "profiel", "scan", "proof", "cert", "certArtist", "certAtelier", "certWeb", "certTitel", "certEditie", "certEA"],
+  dienst: ["uv", "uvType", "spannen", "frame", "diepte", "paperCat", "paperType", "basicType", "blind", "nummer", "paperFin", "witrand", "plakMat", "ophang", "lijst", "top", "topFinish", "profiel", "diasecType", "scan", "proof", "cert", "certArtist", "certAtelier", "certWeb", "certTitel", "certEditie", "certEA"],
   uv: ["uvType"], paperFin: ["plakMat", "ophang", "lijst"], plakMat: ["ophang"], cert: ["certArtist", "certAtelier", "certWeb", "certTitel", "certEditie", "certEA"], spannen: ["frame", "diepte"], frame: ["diepte"], paperCat: ["paperType"], top: ["topFinish"]
 };
 
@@ -647,11 +692,14 @@ $("naam").addEventListener("input", e => {
 // Submit
 let orderNo = "";
 let startedAt = Date.now();
+const CONTACT = (window.REARTOF && window.REARTOF.contact) || "info@re-art.com";
+const todayISO = () => { const d = new Date(); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); };
+function fmtDate(iso) { return new Date(iso + "T12:00").toLocaleDateString(LANG === "en" ? "en-GB" : "nl-NL", { day: "numeric", month: "long", year: "numeric" }); }
 function buildText() {
   const v = id => $(id).value.trim();
   const rows = [
     (LANG === "en" ? "RE-ART REQUEST " : "RE-ART AANVRAAG ") + orderNo,
-    t("t_date") + ": " + new Date(v("datum") + "T12:00").toLocaleDateString(LANG === "en" ? "en-GB" : "nl-NL", { day: "numeric", month: "long", year: "numeric" }),
+    t("t_date") + ": " + fmtDate(v("datum")),
     "",
     t("t_name") + ": " + v("naam")
   ];
@@ -666,67 +714,101 @@ function buildText() {
   if (v("opmerkingen")) rows.push("", t("t_opm") + ":", v("opmerkingen"));
   return rows.join("\n");
 }
-
-$("orderForm").addEventListener("submit", async e => {
-  e.preventDefault();
+// Overzicht als opgemaakte lijst (in de huisstijl, geen codelettertype).
+function summaryHTML(withNo) {
+  const v = id => $(id).value.trim();
+  const dl = rows => `<dl>${rows.map(([k, val]) => `<dt>${esc(k)}</dt><dd>${esc(val)}</dd>`).join("")}</dl>`;
+  let h = withNo && orderNo ? `<p class="sd-no">${esc(t("t_no"))}: <b>${esc(orderNo)}</b></p>` : "";
+  const cust = [[t("t_date"), fmtDate(v("datum"))], [t("t_name"), v("naam")], [t("t_email"), v("email")]];
+  if (v("tel")) cust.push([t("t_tel"), v("tel")]);
+  const adres = [v("straat"), [v("postcode"), v("plaats")].filter(Boolean).join(" "), v("land")].filter(Boolean).join(", ");
+  if (adres) cust.push([t("t_addr"), adres]);
+  h += `<h4>${esc(plain(t("s1")))}</h4>` + dl(cust);
+  lines.forEach((l, i) => {
+    h += `<h4>${esc(t("work"))} ${i + 1}<span>${parseInt(l.aantal, 10)} ×</span></h4>` + dl(details(l).out);
+  });
+  if (v("opmerkingen")) h += `<h4>${esc(t("t_opm"))}</h4><p>${esc(v("opmerkingen"))}</p>`;
+  return h;
+}
+function validateForm() {
   showErrors = true;
   const naamOk = $("naam").value.trim() !== "";
   $("f-naam").classList.toggle("invalid", !naamOk);
-  const datumOk = $("datum").value !== "";
-  $("f-datum").classList.toggle("invalid", !datumOk);
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($("email").value.trim());
   $("f-email").classList.toggle("invalid", !emailOk);
   renderLines();
   const linesOk = lines.every(l => details(l).missing.length === 0);
   const err = $("formError");
   err.textContent = t("form_err");
-  if (!naamOk || !datumOk || !emailOk || !linesOk) {
+  if (!naamOk || !emailOk || !linesOk) {
     err.classList.add("show");
     const first = root.querySelector(".invalid");
     if (first) { first.scrollIntoView({ behavior: "smooth", block: "center" }); const inp = first.querySelector("input"); if (inp) inp.focus({ preventScroll: true }); }
-    return;
+    return false;
   }
   err.classList.remove("show");
-  const btn = root.querySelector('button[type="submit"]');
-  const label = t("submit");
-  btn.disabled = true; btn.textContent = t("sending");
-  const payload = {
-    naam: $("naam").value, datum: $("datum").value, email: $("email").value, tel: $("tel").value,
-    straat: $("straat").value, postcode: $("postcode").value, plaats: $("plaats").value, land: $("land").value, lang: LANG,
-    opmerkingen: $("opmerkingen").value, website: $("website").value, elapsed: Date.now() - startedAt,
-    lines: lines.map(l => { const o = Object.assign({}, l); delete o.id; return o; })
-  };
+  return true;
+}
+$("orderForm").addEventListener("submit", e => {
+  e.preventDefault();
+  $("datum").value = todayISO();
+  if (!validateForm()) return;
+  $("reviewBody").innerHTML = summaryHTML(false);
+  $("sendError").classList.remove("show");
+  $("review").classList.add("show");
+  $("reviewSend").focus();
+});
+const closeReview = () => $("review").classList.remove("show");
+$("reviewEdit").addEventListener("click", closeReview);
+$("reviewSend").addEventListener("click", async () => {
+  const btn = $("reviewSend"), se = $("sendError");
+  btn.disabled = true; btn.textContent = t("sending"); se.classList.remove("show");
   try {
-    const res = await fetch(CFG.restUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
-    const data = await res.json().catch(() => ({}));
-    if (!res.ok || !data.ok) throw new Error(data.message || t("send_fail"));
-    orderNo = data.orderNo || "";
-    $("orderText").textContent = buildText();
+    await sendRequest();
+    closeReview();
+    $("thanksBody").innerHTML = summaryHTML(true);
     $("sentTo").textContent = $("email").value.trim();
     $("overlay").classList.add("show");
     $("newBtn").focus();
   } catch (ex) {
-    err.textContent = ex.message + " " + t("retry") + " " + CFG.contact + ".";
-    err.classList.add("show");
+    se.textContent = ex.message + " " + t("retry") + " " + CONTACT + ".";
+    se.classList.add("show");
   } finally {
-    btn.disabled = false; btn.innerHTML = label;
+    btn.disabled = false; btn.innerHTML = t("rv_send");
   }
 });
-
+async function sendRequest() {
+  const payload = {
+    naam: $("naam").value, email: $("email").value, tel: $("tel").value,
+    straat: $("straat").value, postcode: $("postcode").value, plaats: $("plaats").value, land: $("land").value, lang: LANG,
+    opmerkingen: $("opmerkingen").value, website: $("website").value, elapsed: Date.now() - startedAt,
+    lines: lines.map(l => { const o = Object.assign({}, l); delete o.id; return o; })
+  };
+  const res = await fetch(CFG.restUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.ok) throw new Error(data.message || t("send_fail"));
+  orderNo = data.orderNo || "";
+}
 function resetForm() {
   showErrors = false;
-  ["naam", "datum", "email", "tel", "straat", "postcode", "plaats", "land", "opmerkingen"].forEach(id => $(id).value = "");
-  ["f-naam", "f-email", "f-datum"].forEach(id => $(id).classList.remove("invalid"));
+  ["naam", "email", "tel", "straat", "postcode", "plaats", "land", "opmerkingen"].forEach(id => $(id).value = "");
+  ["f-naam", "f-email"].forEach(id => $(id).classList.remove("invalid"));
   $("formError").classList.remove("show");
+  $("datum").value = todayISO();
   lines = [blank()]; renderLines();
   startedAt = Date.now();
 }
 const closeDlg = () => { $("overlay").classList.remove("show"); resetForm(); root.scrollIntoView({ behavior: "smooth", block: "start" }); };
 $("closeBtn").addEventListener("click", closeDlg);
 $("newBtn").addEventListener("click", closeDlg);
-document.addEventListener("keydown", e => { if (e.key === "Escape" && $("overlay").classList.contains("show")) closeDlg(); });
+document.addEventListener("keydown", e => {
+  if (e.key !== "Escape") return;
+  if ($("review").classList.contains("show")) closeReview();
+  else if ($("overlay").classList.contains("show")) closeDlg();
+});
 
 applyStatic();
+$("datum").value = todayISO();
 lines = [blank()];
 renderLines();
 })();

@@ -15,6 +15,7 @@ function reart_of_catalog() {
 			'basic-paper'  => 'Basic Paper',
 			'hd-finish'    => 'HD Finish',
 			'hd-decor'     => 'HD Decor',
+			'diasec'       => 'Diasec',
 			'scan'         => 'Cruse Fine Art Scan',
 		),
 		'paper'       => array(
@@ -32,7 +33,7 @@ function reart_of_catalog() {
 			),
 		),
 		'basic_paper' => array( 'Basic Litho White Matt', 'Basic Litho Archive Matt' ),
-		'scans'       => array( 'LR', 'Texture', 'Superscan', '3D' ),
+		'scans'       => array( 'Standaard scan', 'Texture', '3D' ),
 		'diepte'      => array(
 			'Aluminium' => array( '25/65', '45/65' ),
 			'Hout'      => array( '20/65', '45/65' ),
@@ -42,6 +43,7 @@ function reart_of_catalog() {
 		'surface'     => array( 'White surface', 'Metal surface' ),
 		'gloss_matt'  => array( 'Gloss', 'Matt' ),
 		'profiel'     => array( 'Geen', '15 mm', '25 mm' ),
+		'diasec'      => array( 'Gloss', 'Mat', 'TruLife' ),
 		'paper_fin'   => array( 'Losse print', 'Opgeplakt', 'Ingelijst' ),
 		'plak'        => array( '1 mm Aluminium', '3 mm Dibond' ),
 		'ophang'      => array( 'Geen', '15 mm ophangprofiel', '25 mm ophangprofiel' ),

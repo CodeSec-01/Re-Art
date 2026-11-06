@@ -55,7 +55,7 @@ function reart_of_build_order( array $data, array &$errors ) {
 
 	$order = array(
 		'naam'        => $text( 'naam' ),
-		'datum'       => $text( 'datum', 10 ),
+		'datum'       => wp_date( 'Y-m-d' ), // altijd de dag van insturen
 		'email'       => sanitize_email( $text( 'email' ) ),
 		'tel'         => $text( 'tel', 40 ),
 		'straat'      => $text( 'straat' ),
@@ -69,9 +69,6 @@ function reart_of_build_order( array $data, array &$errors ) {
 
 	if ( '' === $order['naam'] ) {
 		$errors[] = 'naam of bedrijfsnaam ontbreekt';
-	}
-	if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $order['datum'] ) ) {
-		$errors[] = 'datum ontbreekt';
 	}
 	if ( ! is_email( $order['email'] ) ) {
 		$errors[] = 'e-mailadres is ongeldig';
@@ -138,6 +135,7 @@ function reart_of_build_line( array $line, $n, array &$errors ) {
 		} elseif ( 'Ingelijst' === $fin ) {
 			$choice( 'lijst', 'Lijst', $c['lijst'] );
 		}
+		$choice( 'witrand', 'Witrand', $c['yes_no'] );
 	};
 
 	$aantal = (int) $get( 'aantal', 6 );
@@ -186,6 +184,8 @@ function reart_of_build_line( array $line, $n, array &$errors ) {
 			$choice( 'topFinish', 'Afwerking', $c['gloss_matt'] );
 		}
 		$choice( 'profiel', 'Ophangprofiel', $c['profiel'] );
+	} elseif ( 'diasec' === $dienst ) {
+		$choice( 'diasecType', 'Uitvoering', $c['diasec'] );
 	} elseif ( 'scan' === $dienst ) {
 		$choice( 'scan', 'Type scan', $c['scans'] );
 		$choice( 'proof', 'Na de scan', $c['after_scan'] );
@@ -227,6 +227,20 @@ function reart_of_build_line( array $line, $n, array &$errors ) {
  * ---------------------------------------------------------------------- */
 
 /**
+ * Volgend aanvraagnummer: RE-jjmmdd-0001, oplopend per dag (begint elke dag weer bij 0001).
+ */
+function reart_of_next_number() {
+	$day = wp_date( 'ymd' );
+	$seq = get_option( 'reart_of_seq' );
+	if ( ! is_array( $seq ) || ! isset( $seq['day'], $seq['n'] ) || $seq['day'] !== $day ) {
+		$seq = array( 'day' => $day, 'n' => 0 );
+	}
+	$seq['n'] = (int) $seq['n'] + 1;
+	update_option( 'reart_of_seq', $seq, false );
+	return sprintf( 'RE-%s-%04d', $day, $seq['n'] );
+}
+
+/**
  * Slaat de order op en geeft het bericht-ID terug. De titel wordt het ordernummer.
  */
 function reart_of_save_order( array $order ) {
@@ -242,7 +256,7 @@ function reart_of_save_order( array $order ) {
 		return 0;
 	}
 
-	$no          = 'RE-' . wp_date( 'ymd' ) . '-' . $post_id;
+	$no          = reart_of_next_number();
 	$order['no'] = $no;
 	wp_update_post(
 		array(

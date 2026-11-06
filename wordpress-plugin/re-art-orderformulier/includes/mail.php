@@ -27,6 +27,9 @@ function reart_of_en( $text ) {
 		'Opplakken op'    => 'Mounted on',
 		'Ophanging'       => 'Hanging',
 		'Lijst'           => 'Frame',
+		'Witrand'         => 'White border',
+		'Uitvoering'      => 'Finish',
+		'Mat'             => 'Matte',
 		'Na de scan'      => 'After the scan',
 		'Atelier'         => 'Studio',
 		'UV-topcoating'   => 'UV top coating',
@@ -62,6 +65,7 @@ function reart_of_en( $text ) {
 		'Digitaal bestand'      => 'Digital file',
 		'Digitaal bestand + voorbereid' => 'Digital file + print-ready',
 		'Kleurproofing'         => 'Colour proofing',
+		'Standaard scan'        => 'Standard scan',
 	);
 	return isset( $map[ $text ] ) ? $map[ $text ] : $text;
 }
@@ -182,12 +186,12 @@ function reart_of_mail_customer( array $order ) {
 		$subject = 'Your request at Re-Art (' . $order['no'] . ')';
 		$title   = 'Thank you for your request';
 		$intro   = '<p style="font-size:14px;line-height:1.6;margin:0 0 12px">Thank you for filling in the request form.</p>'
-			. '<p style="font-size:14px;line-height:1.6;margin:0 0 18px">We will process your request in our system and send you a confirmation including the costs and delivery time. If we have any questions, we will contact you by email.</p>';
+			. '<p style="font-size:14px;line-height:1.6;margin:0 0 18px">We will process your request in our system and send you a quote or order confirmation including the costs and delivery time. If we have any questions, we will contact you by email.</p>';
 	} else {
-		$subject = 'Uw aanvraag bij Re-Art (' . $order['no'] . ')';
-		$title   = 'Bedankt voor uw aanvraag';
+		$subject = 'Je aanvraag bij Re-Art (' . $order['no'] . ')';
+		$title   = 'Bedankt voor je aanvraag';
 		$intro   = '<p style="font-size:14px;line-height:1.6;margin:0 0 12px">Bedankt voor het invullen van het aanvraagformulier.</p>'
-			. '<p style="font-size:14px;line-height:1.6;margin:0 0 18px">Wij verwerken uw aanvraag in ons systeem en sturen u een opdrachtbevestiging met daarin de kosten en de levertijd. Mochten wij nog vragen hebben, dan nemen wij per e-mail contact met u op.</p>';
+			. '<p style="font-size:14px;line-height:1.6;margin:0 0 18px">We verwerken je aanvraag in ons systeem en sturen je een offerte of opdrachtbevestiging met daarin de kosten en de levertijd. Hebben we nog vragen, dan nemen we per e-mail contact met je op.</p>';
 	}
 	$html = reart_of_email_wrap( $title, $intro, reart_of_summary_html( $order, $order['lang'] ), $order['lang'] );
 	return wp_mail( $order['email'], $subject, $html, reart_of_html_headers( array( 'email' => reart_of_recipient(), 'name' => 'Re-Art' ) ) );
