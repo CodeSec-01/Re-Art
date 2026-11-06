@@ -9,6 +9,12 @@ const $ = id => document.getElementById("ro-" + id);
 let LANG = (window.REARTOF && window.REARTOF.lang) || (location.hash === "#en" ? "en" : "nl");
 const I18N = {
   nl: {
+    st_title: "Waarmee kunnen we je helpen?", st_sub: "Kies wat bij je past. Het duurt maar een paar minuten.", st_new_pill: "Nieuwe klant", st_new: "Ik wil informatie", st_new_p: "Nog geen klant van Re-Art? Stel je vraag, dan nemen we binnen 24 uur contact met je op, tijdens kantooruren.", st_new_1: "Kort contactformulier", st_new_2: "Persoonlijk advies", st_new_3: "Vrijblijvend", st_go_new: "Naar het contactformulier",
+    st_old_pill: "Bestaande klant", st_old: "Aanvraag of bestelling", st_old_p: "Al klant bij ons? Stel je aanvraag samen per werk en per afwerking, met direct een overzicht.", st_old_1: "Canvas, papier, HD, Diasec en scans", st_old_2: "Meerdere werken in één aanvraag", st_old_3: "Live voorbeeld van je certificaat", st_go_old: "Start je aanvraag",
+    back: "← Terug naar keuze", back_start: "Terug naar het begin", c_s2: "Je vraag", c_msg: 'Waarover wil je informatie ontvangen? <span class="req">*</span>',
+    c_msg_ph: "Bijv. ik wil graag mijn schilderijen laten scannen en als giclée laten printen.", c_msg_err: "Vertel ons kort waarover je informatie wilt.", c_email_err: "Vul een geldig e-mailadres in.",
+    c_send: "Verstuur contactformulier", c_thx_title: "Bedankt voor je bericht", c_thx_text: "We hebben je contactverzoek goed ontvangen. We streven ernaar je binnen 24 uur te antwoorden, tijdens kantooruren.",
+    c_sent_to: "Een bevestiging is verstuurd naar", c_form_err: "Niet alles is ingevuld. De ontbrekende velden zijn rood gemarkeerd.",
     title: "Aanvraagformulier", s1: "Je gegevens", s2: "Je aanvraag", s3: "Opmerkingen",
     naam: 'Naam / bedrijfsnaam <span class="req">*</span>', naam_ph: "Bijv. Galerie Noord of Jan de Vries", naam_err: "Vul je naam of bedrijfsnaam in.",
     datum: "Datum",
@@ -45,6 +51,12 @@ const I18N = {
     g_fineart: "Fine art papier", g_paper: "Papier"
   },
   en: {
+    st_title: "How can we help you?", st_sub: "Choose what suits you. It only takes a few minutes.", st_new_pill: "New customer", st_new: "I would like information", st_new_p: "Not a Re-Art customer yet? Ask your question and we will get back to you within 24 hours during office hours.", st_new_1: "Short contact form", st_new_2: "Personal advice", st_new_3: "No obligation", st_go_new: "Go to the contact form",
+    st_old_pill: "Existing customer", st_old: "Request or order", st_old_p: "Already a customer? Put together your request per artwork and per finish, with an instant overview.", st_old_1: "Canvas, paper, HD, Diasec and scans", st_old_2: "Several artworks in one request", st_old_3: "Live preview of your certificate", st_go_old: "Start your request",
+    back: "← Back to choice", back_start: "Back to the start", c_s2: "Your question", c_msg: 'What would you like information about? <span class="req">*</span>',
+    c_msg_ph: "E.g. I would like to have my paintings scanned and printed as giclées.", c_msg_err: "Please tell us briefly what you would like information about.", c_email_err: "Please enter a valid email address.",
+    c_send: "Send contact form", c_thx_title: "Thank you for your message", c_thx_text: "We have received your contact request. We aim to reply within 24 hours during office hours.",
+    c_sent_to: "A confirmation has been sent to", c_form_err: "Some fields are missing. They are marked in red.",
     title: "Request form", s1: "Your details", s2: "Your request", s3: "Comments",
     naam: 'Name / company name <span class="req">*</span>', naam_ph: "E.g. Gallery North or John Smith", naam_err: "Please enter your name or company name.",
     datum: "Date",
@@ -806,6 +818,73 @@ document.addEventListener("keydown", e => {
   if ($("review").classList.contains("show")) closeReview();
   else if ($("overlay").classList.contains("show")) closeDlg();
 });
+
+// ---- Startscherm en contactformulier ----
+function setMode(mode) {
+  $("start").hidden = mode !== "start";
+  $("contactView").hidden = mode !== "new";
+  $("orderView").hidden = mode !== "existing";
+  root.scrollIntoView({ behavior: "smooth", block: "start" });
+  const id = mode === "new" ? "cnaam" : mode === "existing" ? "naam" : null;
+  if (id) setTimeout(() => $(id).focus({ preventScroll: true }), 50);
+}
+root.addEventListener("click", e => {
+  const b = e.target.closest("[data-mode]"); if (!b) return;
+  if (b.dataset.mode === "start") resetContact();
+  setMode(b.dataset.mode);
+});
+function resetContact() {
+  ["cnaam", "cemail", "ctel", "cstraat", "cpostcode", "cplaats", "cland", "cbericht"].forEach(id => $(id).value = "");
+  ["f-cnaam", "f-cemail", "f-cbericht"].forEach(id => $(id).classList.remove("invalid"));
+  $("contactError").classList.remove("show");
+  $("contactForm").hidden = false;
+  $("contactThanks").hidden = true;
+}
+$("contactForm").addEventListener("input", e => {
+  const w = e.target.closest(".invalid"); if (w && e.target.value.trim()) w.classList.remove("invalid");
+  if (!$("contactForm").querySelector(".invalid")) $("contactError").classList.remove("show");
+});
+$("contactForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const val = id => $(id).value.trim();
+  const ok = {
+    "f-cnaam": val("cnaam") !== "",
+    "f-cemail": /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val("cemail")),
+    "f-cbericht": val("cbericht") !== ""
+  };
+  Object.entries(ok).forEach(([id, good]) => $(id).classList.toggle("invalid", !good));
+  const err = $("contactError");
+  if (Object.values(ok).includes(false)) {
+    err.textContent = t("c_form_err"); err.classList.add("show");
+    const first = $("contactForm").querySelector(".invalid input, .invalid textarea"); if (first) first.focus();
+    return;
+  }
+  err.classList.remove("show");
+  const btn = $("contactSubmit");
+  btn.disabled = true; btn.textContent = t("sending");
+  try {
+    await sendContact();
+    $("contactSentTo").textContent = val("cemail");
+    $("contactForm").hidden = true;
+    $("contactThanks").hidden = false;
+    root.scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch (ex) {
+    err.textContent = ex.message + " " + t("retry") + " " + CONTACT + ".";
+    err.classList.add("show");
+  } finally {
+    btn.disabled = false; btn.innerHTML = t("c_send");
+  }
+});
+async function sendContact() {
+  const payload = {
+    type: "contact", naam: $("cnaam").value, email: $("cemail").value, tel: $("ctel").value,
+    straat: $("cstraat").value, postcode: $("cpostcode").value, plaats: $("cplaats").value, land: $("cland").value,
+    bericht: $("cbericht").value, lang: LANG, website: $("cwebsite").value, elapsed: Date.now() - startedAt
+  };
+  const res = await fetch(CFG.restUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.ok) throw new Error(data.message || t("send_fail"));
+}
 
 applyStatic();
 $("datum").value = todayISO();

@@ -13,7 +13,12 @@ Interactief aanvraagformulier van Re-Art – Special Art productions (Nederlands
 
 ## Gebruik
 
-Open `index.html` in een browser (voeg `#en` toe aan de link voor de Engelse versie). De klant vult in:
+Open `index.html` in een browser (voeg `#en` toe aan de link voor de Engelse versie). Eerst verschijnt een **startscherm** met twee keuzes:
+
+- **Aanvraag nieuwe klant** – een kort contactformulier: gegevens en de vraag waarover de klant informatie wil. Wordt direct verstuurd (zonder nummer). Re-Art ontvangt "Nieuw contactverzoek van <naam>", de klant krijgt een bevestiging (reactie binnen 24 uur tijdens kantooruren).
+- **Aanvraag of bestelling bestaande klant** – het volledige aanvraagformulier hieronder.
+
+In het aanvraagformulier vult de klant in:
 
 1. **Gegevens** – naam/bedrijfsnaam en e-mailadres (verplicht), telefoonnummer en adres (optioneel). De datum wordt automatisch ingevuld.
 2. **Bestelling** – per werk het aantal, de afwerking of dienst en de bijbehorende opties, plus titel en formaat van het kunstwerk. Er kunnen meerdere werken worden toegevoegd.

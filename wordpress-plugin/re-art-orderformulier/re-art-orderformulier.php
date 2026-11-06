@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Re-Art Aanvraagformulier
  * Description:       Interactief aanvraagformulier (NL/EN) van Re-Art met live certificaat-voorbeeld. Plaats het formulier met de shortcode [reart_orderformulier] (of [reart_orderformulier lang="en"]). Aanvragen worden gemaild en bewaard onder "Aanvragen".
- * Version:           1.4.3
+ * Version:           1.5.0
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Re-Art
@@ -13,13 +13,14 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'REART_OF_VERSION', '1.4.3' );
+define( 'REART_OF_VERSION', '1.5.0' );
 define( 'REART_OF_FILE', __FILE__ );
 define( 'REART_OF_DEFAULT_RECIPIENT', 'info@re-art.com' );
 
 require_once __DIR__ . '/includes/options.php';
 require_once __DIR__ . '/includes/order.php';
 require_once __DIR__ . '/includes/mail.php';
+require_once __DIR__ . '/includes/contact.php';
 require_once __DIR__ . '/includes/admin.php';
 
 /**
@@ -127,6 +128,15 @@ function reart_of_handle_order( WP_REST_Request $request ) {
 	$hit = (int) get_transient( $key );
 	if ( $hit >= 5 ) {
 		return reart_of_error( $en ? 'Too many requests were sent in a short time. Please try again in a few minutes.' : 'Er zijn te veel aanvragen achter elkaar verstuurd. Probeer het over enkele minuten opnieuw.', 429 );
+	}
+
+	// Contactformulier nieuwe klant.
+	if ( isset( $data['type'] ) && 'contact' === $data['type'] ) {
+		$response = reart_of_handle_contact( $data, $en );
+		if ( 200 === $response->get_status() ) {
+			set_transient( $key, $hit + 1, 10 * MINUTE_IN_SECONDS );
+		}
+		return $response;
 	}
 
 	$errors = array();

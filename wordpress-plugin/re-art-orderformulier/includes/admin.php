@@ -73,6 +73,16 @@ function reart_of_meta_box() {
 }
 
 function reart_of_render_meta_box( $post ) {
+	if ( 'contact' === get_post_meta( $post->ID, '_reart_of_type', true ) ) {
+		$contact = get_post_meta( $post->ID, '_reart_of_contact', true );
+		echo is_array( $contact ) ? reart_of_contact_html( $contact, 'nl' ) : '<p>Geen gegevens gevonden.</p>'; // phpcs:ignore WordPress.Security.EscapeOutput -- ge-escaped in reart_of_contact_html().
+		$mail = get_post_meta( $post->ID, '_reart_of_mail', true );
+		if ( is_array( $mail ) ) {
+			echo '<p style="margin-top:20px;color:#646970">Mail aan Re-Art: ' . ( $mail['admin'] ? 'verstuurd' : '<strong style="color:#b32d2e">mislukt</strong>' )
+				. ' · Bevestiging aan klant: ' . ( $mail['klant'] ? 'verstuurd' : '<strong style="color:#b32d2e">mislukt</strong>' ) . '</p>';
+		}
+		return;
+	}
 	$order = get_post_meta( $post->ID, '_reart_of_order', true );
 	if ( ! is_array( $order ) ) {
 		echo '<p>Geen aanvraaggegevens gevonden.</p>';
@@ -104,6 +114,15 @@ function reart_of_columns( $cols ) {
 
 add_action( 'manage_reart_order_posts_custom_column', 'reart_of_column_content', 10, 2 );
 function reart_of_column_content( $col, $post_id ) {
+	if ( 'contact' === get_post_meta( $post_id, '_reart_of_type', true ) ) {
+		$contact = get_post_meta( $post_id, '_reart_of_contact', true );
+		if ( 'reart_email' === $col && is_array( $contact ) ) {
+			echo '<a href="mailto:' . esc_attr( $contact['email'] ) . '">' . esc_html( $contact['email'] ) . '</a>';
+		} elseif ( 'reart_werken' === $col ) {
+			echo '<span style="background:#e8ecf4;color:#12285a;padding:2px 8px;border-radius:99px;font-weight:600">Contact</span>';
+		}
+		return;
+	}
 	$order = get_post_meta( $post_id, '_reart_of_order', true );
 	if ( ! is_array( $order ) ) {
 		return;

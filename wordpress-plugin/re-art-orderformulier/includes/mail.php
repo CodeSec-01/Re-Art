@@ -144,8 +144,8 @@ function reart_of_summary_html( array $order, $lang = 'nl' ) {
  * Omhulsel voor de e-mail in Re-Art stijl.
  */
 function reart_of_email_wrap( $title, $intro_html, $body_html, $lang = 'nl' ) {
-	return '<!DOCTYPE html><html lang="' . esc_attr( $lang ) . '"><body style="margin:0;background:#f3f4f2;font-family:Aptos,Segoe UI,Helvetica,Arial,sans-serif;color:#15171c">'
-		. '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f3f4f2"><tr><td align="center" style="padding:24px 12px">'
+	return '<!DOCTYPE html><html lang="' . esc_attr( $lang ) . '"><body style="margin:0;background:#f9f9f9;font-family:Aptos,Segoe UI,Helvetica,Arial,sans-serif;color:#15171c">'
+		. '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f9f9f9"><tr><td align="center" style="padding:24px 12px">'
 		. '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:620px;background:#ffffff;border:1px solid #dcdfe3">'
 		. '<tr><td style="background:#12285a;color:#ffffff;padding:18px 28px;font-size:20px;font-weight:700;letter-spacing:.02em">RE-ART <span style="font-weight:400;font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.85">&nbsp;Special Art productions</span></td></tr>'
 		. '<tr><td style="padding:28px">'

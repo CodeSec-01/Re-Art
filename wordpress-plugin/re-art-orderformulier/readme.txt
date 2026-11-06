@@ -2,7 +2,7 @@
 Contributors: re-art
 Requires at least: 6.0
 Requires PHP: 7.4
-Stable tag: 1.4.3
+Stable tag: 1.5.0
 License: GPLv2 or later
 
 Interactief orderformulier van Re-Art – Special Art productions, met live certificaat-voorbeeld.
@@ -25,6 +25,14 @@ Interactief orderformulier van Re-Art – Special Art productions, met live cert
 4. Stel bij Instellingen → Privacy de privacyverklaring in; het formulier linkt daar automatisch naar.
 
 == Changelog ==
+
+= 1.5.0 =
+* Startscherm met twee keuzes: "Aanvraag nieuwe klant" en "Aanvraag of bestelling bestaande klant".
+* Contactformulier voor nieuwe klanten (gegevens + vraag), direct versturen.
+* Mail aan Re-Art: "Nieuw contactverzoek van <naam>"; bevestigingsmail aan de klant (reactie binnen 24 uur tijdens kantooruren).
+* Contactverzoeken staan onder "Aanvragen" met het label "Contact" (zonder nummer).
+* Startscherm in de vorm van twee keuzekaarten met icoon (ontwerp B).
+* Achtergrondkleur huisstijl #F9F9F9 in formulier en mails.
 
 = 1.4.3 =
 * Info Cruse Fine Art Scan: onjuiste regel "tot 85 x 450 cm, 400 dpi" verwijderd.

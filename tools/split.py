@@ -58,7 +58,7 @@ css_out = css_out.replace('.reart-of {\n  /*','.reart-of {\n  /*')
 open(f'{outdir}/assets/orderformulier.css','w',encoding='utf-8').write(css_out)
 
 # ---------- markup ----------
-IDS=['review','reviewTitle','reviewBody','reviewSend','reviewEdit','sendError','thanksBody','sentTo','closeBtn','orderForm','f-naam','naam','f-datum','datum','f-email','email','tel','straat','postcode','plaats','land','lines','addLine','opmerkingen',
+IDS=['start','startTitle','contactView','contactForm','f-cnaam','cnaam','f-cemail','cemail','ctel','cstraat','cpostcode','cplaats','cland','f-cbericht','cbericht','cwebsite','contactSubmit','contactError','contactThanks','contactSentTo','orderView','review','reviewTitle','reviewBody','reviewSend','reviewEdit','sendError','thanksBody','sentTo','closeBtn','orderForm','f-naam','naam','f-datum','datum','f-email','email','tel','straat','postcode','plaats','land','lines','addLine','opmerkingen',
      'sumWho','sumLines','sumCount','sumQty','formError','overlay','dlgTitle','orderText','copyBtn','editBtn','newBtn','copied']
 m=body
 # taalkeuze-knoppen alleen in de losse versie; op WordPress bepaalt de site de taal
@@ -66,7 +66,7 @@ m=re.sub(r'\s*<nav class="lang-switch".*?</nav>','',m,flags=re.S)
 for i in IDS:
     m=m.replace(f'id="{i}"',f'id="ro-{i}"').replace(f'for="{i}"',f'for="ro-{i}"').replace(f'aria-labelledby="{i}"',f'aria-labelledby="ro-{i}"')
 # honeypot
-m=m.replace('  </form>','''    <div class="hp" aria-hidden="true">
+m=m.replace('  </form><!-- /orderForm -->','''    <div class="hp" aria-hidden="true">
       <label for="ro-website">Laat dit veld leeg</label>
       <input type="text" id="ro-website" name="website" tabindex="-1" autocomplete="off">
     </div>
@@ -109,6 +109,18 @@ j=j[:a]+"""async function sendRequest() {
   const data = await res.json().catch(() => ({}));
   if (!res.ok || !data.ok) throw new Error(data.message || t("send_fail"));
   orderNo = data.orderNo || "";
+}"""+j[b:]
+# contactformulier: echte verzendfunctie
+a=j.index('// @contact-start'); b=j.index('// @contact-end')+len('// @contact-end')
+j=j[:a]+"""async function sendContact() {
+  const payload = {
+    type: "contact", naam: $("cnaam").value, email: $("cemail").value, tel: $("ctel").value,
+    straat: $("cstraat").value, postcode: $("cpostcode").value, plaats: $("cplaats").value, land: $("cland").value,
+    bericht: $("cbericht").value, lang: LANG, website: $("cwebsite").value, elapsed: Date.now() - startedAt
+  };
+  const res = await fetch(CFG.restUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.ok) throw new Error(data.message || t("send_fail"));
 }"""+j[b:]
 js_out='''/* Re-Art Orderformulier */
 (function () {

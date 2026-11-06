@@ -18,7 +18,7 @@ SOFT = HexColor("#e8ecf4")
 INK = HexColor("#15171c")
 MUTED = HexColor("#5b616d")
 LINE = HexColor("#dcdfe3")
-FIELD_BG = HexColor("#f3f4f2")
+FIELD_BG = HexColor("#f9f9f9")
 CH = "- kies -"          # eerste regel van elke keuzelijst = niets gekozen
 N_WORKS = 3
 MAILTO = "info@re-art.com"

@@ -27,6 +27,6 @@ Re-Art – Special Art productions, Almere. Fine art printing, Cruse-scans, oppl
 
 ## Huisstijl
 - Hoofdkleur (donkerblauw): `--accent: #12285a`; zacht accent `#e8ecf4`.
-- Tekst `#15171c`, achtergrond `#f3f4f2`. Er is ook een donkere modus.
+- Tekst `#15171c`, achtergrond `#f9f9f9` (huisstijl Re-Art), randen `#d5d9df`. Er is ook een donkere modus.
 - Lettertype huisstijl: Aptos. Logo: "RE-ART – Special Art productions" (`logo.png`).
 - Stijl van de pop-ups en het certificaat volgt de Re-Art brochure.
