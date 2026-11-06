@@ -2,7 +2,7 @@
 Contributors: re-art
 Requires at least: 6.0
 Requires PHP: 7.4
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 License: GPLv2 or later
 
 Interactief orderformulier van Re-Art – Special Art productions, met live certificaat-voorbeeld.
@@ -25,6 +25,9 @@ Interactief orderformulier van Re-Art – Special Art productions, met live cert
 4. Stel bij Instellingen → Privacy de privacyverklaring in; het formulier linkt daar automatisch naar.
 
 == Changelog ==
+
+= 1.4.3 =
+* Info Cruse Fine Art Scan: onjuiste regel "tot 85 x 450 cm, 400 dpi" verwijderd.
 
 = 1.4.2 =
 * Links naar re-art.com ook bij proofing (Na de scan) en bij de papieren.

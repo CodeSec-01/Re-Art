@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Re-Art Aanvraagformulier
  * Description:       Interactief aanvraagformulier (NL/EN) van Re-Art met live certificaat-voorbeeld. Plaats het formulier met de shortcode [reart_orderformulier] (of [reart_orderformulier lang="en"]). Aanvragen worden gemaild en bewaard onder "Aanvragen".
- * Version:           1.4.2
+ * Version:           1.4.3
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Re-Art
@@ -13,7 +13,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'REART_OF_VERSION', '1.4.2' );
+define( 'REART_OF_VERSION', '1.4.3' );
 define( 'REART_OF_FILE', __FILE__ );
 define( 'REART_OF_DEFAULT_RECIPIENT', 'info@re-art.com' );
 
